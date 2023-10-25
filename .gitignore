@@ -1,0 +1,50 @@
+# ----------------------
+# Node.js related ignores
+# ----------------------
+node_modules/
+npm-debug.log
+
+# ----------------------
+# React related ignores
+# ----------------------
+# Build artifacts
+/build/
+/.next/
+
+# ----------------------
+# Express.js related ignores
+# ----------------------
+# dotenv environment variable files
+.env
+.env.*
+
+# Logs
+*.log
+
+# Dependency directories
+.jscpd-report/
+
+# -----------------------
+# MongoDB related ignores
+# -----------------------
+# Data directory for local databases
+/data/
+
+# -----------------------
+# IDE and Editor Files
+# -----------------------
+# Visual Studio Code directory
+.vscode/
+
+# WebStorm directories
+.idea/
+
+# Other common editors
+*.swp
+*.swo
+
+# -----------------------
+# OS generated files
+# -----------------------
+.DS_Store
+Thumbs.db
