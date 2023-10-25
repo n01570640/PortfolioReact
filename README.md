@@ -1,2 +1,0 @@
-# PortfolioReact
-React applications
