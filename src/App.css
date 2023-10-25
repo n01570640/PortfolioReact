@@ -1,0 +1,23 @@
+.sideCol {
+  background-color:#008170;
+}
+
+.nameText {
+  color: #005B41;
+  text-align: left;
+  font-size: 40px;
+  font-weight: bold;
+  text-decoration-line: underline;
+}
+.dataText {
+  text-align: left;
+}
+
+.textHeading {
+  color: #005B41;
+  font-weight: bold;
+}
+.textBold {
+  font-weight: bold;
+}
+
