@@ -1,0 +1,70 @@
+/* css for the content div*/
+.card {
+  background-color: #a2a2a265; /* Light gray background */
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  padding: 20px; /* Padding around the table */
+  margin: 20px 0; /* Margin around the card */
+}
+.card div:first-child {
+  font-size: 1.5rem; /* Larger font for the header */
+  margin-bottom: 15px; /* Spacing between header and table */
+  font-weight: bold; /* Bold font for the header */
+}
+/* css for button div*/
+.button-container {
+  background-color: #3A506B; /* Dark Blue background */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); /* Subtle shadow */
+  display: flex; /* Aligns buttons in a row */
+  flex-wrap: wrap; /* Allows buttons to wrap onto the next line if needed */
+  justify-content: center; /* Center buttons horizontally */
+  gap: 10px; /* Spacing between buttons */
+  margin-bottom: 20px; /* Spacing between the button area and the table */
+  padding: 10px; /* Padding inside the button area */
+  border-radius: 8px; /* Rounded corners */
+  border: 2px dashed #FFD166; /* Muted Yellow border */
+}
+/* css for buttons*/
+.button-container .p-button {
+  background-color: #6B9080; /* A soft green background for buttons */
+  color: white; /* White text for readability */
+  border: 0.5px solid #FFD16e; /* Remove default borders */
+}
+/* css for hovered buttons*/
+.button-container .p-button:enabled:hover {
+  background-color: #A4C3B2; /* Lighter green on hover */
+  color: #FFD166; /* Muted Yellow text for a pop */
+}
+/* css for Data table's header*/
+.p-datatable .p-datatable-thead > tr > th {
+  background-color: #3A506B; /* Dark Blue header background */
+  font-size: 1.1rem; /* Slightly larger font for headers */
+  border-bottom:3px solid #FFD166; /* Muted Yellow border for the bottom of the header */
+  border-top:3px solid #FFD166;
+}
+.p-datatable .p-datatable-thead > tr > th .p-column-header-content,
+.p-datatable .p-datatable-thead > tr > th .p-column-title ,
+.p-datatable .p-datatable-thead > tr > th .p-icon-p-sortable-column-icon{
+  color: #FFFFFF; /* White text for headers */
+}
+/* css for rows and columns*/
+.p-datatable .p-datatable-tbody > tr > td {
+  background-color: #FAFAFA; /* Very light gray background for cells */
+  color: #333333; /* Dark gray text for cells */
+  border-top: 1px solid #E0E0E0; /* Light gray borders for cells */
+}
+/* css for odd rows of Data Table */
+.p-datatable .p-datatable-table .p-datatable-tbody > tr:nth-child(odd)>td {
+  background-color: #A4C3B2; /* Light gray for odd rows */
+  
+}
+/* css for border of the last row*/
+.p-datatable .p-datatable-tbody > tr:last-child > td {
+  border-bottom: 1px solid #a2a2a2; /* Gray border for the bottom of the last cell in each row */
+}
+/* css for hovered rows in Data table */
+.p-datatable .p-datatable-tbody > tr:hover > td {
+  background-color: #7A9E9F !important;/* Deeper green-blue background for hovered rows, important makes sure to override the odd rows css*/
+  color: #FFFFFF; /* White text for contrast on hover */
+  border:1px solid #FFD166;
+}

@@ -1,0 +1,190 @@
+/* Base Colors */
+:root {
+  --neon-blue: #00dffc;
+  --light-blue: #8efcff;
+  --dark-blue: #001f3f;
+  --white: #ffffff;
+  --light-gray: #f4f4f4;
+}
+
+/* General Styles */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: var(--dark-blue);
+  background-color: var(--light-gray);
+  background-image: url(./images/backgroundImage.jpg);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;/* This makes the background image fixed during scroll */
+}
+
+/* Navbar Styles */
+.navbar {
+  background-color: var(--dark-blue);
+  color: var(--white);
+  padding: 0.5rem 1rem; /* Adjust padding for better spacing */
+}
+
+.navbar a {
+  color: var(--white);
+  transition: color 0.3s ease; /* Smooth transition for hover effect */
+}
+
+.navbar a:hover {
+  color: var(--neon-blue); /* Hover effect color */
+}
+
+.navbar a:enabled {
+  color: var(--white);
+}
+
+.navbar-brand {
+  padding: 20px;
+  font-weight: bold;
+  font-size: 1.5rem; /* Increase brand logo size */
+  color: var(--white)!important;/* Brand logo color */
+  text-shadow: 2px 2px 4px var(--dark-blue); /* Text shadow for depth */
+}
+
+
+
+
+/* Pharmacy Branding Styles */
+.brand-logo {
+  color: var(--neon-blue);
+  font-size: 2em;
+  font-weight: bold;
+  text-shadow: #001f3f 1px 0 2px;;
+}
+
+/* Button Styles */
+.button {
+  background-color: var(--neon-blue);
+  color: var(--white);
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 5px;
+  margin-left: 1em;
+}
+
+.button:hover {
+  background-color: var(--light-blue);
+}
+
+/* Product Card Styles */
+.product-card {
+  margin-top: 25px;
+  background-color: var(--white);
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease 0s;
+  padding: 25px;
+}
+
+.product-card:hover {
+  box-shadow: 0px 15px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Footer Styles */
+.footer {
+  background-color: var(--dark-blue);
+  color: var(--white);
+}
+/* Style for from -div that has a label and inputText*/
+.form-field {
+  display: block;
+  margin-bottom: 0.5rem; /* Spacing between label and input */
+  color: var(--neon-blue);
+  font-size: 1rem;
+}
+/* Label Styles */
+.form-label {
+  margin-right: 10px; /* Adjust label spacing */
+  white-space: nowrap; /* Ensures the label stays on the same line */
+  color: var(--dark-blue);
+}
+/* Input Styles */
+.form-input,
+.form-password,
+.form-calendar {
+  display: block;
+  width: 100%;
+  padding: 0.5rem;
+  border-radius: 4px;
+  border: 1px solid var(--neon-blue); /* Border color */
+  background-color: var(--light-gray);
+  color: var(--dark-blue);
+  margin-bottom: 1rem; /* Spacing between input fields */
+}
+
+.inputText:focus, .password:focus, .calendar:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--light-blue); /* Focus shadow color */
+}
+
+
+/* Styles for Calendar Overlay Panel */
+.p-datepicker .p-datepicker-panel {
+  border-color: var(--neon-blue);
+}
+
+/* Input focus state */
+.form-input:focus,
+.form-password input:focus,
+.form-calendar input:focus {
+  outline: none; /* Removes default focus outline */
+  box-shadow: 0 0 0 2px var(--neon-blue); /* Custom focus style */
+}
+.calendar .p-inputtext {
+  border-color: var(--neon-blue); /* Overriding border color for calendar */
+}
+
+/* Icons and Highlights */
+.icon,
+.highlight {
+  color: var(--neon-blue);
+}
+
+/*Tab View styles*/
+/* Tab Headers Styles */
+.p-tabview .p-tabview-nav {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  background-color: var(--dark-blue);
+}
+
+.p-tabview .p-tabview-nav li {
+  flex: 1;
+  text-align: center;
+  padding: 10px 20px;
+  cursor: pointer; /*changes the cursor to pointer*/
+  color: var(--white);
+  border-right: 1px solid var(--light-gray);
+  transition: background-color 0.3s ease;
+}
+
+.p-tabview .p-tabview-nav li.p-highlight {
+  background-color: var(--neon-blue); /* Background color for active tab */
+}
+
+.p-tabview .p-tabview-nav li a {
+  color: var(--white); /* Text color for tab headers */
+}
+
+.p-tabview .p-tabview-nav li.p-highlight a {
+  color: var(--dark-blue); /* Text color for active tab */
+}
+
+.p-tabview .p-tabview-panels {
+  background-color: var(--white); /* Background color for tab content */
+}
+
+/* Specific Styles for TabPanel */
+.p-tabview-panel {
+  padding: 1rem;
+  border: none; 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+}

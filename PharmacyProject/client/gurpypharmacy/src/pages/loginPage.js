@@ -1,0 +1,77 @@
+import {InputText, Password, Button, Toast } from 'primereact';
+import React, { useRef, useState } from 'react';
+//import 'primereact/resources/themes/saga-blue/theme.css';
+import '../App.css';
+
+
+
+
+export default function UserLogin(){
+    //initial state
+    const [userFormData, setUserFormData] = useState({ username: "", password: "" });
+    const toast = useRef(null);//For showing feedback message
+
+    //Validate form fields
+    const validateForm = () => {
+        if(!userFormData.username.trim()){
+            toast.current.show({severity: 'error', summary: 'Error', detail: 'Name is required'})
+            return false;
+        }
+        if(userFormData.password.length < 8){
+            toast.current.show({severity: 'error', summary: 'Error', detail: 'Password much be at least 8 characters long'})
+        }
+        return true; //if all validation pass
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        //Perform the validation
+        const isFormValid = validateForm();
+        if(!isFormValid) return; //if form is not valid, stop here
+
+        try{
+            const response = await fetch('http://localhost:3001/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ 
+                username: userFormData.username,
+                password: userFormData.password,
+            })
+        });
+        if (response.ok) {
+            toast.current.show({ severity: 'success', summary: 'Success', detail: 'Log-In Successfull!'});
+            setUserFormData({username: "" ,  password: ""})
+        } else {
+            toast.current.show({ severity: 'error', summary: 'Error', detail: 'Log-In Failed!'});
+        }
+        } catch (error) {
+            console.error('Login error:', error);
+            toast.current.show({ severity: 'error', summary: 'Error', detail: 'An error occured'});
+        }
+  };
+
+    return(
+        
+        <div className='product-card'>
+           
+            <Toast ref={toast} />
+                <h2 className='brand-logo'>
+                    User Log-In
+                </h2>
+                <form onSubmit={handleSubmit}>
+                    <div className='form-field'>
+                        <label htmlFor='username' className="form-label">Username</label>
+                        <InputText className="form-input"  id="username" value={userFormData.name} onChange={(e) => setUserFormData({ ...userFormData, username: e.target.value })} required />
+                    </div>
+                    <div className='form-field'>
+                        <label htmlFor='password' className="form-label">Password</label>
+                        <Password id="password" className="form-password" value={userFormData.password} onChange={(e) => setUserFormData({...userFormData, password: e.target.value })} feedback={false} required/>
+                    </div>
+                    
+                    <Button label="Log-In" className="button" />
+                </form>
+           
+        </div>
+    );
+
+}
