@@ -2,6 +2,7 @@ import {InputText, Password, Button, Toast } from 'primereact';
 import React, { useRef, useState } from 'react';
 //import 'primereact/resources/themes/saga-blue/theme.css';
 import '../App.css';
+import { useNavigate } from 'react-router-dom';
 
 
 
@@ -9,7 +10,8 @@ import '../App.css';
 export default function UserLogin(){
     //initial state
     const [userFormData, setUserFormData] = useState({ username: "", password: "" });
-    const toast = useRef(null);//For showing feedback message
+    const navigate = useNavigate();
+    const toast = useRef(null);
 
     //Validate form fields
     const validateForm = () => {
@@ -39,8 +41,22 @@ export default function UserLogin(){
             })
         });
         if (response.ok) {
-            toast.current.show({ severity: 'success', summary: 'Success', detail: 'Log-In Successfull!'});
-            setUserFormData({username: "" ,  password: ""})
+            const data = await response.json();
+            localStorage.setItem('userToken', data.token);
+    
+            const base64Url = data.token.split('.')[1];
+            const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+            const payload = atob(base64);
+            const parsedToken = JSON.parse(payload);
+            
+            if(parsedToken.userType === 'Admin') {
+                //TODO: navigate('');
+            }
+            else if (parsedToken.userType === 'Pharmacist') {
+                navigate('/login/pharmacist-loggedin');
+            } else if (parsedToken.userType === 'Patient') {
+                navigate('/patient-view');
+            }
         } else {
             toast.current.show({ severity: 'error', summary: 'Error', detail: 'Log-In Failed!'});
         }
@@ -49,7 +65,6 @@ export default function UserLogin(){
             toast.current.show({ severity: 'error', summary: 'Error', detail: 'An error occured'});
         }
   };
-
     return(
         
         <div className='product-card'>

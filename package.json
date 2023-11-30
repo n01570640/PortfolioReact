@@ -4,6 +4,6 @@
   }
 ,
 "scripts": {
-  "start": "concurrently \"npm run start --prefix ./PharmacyProject/server\" \"npm run start --prefix ./PharmacyProject/client/gurpypharmacy\""
+  "start": "npx concurrently \"npm run start --prefix ./PharmacyProject/server\" \"npm run start --prefix ./PharmacyProject/client/gurpypharmacy\""
 }
 }

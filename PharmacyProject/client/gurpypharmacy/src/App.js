@@ -13,6 +13,8 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import PharmacistView from './pages/pharmacistView';
+import PatientView from './pages/patientView';
+import ProtectedRoute from './pages/protectedRoute'; 
 
 function App() {
   return (
@@ -32,7 +34,12 @@ function App() {
               <Routes>
               <Route path='/register' Component={PatientRegistration} />
               <Route path='/login' Component={UserLogin} />
-              <Route path='/login/pharmacist-loggedin' Component={PharmacistView}/>
+              <Route path="/patient-view" element={
+                    <ProtectedRoute component={PatientView} allowedUserTypes={['Patient', 'Pharmacist']} />
+                } />
+                <Route path="/login/pharmacist-loggedin" element={
+                    <ProtectedRoute component={PharmacistView} allowedUserTypes={['Pharmacist']} />
+                } />
               </Routes>
             </Col>
             <Col></Col>

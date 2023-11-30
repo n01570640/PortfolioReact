@@ -125,7 +125,7 @@ app.post('/login', async(req, res, next) => {
         var userType = user.userType;
         console.log(`${username}, ${password}, ${userType}`);
         // Create a JWT token
-        const token = jwt.sign({ userId: user._id }, 'yourJWTSecret', { expiresIn: '1h' });
+        const token = jwt.sign({ userId: user._id, userType: user.userType  }, 'yourJWTSecret', { expiresIn: '1h' });
         res.send({ token });
     })(req, res, next);
 });
