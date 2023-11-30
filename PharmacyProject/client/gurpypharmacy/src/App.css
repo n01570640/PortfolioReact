@@ -60,17 +60,23 @@ body {
 
 /* Button Styles */
 .button {
-  background-color: var(--neon-blue);
-  color: var(--white);
+  background-color: var(--neon-blue); /* Use your neon blue color */
+  color: var(--white); /* White text */
   border: none;
   padding: 10px 20px;
-  cursor: pointer;
   border-radius: 5px;
-  margin-left: 1em;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 1rem;
+  margin: 4px 2px;
+  transition-duration: 0.4s;
+  cursor: pointer;
 }
 
 .button:hover {
-  background-color: var(--light-blue);
+  background-color: var(--light-blue); /* Light blue on hover */
+  color: var(--dark-blue); 
 }
 
 /* Product Card Styles */
@@ -245,12 +251,14 @@ body {
   margin: 0.5rem 0;
   padding: 0.5rem;
   background-color: var(--light-gray);
-  transition: background-color 0.3s;
+  transition: background-color 0.3s, color 0.3s;
 }
 
 .p-orderlist-item:hover {
-  background-color: var(--neon-blue);
-  color: var(--white);
+  border: 2px solid var(--neon-blue); 
+  color: var(--dark-blue);
+  cursor:default;
+  
 }
 
 
@@ -287,3 +295,4 @@ body {
   top: 50%; /* Align vertically to the middle */
   transform: translateY(-50%); /* Offset by half of its height for perfect center alignment */
 }
+
