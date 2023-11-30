@@ -188,3 +188,31 @@ body {
   border: none; 
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
 }
+
+.p-toast-message {
+  border-radius: 5px; /* Rounded corners for the toast */
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16); /* Shadow for a bit of depth */
+  font-family: 'Your Font Family', sans-serif; /* Custom font, replace with your font family */
+  padding: 10px; /* Padding inside the toast */
+  /* Add other styling as needed to match your website's theme */
+}
+
+/* Success toast style */
+.p-toast-message {
+  background-color: #D4EDDA; /* Light green background for success */
+  border: 1px solid #C3E6CB; /* Slightly darker green border */
+}
+
+ .success-toast .p-toast-message-text  {
+  color: #155724; /* Dark green text color for better readability */
+}
+
+/* Error toast style */
+.error-toast .p-toast-message {
+  background-color: #F8D7DA; /* Light red background for error */
+  border: 1px solid #F5C6CB; /* Slightly darker red border */
+}
+
+.error-toast .p-toast-message-text {
+  color: #721C24; /* Dark red text color for better readability */
+}

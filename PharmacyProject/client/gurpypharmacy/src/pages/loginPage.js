@@ -54,7 +54,7 @@ export default function UserLogin(){
         
         <div className='product-card'>
            
-            <Toast ref={toast} />
+           <Toast ref={toast} position="bottom-center" />
                 <h2 className='brand-logo'>
                     User Log-In
                 </h2>
