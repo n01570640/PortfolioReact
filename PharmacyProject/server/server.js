@@ -129,48 +129,19 @@ app.post('/login', async(req, res, next) => {
         res.send({ token });
     })(req, res, next);
 });
-// app.post('/login', async (req, res)=> {
-//     console.log("Hello")
-//     passport.authenticate('local', {session: false}, async (err, user, info) => {
-//     //    try{
-// //            const user = await User.findOne({ username });
-// //            console.log(user);
-// //            console.log("Helloo");
-// //            if(!user) {
-// //                console.log("User not found while trying to log in");
-// //                return res.status(401).send({error: "Invalid username or password"})
-// //            }
-   
-// //            //Check if the password is correct
-// //            const isMatch = await bcrypt.compare(password, user.hashedPassword); //compare the password with database
-// //            if(!isMatch){
-// //                user = await User.findOne({username})
-// //                console.log(user);
-// //                return res.status(401).send({error: "Invalid username or password"})
-// //            }
-   
-// //            //Create a JWT token
-// //            const token = jwt.sign({userId: user._id }, 'yourJWTSecret', {expiresIn: '1h'});
-// //            res.send({token});
-// //        } catch (error){
-// //             console.log(error);
-// //            res.status(500).send({error: 'Internal server error'});
-// //        }
-// //    });
-//         if(err) {
-//             console.log(err);
-//             return( res.status(500).json({error: 'Internatal server error'}))
-            
-//         }
-//         if( !user) {
-//             return res.status(401).json({ error: info ? info.message: 'Invalid username or password'});
-//         }
-//         console.log(user);
-//         //User is found and password is correct, create JWT
-//         const token = jwt.sign({ userId: user_id }, 'ThisISaSeCeReT', { expiresIn: '1h'}); 
-//         return res.json({ token });
-//     });
-//  });
+
+//Endpoint to get patients data
+app.get('/api/patients', async (req, res) => {
+  try{
+    const patients = await Patient.find({});
+    res.json(patients);
+    console.log("Patients fetched:", patients);
+  }catch (error) {
+    res.status(500).send("Server Error fetching patients");
+    console.log(error);
+  }
+});
+
 //Set the server to listen on port 3000
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
