@@ -17,7 +17,7 @@ export default function MedicationList(){
         global: { value: null, matchMode: FilterMatchMode.CONTAINS },
         name: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
         dosage: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
-        description: { value: null, matchMode: FilterMatchMode.IN },
+        description: { value: null, matchMode: FilterMatchMode.CONTAINS },
         price: { value: null, matchMode: FilterMatchMode.EQUALS },
         requiresPrescription: {value: null, matchMode: FilterMatchMode.EQUALS}
     });
