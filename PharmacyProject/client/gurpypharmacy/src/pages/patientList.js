@@ -2,8 +2,8 @@
 import { useState, useEffect } from 'react';
 //importing primereact component
 import { OrderList } from 'primereact/orderlist';
-import Button from 'react-bootstrap/Button';
 import { Link } from 'react-router-dom';
+//importing styles
 import '../App.css';
 
 export default function PatientList(){
@@ -18,7 +18,7 @@ export default function PatientList(){
             // console.log(data);
             setPatients(data);
         } catch (error) {
-            console.error("Error fetching data: ", error);
+            console.error("Error fetching patient data: ", error);
     }
      };
 
