@@ -7,7 +7,8 @@
       "quantityAvailable": 100,
       "reorderThreshold": 20,
       "dosage": "500mg",
-      "requiresPrescription": true
+      "requiresPrescription": true,
+      "isActive": true
     },
     {
       "_id": {"$oid": "656928a29759baa84755967c"},
@@ -17,7 +18,8 @@
       "quantityAvailable": 200,
       "reorderThreshold": 50,
       "dosage": "200mg",
-      "requiresPrescription": false
+      "requiresPrescription": false,
+      "isActive": true
     },
     {
       "_id": {"$oid": "656928a29759baa84755967d"},
@@ -27,7 +29,8 @@
       "quantityAvailable": 150,
       "reorderThreshold": 30,
       "dosage": "500mg",
-      "requiresPrescription": true
+      "requiresPrescription": true,
+      "isActive": true
     },
     {
       "_id": {"$oid": "656928a29759baa84755967e"},
@@ -37,7 +40,8 @@
       "quantityAvailable": 120,
       "reorderThreshold": 25,
       "dosage": "10mg",
-      "requiresPrescription": true
+      "requiresPrescription": true,
+     "isActive": true
     },
     {
       "_id": {"$oid": "656928a29759baa84755967f"},
@@ -47,7 +51,8 @@
       "quantityAvailable": 180,
       "reorderThreshold": 40,
       "dosage": "20mg",
-      "requiresPrescription": true
+      "requiresPrescription": true,
+      "isActive": true
     },
     {
       "_id": {"$oid": "656928a29759baa847559680"},
@@ -57,7 +62,8 @@
       "quantityAvailable": 200,
       "reorderThreshold": 30,
       "dosage": "50mcg",
-      "requiresPrescription": true
+      "requiresPrescription": true,
+      "isActive": true
     },
     {
       "_id": {"$oid": "656928a29759baa847559681"},
@@ -67,7 +73,8 @@
       "quantityAvailable": 150,
       "reorderThreshold": 20,
       "dosage": "5mg",
-      "requiresPrescription": true
+      "requiresPrescription": true,
+      "isActive": true
     },
     {
       "_id": {"$oid": "656928a29759baa847559682"},
@@ -77,7 +84,8 @@
       "quantityAvailable": 100,
       "reorderThreshold": 50,
       "dosage": "20mg",
-      "requiresPrescription": false
+      "requiresPrescription": false,
+      "isActive": true
     },
     {
       "_id": {"$oid": "656928a29759baa847559683"},
@@ -87,7 +95,8 @@
       "quantityAvailable": 80,
       "reorderThreshold": 20,
       "dosage": "500mg",
-      "requiresPrescription": true
+      "requiresPrescription": true,
+      "isActive": true
     },
     {
       "_id": {"$oid": "656928a29759baa847559684"},
@@ -97,7 +106,8 @@
       "quantityAvailable": 120,
       "reorderThreshold": 30,
       "dosage": "25mg",
-      "requiresPrescription": true
+      "requiresPrescription": true,
+      "isActive": true
     },
     {
       "_id": {"$oid": "656928a29759baa847559685"},
@@ -107,7 +117,8 @@
       "quantityAvailable": 150,
       "reorderThreshold": 40,
       "dosage": "300mg",
-      "requiresPrescription": true
+      "requiresPrescription": true,
+      "isActive": true
     },
     {
       "_id": {"$oid": "656928a29759baa847559686"},
@@ -117,7 +128,8 @@
       "quantityAvailable": 100,
       "reorderThreshold": 25,
       "dosage": "50mg",
-      "requiresPrescription": true
+      "requiresPrescription": true,
+      "isActive": true
     },
     {
       "_id": {"$oid": "656928a29759baa847559687"},
@@ -127,7 +139,8 @@
       "quantityAvailable": 180,
       "reorderThreshold": 40,
       "dosage": "20mg",
-      "requiresPrescription": true
+      "requiresPrescription": true,
+      "isActive": true
     },
     {
       "_id": {"$oid": "656928a29759baa847559688"},
@@ -137,7 +150,8 @@
       "quantityAvailable": 90,
       "reorderThreshold": 20,
       "dosage": "10mg",
-      "requiresPrescription": true
+      "requiresPrescription": true,
+      "isActive": true
     },
     {
       "_id": {"$oid": "656928a29759baa847559689"},
@@ -147,7 +161,8 @@
       "quantityAvailable": 150,
       "reorderThreshold": 30,
       "dosage": "50mg",
-      "requiresPrescription": true
+      "requiresPrescription": true,
+      "isActive": true
     },
     {
       "_id": {"$oid": "656928a29759baa84755968a"},
@@ -157,7 +172,8 @@
       "quantityAvailable": 100,
       "reorderThreshold": 20,
       "dosage": "20mg",
-      "requiresPrescription": true
+      "requiresPrescription": true,
+      "isActive": true
     },
     {
       "_id": {"$oid": "656928a29759baa84755968b"},
@@ -167,7 +183,8 @@
       "quantityAvailable": 120,
       "reorderThreshold": 50,
       "dosage": "10mg",
-      "requiresPrescription": false
+      "requiresPrescription": false,
+      "isActive": true
     },
     {
       "_id": {"$oid": "656928a29759baa84755968c"},
@@ -177,7 +194,8 @@
       "quantityAvailable": 75,
       "reorderThreshold": 15,
       "dosage": "As per need",
-      "requiresPrescription": true
+      "requiresPrescription": true,
+      "isActive": true
     },
     {
       "_id": {"$oid": "656928a29759baa84755968d"},
@@ -187,7 +205,8 @@
       "quantityAvailable": 100,
       "reorderThreshold": 25,
       "dosage": "10mg",
-      "requiresPrescription": true
+      "requiresPrescription": true,
+      "isActive": true
     },
     {
       "_id": {"$oid": "656928a29759baa84755968e"},
@@ -197,7 +216,8 @@
       "quantityAvailable": 100,
       "reorderThreshold": 20,
       "dosage": "50mg",
-      "requiresPrescription": true
+      "requiresPrescription": true,
+      "isActive": true
     }
   ]
   
