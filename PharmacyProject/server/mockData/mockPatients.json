@@ -1,0 +1,72 @@
+[{
+    "_id": {
+      "$oid": "656928779759baa847559673"
+    },
+    "patientId": "6569266a9759baa847559658",
+    "groupId": "GRP001",
+    "insName": "HealthInsA",
+    "dateOfBirth": "1990-01-01T00:00:00.000Z",
+    "firstName": "John",
+    "lastName": "Doe",
+    "telephoneNumber": "555-0101"
+  },
+  {
+    "_id": {
+      "$oid": "656928779759baa847559674"
+    },
+    "patientId": "6569266a9759baa84755965a",
+    "groupId": "GRP002",
+    "insName": "HealthInsB",
+    "dateOfBirth": "1985-02-15T00:00:00.000Z",
+    "firstName": "Jane",
+    "lastName": "Smith",
+    "telephoneNumber": "555-0202"
+  },
+  {
+    "_id": {
+      "$oid": "656928779759baa847559675"
+    },
+    "patientId": "6569266a9759baa84755965b",
+    "groupId": "GRP003",
+    "insName": "HealthInsC",
+    "dateOfBirth": "1978-05-20T00:00:00.000Z",
+    "firstName": "Alice",
+    "lastName": "Johnson",
+    "telephoneNumber": "555-0303"
+  },
+  {
+    "_id": {
+      "$oid": "656928779759baa847559676"
+    },
+    "patientId": "6569266a9759baa84755965d",
+    "groupId": "GRP004",
+    "insName": "HealthInsD",
+    "dateOfBirth": "1992-07-30T00:00:00.000Z",
+    "firstName": "Bob",
+    "lastName": "Brown",
+    "telephoneNumber": "555-0404"
+  },
+  {
+    "_id": {
+      "$oid": "656928779759baa847559677"
+    },
+    "patientId": "6569266a9759baa84755965f",
+    "groupId": "GRP005",
+    "insName": "HealthInsE",
+    "dateOfBirth": "1980-11-22T00:00:00.000Z",
+    "firstName": "Charlie",
+    "lastName": "Davis",
+    "telephoneNumber": "555-0505"
+  },
+  {
+    "_id": {
+      "$oid": "656928779759baa847559678"
+    },
+    "patientId": "6569266a9759baa847559660",
+    "groupId": "GRP006",
+    "insName": "HealthInsF",
+    "dateOfBirth": "1975-03-14T00:00:00.000Z",
+    "firstName": "Emily",
+    "lastName": "White",
+    "telephoneNumber": "555-0606"
+  }]

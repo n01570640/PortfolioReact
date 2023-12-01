@@ -1,0 +1,170 @@
+[{
+    "_id": {
+      "$oid": "65692caa9759baa847559696"
+    },
+    "patientId": "6569266a9759baa847559658",
+    "pharmacistId": "6569266a9759baa847559659",
+    "prescriptionDetails": [
+      {
+        "medication": "656928a29759baa84755967b",
+        "quantity": 30,
+        "dosage": "500mg",
+        "refillCount": 2
+      }
+    ],
+    "prescriptionDate": "2023-05-10T00:00:00.000Z",
+    "lastRefillDate": "2023-08-10T00:00:00.000Z"
+  },
+  {
+    "_id": {
+      "$oid": "65692caa9759baa847559697"
+    },
+    "patientId": "6569266a9759baa84755965a",
+    "pharmacistId": "6569266a9759baa84755965c",
+    "prescriptionDetails": [
+      {
+        "medication": "656928a29759baa84755967c",
+        "quantity": 60,
+        "dosage": "200mg",
+        "refillCount": 1
+      }
+    ],
+    "prescriptionDate": "2023-04-15T00:00:00.000Z",
+    "lastRefillDate": "2023-06-15T00:00:00.000Z"
+  },
+  {
+    "_id": {
+      "$oid": "65692caa9759baa847559698"
+    },
+    "patientId": "6569266a9759baa84755965b",
+    "pharmacistId": "6569266a9759baa84755965e",
+    "prescriptionDetails": [
+      {
+        "medication": "656928a29759baa84755967d",
+        "quantity": 90,
+        "dosage": "500mg",
+        "refillCount": 3
+      }
+    ],
+    "prescriptionDate": "2023-03-20T00:00:00.000Z",
+    "lastRefillDate": "2023-09-20T00:00:00.000Z"
+  },
+  {
+    "_id": {
+      "$oid": "65692caa9759baa847559699"
+    },
+    "patientId": "6569266a9759baa84755965d",
+    "pharmacistId": "6569266a9759baa847559661",
+    "prescriptionDetails": [
+      {
+        "medication": "656928a29759baa84755967e",
+        "quantity": 30,
+        "dosage": "10mg",
+        "refillCount": 2
+      }
+    ],
+    "prescriptionDate": "2023-07-30T00:00:00.000Z",
+    "lastRefillDate": "2023-10-30T00:00:00.000Z"
+  },
+  {
+    "_id": {
+      "$oid": "65692caa9759baa84755969a"
+    },
+    "patientId": "6569266a9759baa84755965f",
+    "pharmacistId": "6569266a9759baa847559659",
+    "prescriptionDetails": [
+      {
+        "medication": "656928a29759baa84755967f",
+        "quantity": 60,
+        "dosage": "20mg",
+        "refillCount": 1
+      }
+    ],
+    "prescriptionDate": "2023-11-22T00:00:00.000Z",
+    "lastRefillDate": "2023-12-22T00:00:00.000Z"
+  },
+  {
+    "_id": {
+      "$oid": "65692caa9759baa84755969b"
+    },
+    "patientId": "6569266a9759baa847559660",
+    "pharmacistId": "6569266a9759baa84755965c",
+    "prescriptionDetails": [
+      {
+        "medication": "656928a29759baa847559680",
+        "quantity": 90,
+        "dosage": "50mcg",
+        "refillCount": 3
+      }
+    ],
+    "prescriptionDate": "2023-03-14T00:00:00.000Z",
+    "lastRefillDate": "2023-06-14T00:00:00.000Z"
+  },
+  {
+    "_id": {
+      "$oid": "65692caa9759baa84755969c"
+    },
+    "patientId": "6569266a9759baa847559658",
+    "pharmacistId": "6569266a9759baa84755965e",
+    "prescriptionDetails": [
+      {
+        "medication": "656928a29759baa847559681",
+        "quantity": 30,
+        "dosage": "5mg",
+        "refillCount": 2
+      }
+    ],
+    "prescriptionDate": "2023-02-01T00:00:00.000Z",
+    "lastRefillDate": "2023-04-01T00:00:00.000Z"
+  },
+  {
+    "_id": {
+      "$oid": "65692caa9759baa84755969d"
+    },
+    "patientId": "6569266a9759baa84755965a",
+    "pharmacistId": "6569266a9759baa847559661",
+    "prescriptionDetails": [
+      {
+        "medication": "656928a29759baa847559682",
+        "quantity": 60,
+        "dosage": "20mg",
+        "refillCount": 1
+      }
+    ],
+    "prescriptionDate": "2023-01-15T00:00:00.000Z",
+    "lastRefillDate": "2023-03-15T00:00:00.000Z"
+  },
+  {
+    "_id": {
+      "$oid": "65692caa9759baa84755969e"
+    },
+    "patientId": "6569266a9759baa84755965b",
+    "pharmacistId": "6569266a9759baa84755965c",
+    "prescriptionDetails": [
+      {
+        "medication": "656928a29759baa847559683",
+        "quantity": 90,
+        "dosage": "500mg",
+        "refillCount": 3
+      }
+    ],
+    "prescriptionDate": "2023-05-20T00:00:00.000Z",
+    "lastRefillDate": "2023-08-20T00:00:00.000Z"
+  },
+  {
+    "_id": {
+      "$oid": "65692caa9759baa84755969f"
+    },
+    "patientId": "6569266a9759baa84755965d",
+    "pharmacistId": "6569266a9759baa84755965e",
+    "prescriptionDetails": [
+      {
+        "medication": "656928a29759baa847559684",
+        "quantity": 30,
+        "dosage": "25mg",
+        "refillCount": 2
+      }
+    ],
+    "prescriptionDate": "2023-07-30T00:00:00.000Z",
+    "lastRefillDate": "2023-10-30T00:00:00.000Z"
+  }]

@@ -1,0 +1,200 @@
+[{
+    "_id": {
+      "$oid": "656928a29759baa84755967b"
+    },
+    "name": "Amoxicillin",
+    "description": "Antibiotic for bacterial infections",
+    "quantity": 100,
+    "dosage": "500mg",
+    "frequency": "Twice a day"
+  },
+  {
+    "_id": {
+      "$oid": "656928a29759baa84755967c"
+    },
+    "name": "Ibuprofen",
+    "description": "Pain reliever and anti-inflammatory",
+    "quantity": 200,
+    "dosage": "200mg",
+    "frequency": "Every 4-6 hours"
+  },
+  {
+    "_id": {
+      "$oid": "656928a29759baa84755967d"
+    },
+    "name": "Metformin",
+    "description": "Diabetes medication",
+    "quantity": 150,
+    "dosage": "500mg",
+    "frequency": "Twice a day"
+  },
+  {
+    "_id": {
+      "$oid": "656928a29759baa84755967e"
+    },
+    "name": "Lisinopril",
+    "description": "Blood pressure medication",
+    "quantity": 120,
+    "dosage": "10mg",
+    "frequency": "Once a day"
+  },
+  {
+    "_id": {
+      "$oid": "656928a29759baa84755967f"
+    },
+    "name": "Atorvastatin",
+    "description": "Cholesterol lowering medication",
+    "quantity": 180,
+    "dosage": "20mg",
+    "frequency": "Once a day"
+  },
+  {
+    "_id": {
+      "$oid": "656928a29759baa847559680"
+    },
+    "name": "Levothyroxine",
+    "description": "Thyroid hormone replacement",
+    "quantity": 200,
+    "dosage": "50mcg",
+    "frequency": "Once a day"
+  },
+  {
+    "_id": {
+      "$oid": "656928a29759baa847559681"
+    },
+    "name": "Amlodipine",
+    "description": "Calcium channel blocker for hypertension",
+    "quantity": 150,
+    "dosage": "5mg",
+    "frequency": "Once a day"
+  },
+  {
+    "_id": {
+      "$oid": "656928a29759baa847559682"
+    },
+    "name": "Omeprazole",
+    "description": "Acid reducer for GERD",
+    "quantity": 100,
+    "dosage": "20mg",
+    "frequency": "Once a day"
+  },
+  {
+    "_id": {
+      "$oid": "656928a29759baa847559683"
+    },
+    "name": "Azithromycin",
+    "description": "Antibiotic for bacterial infections",
+    "quantity": 80,
+    "dosage": "500mg",
+    "frequency": "Once a day"
+  },
+  {
+    "_id": {
+      "$oid": "656928a29759baa847559684"
+    },
+    "name": "Hydrochlorothiazide",
+    "description": "Diuretic for high blood pressure",
+    "quantity": 120,
+    "dosage": "25mg",
+    "frequency": "Once a day"
+  },
+  {
+    "_id": {
+      "$oid": "656928a29759baa847559685"
+    },
+    "name": "Gabapentin",
+    "description": "Neuropathic pain medication",
+    "quantity": 150,
+    "dosage": "300mg",
+    "frequency": "Three times a day"
+  },
+  {
+    "_id": {
+      "$oid": "656928a29759baa847559686"
+    },
+    "name": "Sertraline",
+    "description": "Antidepressant",
+    "quantity": 100,
+    "dosage": "50mg",
+    "frequency": "Once a day"
+  },
+  {
+    "_id": {
+      "$oid": "656928a29759baa847559687"
+    },
+    "name": "Simvastatin",
+    "description": "Cholesterol lowering medication",
+    "quantity": 180,
+    "dosage": "20mg",
+    "frequency": "Once a day"
+  },
+  {
+    "_id": {
+      "$oid": "656928a29759baa847559688"
+    },
+    "name": "Montelukast",
+    "description": "Asthma and allergy medication",
+    "quantity": 90,
+    "dosage": "10mg",
+    "frequency": "Once a day"
+  },
+  {
+    "_id": {
+      "$oid": "656928a29759baa847559689"
+    },
+    "name": "Losartan",
+    "description": "Blood pressure medication",
+    "quantity": 150,
+    "dosage": "50mg",
+    "frequency": "Once a day"
+  },
+  {
+    "_id": {
+      "$oid": "656928a29759baa84755968a"
+    },
+    "name": "Prednisone",
+    "description": "Corticosteroid for inflammation",
+    "quantity": 100,
+    "dosage": "20mg",
+    "frequency": "As per prescription"
+  },
+  {
+    "_id": {
+      "$oid": "656928a29759baa84755968b"
+    },
+    "name": "Cetirizine",
+    "description": "Allergy medication",
+    "quantity": 120,
+    "dosage": "10mg",
+    "frequency": "Once a day"
+  },
+  {
+    "_id": {
+      "$oid": "656928a29759baa84755968c"
+    },
+    "name": "Albuterol",
+    "description": "Bronchodilator for asthma",
+    "quantity": 75,
+    "dosage": "As per need",
+    "frequency": "As per asthma attack"
+  },
+  {
+    "_id": {
+      "$oid": "656928a29759baa84755968d"
+    },
+    "name": "Escitalopram",
+    "description": "Antidepressant",
+    "quantity": 100,
+    "dosage": "10mg",
+    "frequency": "Once a day"
+  },
+  {
+    "_id": {
+      "$oid": "656928a29759baa84755968e"
+    },
+    "name": "Trazodone",
+    "description": "Used for depression and sleep disorders",
+    "quantity": 100,
+    "dosage": "50mg",
+    "frequency": "Before bed"
+  }]

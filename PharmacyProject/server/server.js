@@ -10,9 +10,13 @@ const jwt = require('jsonwebtoken');
 
 //Constants
 const PORT = 3001;
-const User = require('./schemas/userSchema');
-const Patient = require('./schemas/patientSchema');
 const Medication = require('./schemas/medicationSchema');
+const Notification = require('./schemas/notificationSchema');
+const Patient = require('./schemas/patientSchema');
+const PatientRecord = require('./schemas/patientRecordSchema');
+const Pharmacist = require('./schemas/pharmacistSchema');
+const RefillRequest = require('./schemas/refillRequestSchema');
+const User = require('./schemas/userSchema');
 
 //creating an express application
 const app = express();

@@ -9,6 +9,6 @@ const userSchema = new mongoose.Schema({
     userType: { type: String, enum: ['Admin', 'Pharmacist', 'Patient'], required: true },
 });
 
-
+userSchema.index({ username: 1 });
 const User = mongoose.model('User', userSchema);
 module.exports = User;
