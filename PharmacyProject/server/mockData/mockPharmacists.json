@@ -2,21 +2,25 @@
     {
         "_id": {"$oid": "656928399759baa84755966d"},
         "pharmacistId": {"$oid": "6569266a9759baa847559659"},
-        "licenseNumber": "PHRM001"
+        "licenseNumber": "PHRM001",
+        "isActive": true
     },
     {
         "_id": {"$oid": "656928399759baa84755966e"},
         "pharmacistId": {"$oid": "6569266a9759baa84755965c"},
-        "licenseNumber": "PHRM002"
+        "licenseNumber": "PHRM002",
+        "isActive": true
     },
     {
         "_id": {"$oid": "656928399759baa84755966f"},
         "pharmacistId": {"$oid": "6569266a9759baa84755965e"},
-        "licenseNumber": "PHRM003"
+        "licenseNumber": "PHRM003",
+        "isActive": true
     },
     {
         "_id": {"$oid": "656928399759baa847559670"},
         "pharmacistId": {"$oid": "6569266a9759baa847559661"},
-        "licenseNumber": "PHRM004"
+        "licenseNumber": "PHRM004",
+        "isActive": true
     }
 ]

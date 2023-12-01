@@ -10,9 +10,9 @@ const medicationSchema = new mongoose.Schema({
     quantityAvailable: Number,
     reorderThreshold: Number,
     dosage: String,
-    requiresPrescription: Boolean
+    requiresPrescription: Boolean,
+    isActive: Boolean
 });
 medicationSchema.index({ name: 1 }); // Index on name
 
-const Medication = mongoose.model('Medication', medicationSchema);
-module.exports = Medication;
+module.exports = mongoose.model('Medication', medicationSchema);

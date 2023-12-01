@@ -1,62 +1,90 @@
 [
     {
-        "_id": {"$oid": "6569266a9759baa847559658"},
-        "username": "user1@email.com",
-        "hashedPassword": "$2a$10$mIY0IZ19kByA4en.24VL2erh/poxQm1eMgwbWVgi2bC8H5znMHtrK",
-        "userType": "Patient"
-    },
-    {
-        "_id": {"$oid": "6569266a9759baa847559659"},
-        "username": "user2@email.com",
-        "hashedPassword": "$2a$10$bAOZM4DGey8tR/iNGXkE.u1idN0q02idlndM4Gwyng0b57fmTMCHq",
-        "userType": "Pharmacist"
-    },
-    {
-        "_id": {"$oid": "6569266a9759baa84755965a"},
-        "username": "user3@email.com",
-        "hashedPassword": "$2a$10$yEMAB7QexfkYRXmrJ8SpTe37bmKrDPh1Ve5vENY//kL15kfcRAMHO",
-        "userType": "Patient"
-    },
-    {
-        "_id": {"$oid": "6569266a9759baa84755965b"},
-        "username": "user4@email.com",
-        "hashedPassword": "$2a$10$cmC9inDRf5vqwaKRo0HJ6.Y0PjMuzyiklQD17qx3e2Ad0hRfZqtq6",
-        "userType": "Patient"
-    },
-    {
-        "_id": {"$oid": "6569266a9759baa84755965c"},
-        "username": "user5@email.com",
-        "hashedPassword": "$2a$10$mgRYHHPS7VX97IgYK8Ev.ugp9AsWm0gbD1xtmyyvg31RbREhvz.G.",
-        "userType": "Pharmacist"
-    },
-    {
-        "_id": {"$oid": "6569266a9759baa84755965d"},
-        "username": "user6@email.com",
-        "hashedPassword": "$2a$10$HAjDciL0k2Lmw0ki0MDfVuwr/Yj.Fz/zK4sjw/jaDPndIRVKD8ENW",
-        "userType": "Patient"
-    },
-    {
-        "_id": {"$oid": "6569266a9759baa84755965e"},
-        "username": "user7@email.com",
-        "hashedPassword": "$2a$10$Q.BlT1xJ6X5jkEJImS/Ao.JMJbFNqGiEyOTQYFnYsWqMPocNM4wLS",
-        "userType": "Pharmacist"
-    },
-    {
-        "_id": {"$oid": "6569266a9759baa84755965f"},
-        "username": "user8@email.com",
-        "hashedPassword": "$2a$10$kFgBXV9cGbJEiCOCXWpHc.xZ0b.IIDyUZJaUdhRjizQCQq7p4UONa",
-        "userType": "Patient"
-    },
-    {
-        "_id": {"$oid": "6569266a9759baa847559660"},
-        "username": "user9@email.com",
-        "hashedPassword": "$2a$10$jHE6wAv3Xz52/siZaM0BqOT6rOp6AN7hNQEzuZH6WG.afzf6K5oV2",
-        "userType": "Patient"
-    },
-    {
-        "_id": {"$oid": "6569266a9759baa847559661"},
-        "username": "user10@email.com",
-        "hashedPassword": "$2a$10$3Z3whQRtz8TXzCerNHM2z.Ye27uMy1ki4.cxkCZ4f0xY45lY5Zdsy",
-        "userType": "Pharmacist"
-    }
-]
+     "_id": {
+       "$oid": "656a23f20f628c43048d9372"
+     },
+     "username": "superuser@admin.com",
+     "hashedPassword": "$2a$10$YheDMQco/2MtO3DK9rzlTuwua0XLuYNO9sekxd1oQGn867UPABYgi",
+     "userType": "Admin",
+     "__v": 0
+     },
+     {
+     "_id": {
+       "$oid": "6569266a9759baa847559658"
+     },
+     "username": "user1@email.com",
+     "hashedPassword": "$2a$10$mIY0IZ19kByA4en.24VL2erh/poxQm1eMgwbWVgi2bC8H5znMHtrK",
+     "userType": "Patient"
+   },
+   {
+     "_id": {
+       "$oid": "6569266a9759baa847559659"
+     },
+     "username": "user2@email.com",
+     "hashedPassword": "$2a$10$bAOZM4DGey8tR/iNGXkE.u1idN0q02idlndM4Gwyng0b57fmTMCHq",
+     "userType": "Pharmacist"
+   },
+   {
+     "_id": {
+       "$oid": "6569266a9759baa84755965a"
+     },
+     "username": "user3@email.com",
+     "hashedPassword": "$2a$10$yEMAB7QexfkYRXmrJ8SpTe37bmKrDPh1Ve5vENY//kL15kfcRAMHO",
+     "userType": "Patient"
+   },
+   {
+     "_id": {
+       "$oid": "6569266a9759baa84755965b"
+     },
+     "username": "user4@email.com",
+     "hashedPassword": "$2a$10$cmC9inDRf5vqwaKRo0HJ6.Y0PjMuzyiklQD17qx3e2Ad0hRfZqtq6",
+     "userType": "Patient"
+   },
+   {
+     "_id": {
+       "$oid": "6569266a9759baa84755965c"
+     },
+     "username": "user5@email.com",
+     "hashedPassword": "$2a$10$mgRYHHPS7VX97IgYK8Ev.ugp9AsWm0gbD1xtmyyvg31RbREhvz.G.",
+     "userType": "Pharmacist"
+   },
+   {
+     "_id": {
+       "$oid": "6569266a9759baa84755965d"
+     },
+     "username": "user6@email.com",
+     "hashedPassword": "$2a$10$HAjDciL0k2Lmw0ki0MDfVuwr/Yj.Fz/zK4sjw/jaDPndIRVKD8ENW",
+     "userType": "Patient"
+   },
+   {
+     "_id": {
+       "$oid": "6569266a9759baa84755965e"
+     },
+     "username": "user7@email.com",
+     "hashedPassword": "$2a$10$Q.BlT1xJ6X5jkEJImS/Ao.JMJbFNqGiEyOTQYFnYsWqMPocNM4wLS",
+     "userType": "Pharmacist"
+   },
+   {
+     "_id": {
+       "$oid": "6569266a9759baa84755965f"
+     },
+     "username": "user8@email.com",
+     "hashedPassword": "$2a$10$kFgBXV9cGbJEiCOCXWpHc.xZ0b.IIDyUZJaUdhRjizQCQq7p4UONa",
+     "userType": "Patient"
+   },
+   {
+     "_id": {
+       "$oid": "6569266a9759baa847559660"
+     },
+     "username": "user9@email.com",
+     "hashedPassword": "$2a$10$jHE6wAv3Xz52/siZaM0BqOT6rOp6AN7hNQEzuZH6WG.afzf6K5oV2",
+     "userType": "Patient"
+   },
+   {
+     "_id": {
+       "$oid": "6569266a9759baa847559661"
+     },
+     "username": "user10@email.com",
+     "hashedPassword": "$2a$10$3Z3whQRtz8TXzCerNHM2z.Ye27uMy1ki4.cxkCZ4f0xY45lY5Zdsy",
+     "userType": "Pharmacist"
+   }]
