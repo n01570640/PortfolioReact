@@ -1,200 +1,203 @@
-[{
-    "_id": {
-      "$oid": "656928a29759baa84755967b"
+[
+    {
+      "_id": {"$oid": "656928a29759baa84755967b"},
+      "name": "Amoxicillin",
+      "description": "Antibiotic for bacterial infections",
+      "price": 15.99,
+      "quantityAvailable": 100,
+      "reorderThreshold": 20,
+      "dosage": "500mg",
+      "requiresPrescription": true
     },
-    "name": "Amoxicillin",
-    "description": "Antibiotic for bacterial infections",
-    "quantity": 100,
-    "dosage": "500mg",
-    "frequency": "Twice a day"
-  },
-  {
-    "_id": {
-      "$oid": "656928a29759baa84755967c"
+    {
+      "_id": {"$oid": "656928a29759baa84755967c"},
+      "name": "Ibuprofen",
+      "description": "Pain reliever and anti-inflammatory",
+      "price": 7.50,
+      "quantityAvailable": 200,
+      "reorderThreshold": 50,
+      "dosage": "200mg",
+      "requiresPrescription": false
     },
-    "name": "Ibuprofen",
-    "description": "Pain reliever and anti-inflammatory",
-    "quantity": 200,
-    "dosage": "200mg",
-    "frequency": "Every 4-6 hours"
-  },
-  {
-    "_id": {
-      "$oid": "656928a29759baa84755967d"
+    {
+      "_id": {"$oid": "656928a29759baa84755967d"},
+      "name": "Metformin",
+      "description": "Diabetes medication",
+      "price": 20.00,
+      "quantityAvailable": 150,
+      "reorderThreshold": 30,
+      "dosage": "500mg",
+      "requiresPrescription": true
     },
-    "name": "Metformin",
-    "description": "Diabetes medication",
-    "quantity": 150,
-    "dosage": "500mg",
-    "frequency": "Twice a day"
-  },
-  {
-    "_id": {
-      "$oid": "656928a29759baa84755967e"
+    {
+      "_id": {"$oid": "656928a29759baa84755967e"},
+      "name": "Lisinopril",
+      "description": "Blood pressure medication",
+      "price": 18.00,
+      "quantityAvailable": 120,
+      "reorderThreshold": 25,
+      "dosage": "10mg",
+      "requiresPrescription": true
     },
-    "name": "Lisinopril",
-    "description": "Blood pressure medication",
-    "quantity": 120,
-    "dosage": "10mg",
-    "frequency": "Once a day"
-  },
-  {
-    "_id": {
-      "$oid": "656928a29759baa84755967f"
+    {
+      "_id": {"$oid": "656928a29759baa84755967f"},
+      "name": "Atorvastatin",
+      "description": "Cholesterol lowering medication",
+      "price": 22.50,
+      "quantityAvailable": 180,
+      "reorderThreshold": 40,
+      "dosage": "20mg",
+      "requiresPrescription": true
     },
-    "name": "Atorvastatin",
-    "description": "Cholesterol lowering medication",
-    "quantity": 180,
-    "dosage": "20mg",
-    "frequency": "Once a day"
-  },
-  {
-    "_id": {
-      "$oid": "656928a29759baa847559680"
+    {
+      "_id": {"$oid": "656928a29759baa847559680"},
+      "name": "Levothyroxine",
+      "description": "Thyroid hormone replacement",
+      "price": 25.00,
+      "quantityAvailable": 200,
+      "reorderThreshold": 30,
+      "dosage": "50mcg",
+      "requiresPrescription": true
     },
-    "name": "Levothyroxine",
-    "description": "Thyroid hormone replacement",
-    "quantity": 200,
-    "dosage": "50mcg",
-    "frequency": "Once a day"
-  },
-  {
-    "_id": {
-      "$oid": "656928a29759baa847559681"
+    {
+      "_id": {"$oid": "656928a29759baa847559681"},
+      "name": "Amlodipine",
+      "description": "Calcium channel blocker for hypertension",
+      "price": 15.00,
+      "quantityAvailable": 150,
+      "reorderThreshold": 20,
+      "dosage": "5mg",
+      "requiresPrescription": true
     },
-    "name": "Amlodipine",
-    "description": "Calcium channel blocker for hypertension",
-    "quantity": 150,
-    "dosage": "5mg",
-    "frequency": "Once a day"
-  },
-  {
-    "_id": {
-      "$oid": "656928a29759baa847559682"
+    {
+      "_id": {"$oid": "656928a29759baa847559682"},
+      "name": "Omeprazole",
+      "description": "Acid reducer for GERD",
+      "price": 10.99,
+      "quantityAvailable": 100,
+      "reorderThreshold": 50,
+      "dosage": "20mg",
+      "requiresPrescription": false
     },
-    "name": "Omeprazole",
-    "description": "Acid reducer for GERD",
-    "quantity": 100,
-    "dosage": "20mg",
-    "frequency": "Once a day"
-  },
-  {
-    "_id": {
-      "$oid": "656928a29759baa847559683"
+    {
+      "_id": {"$oid": "656928a29759baa847559683"},
+      "name": "Azithromycin",
+      "description": "Antibiotic for bacterial infections",
+      "price": 18.00,
+      "quantityAvailable": 80,
+      "reorderThreshold": 20,
+      "dosage": "500mg",
+      "requiresPrescription": true
     },
-    "name": "Azithromycin",
-    "description": "Antibiotic for bacterial infections",
-    "quantity": 80,
-    "dosage": "500mg",
-    "frequency": "Once a day"
-  },
-  {
-    "_id": {
-      "$oid": "656928a29759baa847559684"
+    {
+      "_id": {"$oid": "656928a29759baa847559684"},
+      "name": "Hydrochlorothiazide",
+      "description": "Diuretic for high blood pressure",
+      "price": 9.00,
+      "quantityAvailable": 120,
+      "reorderThreshold": 30,
+      "dosage": "25mg",
+      "requiresPrescription": true
     },
-    "name": "Hydrochlorothiazide",
-    "description": "Diuretic for high blood pressure",
-    "quantity": 120,
-    "dosage": "25mg",
-    "frequency": "Once a day"
-  },
-  {
-    "_id": {
-      "$oid": "656928a29759baa847559685"
+    {
+      "_id": {"$oid": "656928a29759baa847559685"},
+      "name": "Gabapentin",
+      "description": "Neuropathic pain medication",
+      "price": 23.00,
+      "quantityAvailable": 150,
+      "reorderThreshold": 40,
+      "dosage": "300mg",
+      "requiresPrescription": true
     },
-    "name": "Gabapentin",
-    "description": "Neuropathic pain medication",
-    "quantity": 150,
-    "dosage": "300mg",
-    "frequency": "Three times a day"
-  },
-  {
-    "_id": {
-      "$oid": "656928a29759baa847559686"
+    {
+      "_id": {"$oid": "656928a29759baa847559686"},
+      "name": "Sertraline",
+      "description": "Antidepressant",
+      "price": 17.50,
+      "quantityAvailable": 100,
+      "reorderThreshold": 25,
+      "dosage": "50mg",
+      "requiresPrescription": true
     },
-    "name": "Sertraline",
-    "description": "Antidepressant",
-    "quantity": 100,
-    "dosage": "50mg",
-    "frequency": "Once a day"
-  },
-  {
-    "_id": {
-      "$oid": "656928a29759baa847559687"
+    {
+      "_id": {"$oid": "656928a29759baa847559687"},
+      "name": "Simvastatin",
+      "description": "Cholesterol lowering medication",
+      "price": 19.99,
+      "quantityAvailable": 180,
+      "reorderThreshold": 40,
+      "dosage": "20mg",
+      "requiresPrescription": true
     },
-    "name": "Simvastatin",
-    "description": "Cholesterol lowering medication",
-    "quantity": 180,
-    "dosage": "20mg",
-    "frequency": "Once a day"
-  },
-  {
-    "_id": {
-      "$oid": "656928a29759baa847559688"
+    {
+      "_id": {"$oid": "656928a29759baa847559688"},
+      "name": "Montelukast",
+      "description": "Asthma and allergy medication",
+      "price": 21.00,
+      "quantityAvailable": 90,
+      "reorderThreshold": 20,
+      "dosage": "10mg",
+      "requiresPrescription": true
     },
-    "name": "Montelukast",
-    "description": "Asthma and allergy medication",
-    "quantity": 90,
-    "dosage": "10mg",
-    "frequency": "Once a day"
-  },
-  {
-    "_id": {
-      "$oid": "656928a29759baa847559689"
+    {
+      "_id": {"$oid": "656928a29759baa847559689"},
+      "name": "Losartan",
+      "description": "Blood pressure medication",
+      "price": 16.00,
+      "quantityAvailable": 150,
+      "reorderThreshold": 30,
+      "dosage": "50mg",
+      "requiresPrescription": true
     },
-    "name": "Losartan",
-    "description": "Blood pressure medication",
-    "quantity": 150,
-    "dosage": "50mg",
-    "frequency": "Once a day"
-  },
-  {
-    "_id": {
-      "$oid": "656928a29759baa84755968a"
+    {
+      "_id": {"$oid": "656928a29759baa84755968a"},
+      "name": "Prednisone",
+      "description": "Corticosteroid for inflammation",
+      "price": 12.00,
+      "quantityAvailable": 100,
+      "reorderThreshold": 20,
+      "dosage": "20mg",
+      "requiresPrescription": true
     },
-    "name": "Prednisone",
-    "description": "Corticosteroid for inflammation",
-    "quantity": 100,
-    "dosage": "20mg",
-    "frequency": "As per prescription"
-  },
-  {
-    "_id": {
-      "$oid": "656928a29759baa84755968b"
+    {
+      "_id": {"$oid": "656928a29759baa84755968b"},
+      "name": "Cetirizine",
+      "description": "Allergy medication",
+      "price": 8.00,
+      "quantityAvailable": 120,
+      "reorderThreshold": 50,
+      "dosage": "10mg",
+      "requiresPrescription": false
     },
-    "name": "Cetirizine",
-    "description": "Allergy medication",
-    "quantity": 120,
-    "dosage": "10mg",
-    "frequency": "Once a day"
-  },
-  {
-    "_id": {
-      "$oid": "656928a29759baa84755968c"
+    {
+      "_id": {"$oid": "656928a29759baa84755968c"},
+      "name": "Albuterol",
+      "description": "Bronchodilator for asthma",
+      "price": 27.00,
+      "quantityAvailable": 75,
+      "reorderThreshold": 15,
+      "dosage": "As per need",
+      "requiresPrescription": true
     },
-    "name": "Albuterol",
-    "description": "Bronchodilator for asthma",
-    "quantity": 75,
-    "dosage": "As per need",
-    "frequency": "As per asthma attack"
-  },
-  {
-    "_id": {
-      "$oid": "656928a29759baa84755968d"
+    {
+      "_id": {"$oid": "656928a29759baa84755968d"},
+      "name": "Escitalopram",
+      "description": "Antidepressant",
+      "price": 24.99,
+      "quantityAvailable": 100,
+      "reorderThreshold": 25,
+      "dosage": "10mg",
+      "requiresPrescription": true
     },
-    "name": "Escitalopram",
-    "description": "Antidepressant",
-    "quantity": 100,
-    "dosage": "10mg",
-    "frequency": "Once a day"
-  },
-  {
-    "_id": {
-      "$oid": "656928a29759baa84755968e"
-    },
-    "name": "Trazodone",
-    "description": "Used for depression and sleep disorders",
-    "quantity": 100,
-    "dosage": "50mg",
-    "frequency": "Before bed"
-  }]
+    {
+      "_id": {"$oid": "656928a29759baa84755968e"},
+      "name": "Trazodone",
+      "description": "Used for depression and sleep disorders",
+      "price": 18.50,
+      "quantityAvailable": 100,
+      "reorderThreshold": 20,
+      "dosage": "50mg",
+      "requiresPrescription": true
+    }
+  ]
+  

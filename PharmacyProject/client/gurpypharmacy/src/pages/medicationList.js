@@ -58,7 +58,7 @@ export default function MedicationList(){
     const header = renderHeader();
 
     const verifiedBodyTemplate = (rowData) => {
-        return <i style={{width:"10", height: "200"}} className={classNames('pi', { 'true-icon pi-check-circle': rowData.verified, 'false-icon pi-times-circle': !rowData.verified })}></i>;
+        return <i style={{width:"10", height: "200"}} className={classNames('pi', { 'true-icon pi-check-circle': rowData.requiresPrescription, 'false-icon pi-times-circle': !rowData.requiresPrescription })}></i>;
     };
     const verifiedRowFilterTemplate = (options) => {
         return <TriStateCheckbox value={options.value} onChange={(e) => options.filterApplyCallback(e.value)} />;
@@ -74,8 +74,7 @@ export default function MedicationList(){
               <Column field="description" header="Description" filter filterPlaceholder="Search by description" style={{ width: '25%' }}></Column>
               <Column field="price" header="Price" sortable style={{ width: '25%' }}></Column>
               <Column field="quantityAvailable" header="On-hand Quantity" sortable style={{ width: '25%' }}></Column>
-              
-              <Column field="requiresPrescription" header="Requires Prescription" dataType='boolean' sortable style={{ width: '25%' }} body={verifiedBodyTemplate} filter filterElement={verifiedRowFilterTemplate}  ></Column>
+              <Column field="requiresPrescription" header="Requires Prescription" dataType='boolean' sortable style={{ width: '25%' }} body={verifiedBodyTemplate} filter filterElement={verifiedRowFilterTemplate}></Column>
             </DataTable>
         </div>
     );

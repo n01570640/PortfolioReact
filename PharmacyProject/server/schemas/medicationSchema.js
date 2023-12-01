@@ -2,7 +2,7 @@
 const mongoose = require('mongoose'); // Mongoose for MongoDB interactions
 
 
-//Patient schema
+//Medication schema
 const medicationSchema = new mongoose.Schema({
     name: { type: String, required: true },
     description: String,

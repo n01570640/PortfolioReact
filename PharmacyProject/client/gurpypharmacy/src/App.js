@@ -15,7 +15,7 @@ import Col from 'react-bootstrap/Col';
 import PharmacistView from './pages/pharmacistView';
 import PatientView from './pages/patientView';
 import ProtectedRoute from './pages/protectedRoute'; 
-
+import 'primeicons/primeicons.css';
 function App() {
   return (
     <Router>
@@ -30,7 +30,7 @@ function App() {
         <Container>
           <Row>
             <Col></Col>
-            <Col xs={6}>
+            <Col xs={6} xl={12}>
               <Routes>
               <Route path='/register' Component={PatientRegistration} />
               <Route path='/login' Component={UserLogin} />
