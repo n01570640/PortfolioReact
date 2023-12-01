@@ -8,22 +8,30 @@ import { FilterMatchMode, FilterOperator } from 'primereact/api';
 import '../App.css';
 //importing date-fns for date-time formatting
 import { format } from 'date-fns';
+import { getToken } from "./tokenUtils";
 
 export default function PatientList(){
     const [ patients , setPatients ] = useState([]);
     //Fetching the patient data from backend point "/api/patients"
     const fetchPatientData = async () => {
         try {
-            const response = await fetch("http://localhost:3001/api/patients");
-            //console.log(response);
+            const token = getToken();
+            const response = await fetch("http://localhost:3001/api/patients", {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+
             const data = await response.json();
-            // console.log("DATA")
-            // console.log(data);
             setPatients(data);
         } catch (error) {
             console.error("Error fetching patient data: ", error);
-    }
-     };
+        }
+    };
 
     useEffect(() => {fetchPatientData()}, []);
 

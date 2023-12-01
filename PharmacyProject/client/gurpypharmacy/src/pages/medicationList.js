@@ -7,6 +7,8 @@ import { Column } from 'primereact/column';
 import { TriStateCheckbox } from 'primereact/tristatecheckbox';
 import { InputText } from 'primereact/inputtext';
 import { FilterMatchMode, FilterOperator } from 'primereact/api';
+//custom components
+import { getToken } from './tokenUtils';
 //importing styles
 import '../App.css';
 
@@ -26,16 +28,24 @@ export default function MedicationList(){
     //Fetching the medication data from backend point "/api/medications"
     const fetchMedicationData = async () => {
         try {
-            const response = await fetch("http://localhost:3001/api/medications");
-            //console.log(response);
+            const token = getToken();
+            const response = await fetch("http://localhost:3001/api/medications", {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+
             const data = await response.json();
-            // console.log("DATA")
-            // console.log(data);
             setMedications(data);
         } catch (error) {
             console.error("Error fetching medication data: ", error);
-    }
-     };
+        }
+    };
+
     useEffect(() => {fetchMedicationData()}, []);
 
     const onGlobalFilterChange = (e) => {

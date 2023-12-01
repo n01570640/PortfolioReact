@@ -198,7 +198,7 @@ app.get('/api/patientinfo', authenticateToken, async (req, res) => {
 });
 
 //Endpoint to get patients data
-app.get('/api/patients', async (req, res) => {
+app.get('/api/patients',authenticateToken, async (req, res) => {
   try{
     const patients = await Patient.find({});
     res.json(patients);
@@ -210,7 +210,7 @@ app.get('/api/patients', async (req, res) => {
 });
 
 //Endpoint tp get medications data
-app.get('/api/medications', async (req, res) => {
+app.get('/api/medications',authenticateToken, async (req, res) => {
   try{
     const medications = await Medication.find({});
     res.json(medications);

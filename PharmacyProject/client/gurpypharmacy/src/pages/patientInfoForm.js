@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Button } from 'primereact/button';
 import { InputText } from 'primereact/inputtext';
 import { Calendar } from 'primereact/calendar';
-import { decodeToken } from './tokenUtils'; // Update the path accordingly
+import { decodeToken} from './tokenUtils'; 
 
 const PatientInfoForm = ({ data, editable, onSubmit, onCancel, onEdit }) => {
     const defaultPatientInfo = {
@@ -51,8 +51,8 @@ const PatientInfoForm = ({ data, editable, onSubmit, onCancel, onEdit }) => {
     
         try {
             const userToken = localStorage.getItem('userToken');
-            const decoded = decodeToken(userToken);
-            const userId = decoded ? decoded.userId : null;
+            const decodedUserToken = decodeToken(userToken);
+            const userId = decodedUserToken ? decodedUserToken.userId : null;
             
             const patientData = {
                 ...patientInfo,

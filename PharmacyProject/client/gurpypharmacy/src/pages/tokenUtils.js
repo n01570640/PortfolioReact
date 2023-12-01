@@ -9,3 +9,7 @@ export const decodeToken = (token) => {
         return null;
     }
 };
+
+export function getToken() {
+    return localStorage.getItem('userToken');
+}
