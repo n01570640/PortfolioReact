@@ -3,8 +3,11 @@ import { useState, useEffect } from 'react';
 //importing primereact component
 import { OrderList } from 'primereact/orderlist';
 import { Link } from 'react-router-dom';
+import { FilterMatchMode, FilterOperator } from 'primereact/api';
 //importing styles
 import '../App.css';
+//importing date-fns for date-time formatting
+import { format } from 'date-fns';
 
 export default function PatientList(){
     const [ patients , setPatients ] = useState([]);
@@ -26,13 +29,26 @@ export default function PatientList(){
 
     //Patient template
     const patientTemplate = (patient) => {
-        //
+        //console.log(patient.dateOfBirth);
+        const formatDateOfBirth = (dob) => {
+            //console.log('Date of Birth:', dob);
+            try{
+                return format(new Date(dob), 'PP') //eg: "Jan 1, 2020"
+            } catch(error) {
+                console.error('Error formatting date: ', error);
+                return 'Invalid Date'
+            }
+        }
         return (
             <div className="flex flex-wrap p-2 align-items-center gap-3">
                 <div className="flex-1 flex flex-column gap-2 xl:mr-8">
+                    <i className="pi pi-user" style={{ fontSize: '2.5rem' }}></i>
                     <span className="font-bold">{patient.firstName}{ " " } {patient.lastName}  </span>
                     <div className="flex align-items-center gap-2">
-                        <i className="pi pi-tag text-sm"></i>
+                        
+                        <i className="pi pi-calendar text-sm"></i>
+                        <span>{formatDateOfBirth(patient.dateOfBirth)}</span>
+                        <i className="pi pi-phone text-sm"></i>
                         <span>{patient.telephoneNumber}</span>
                         <Link 
                             /**Links the button to the patient medication profile using patientid */
@@ -45,7 +61,7 @@ export default function PatientList(){
     };
 
     return(
-        <div className="card xl:flex xl:justify-content-center">
+        <div className="patient-list flex flex-wrap p-2 align-items-center gap-3">
             <OrderList value={patients} onChange={(e) => setPatients(e.value)} itemTemplate={patientTemplate} header="Patients" filter filterBy="lastName" ></OrderList>
         </div>
     );

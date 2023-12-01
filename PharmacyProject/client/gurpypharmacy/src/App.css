@@ -224,16 +224,6 @@ body {
 }
 
 /*OrderList styles*/
-/* PatientList Card Style */
-.card {
-  background-color: var(--white);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
-  overflow: hidden;
-  margin: 1rem;
-  padding: 1rem;
-}
-
 /* Header Style */
 .p-orderlist .p-orderlist-header {
   background-color: var(--dark-blue);
@@ -260,7 +250,6 @@ body {
   cursor:default;
   
 }
-
 
 /* Patient Name Style */
 .p-orderlist-item .font-bold {
@@ -294,5 +283,25 @@ body {
   right: 10px; /* Position the icon towards the right inside the container */
   top: 50%; /* Align vertically to the middle */
   transform: translateY(-50%); /* Offset by half of its height for perfect center alignment */
+}
+
+/* Icon Style with Margin */
+.patient-list .pi {
+  margin-right: 0.5rem; /* Add right margin to icons */
+  color: var(--neon-blue);
+}
+
+.patient-list .flex {
+  display: flex;
+  justify-content: space-between; /* Spreads out content between start and end of the container */
+  align-items: center; /* Align items vertically in the center */
+  width: 100%; /* Ensure the container takes full width */
+}
+
+
+/* Button Style */
+.patient-list .button {
+  /* existing button styles */
+  margin-left: auto; /* Pushes the button to the far right */
 }
 

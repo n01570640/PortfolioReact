@@ -30,7 +30,7 @@ function App() {
         <Container>
           <Row>
             <Col></Col>
-            <Col xs={6} xl={12}>
+            <Col xs={8} md={10} xl={10}>
               <Routes>
               <Route path='/register' Component={PatientRegistration} />
               <Route path='/login' Component={UserLogin} />
