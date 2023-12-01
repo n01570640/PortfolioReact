@@ -139,13 +139,23 @@ app.get('/api/patients', async (req, res) => {
   try{
     const patients = await Patient.find({});
     res.json(patients);
-    console.log("Patients fetched:", patients);
+    // console.log("Patients fetched:", patients);
   }catch (error) {
-    res.status(500).send("Server Error fetching patients");
+    res.status(500).send("Server Error fetching patients data");
     console.log(error);
   }
 });
 
+//Endpoint tp get medications data
+app.get('/api/medications', async (req, res) => {
+  try{
+    const medications = await Medication.find({});
+    res.json(medications);
+    // console.log("Medications fetched:", medications)
+  } catch(error) {
+    res.status(500).send("Server Error fetching medications data")
+  }
+});
 //Set the server to listen on port 3000
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);

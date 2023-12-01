@@ -2,28 +2,31 @@
 import { useState, useEffect } from 'react';
 //importing primereact component
 import { OrderList } from 'primereact/orderlist';
+import { Link } from 'react-router-dom';
+//importing styles
+import '../App.css';
 
 export default function PatientList(){
     const [ patients , setPatients ] = useState([]);
-
+    //Fetching the patient data from backend point "/api/patients"
     const fetchPatientData = async () => {
         try {
             const response = await fetch("http://localhost:3001/api/patients");
-            console.log(response);
+            //console.log(response);
             const data = await response.json();
-            console.log("DATA")
-            console.log(data);
+            // console.log("DATA")
+            // console.log(data);
             setPatients(data);
         } catch (error) {
-            console.error("Error fetching data: ", error);
+            console.error("Error fetching patient data: ", error);
     }
      };
-
 
     useEffect(() => {fetchPatientData()}, []);
 
     //Patient template
     const patientTemplate = (patient) => {
+        //
         return (
             <div className="flex flex-wrap p-2 align-items-center gap-3">
                 <div className="flex-1 flex flex-column gap-2 xl:mr-8">
@@ -31,6 +34,10 @@ export default function PatientList(){
                     <div className="flex align-items-center gap-2">
                         <i className="pi pi-tag text-sm"></i>
                         <span>{patient.telephoneNumber}</span>
+                        <Link 
+                            /**Links the button to the patient medication profile using patientid */
+                            to={`/medicationProfile/${patient._id}`} className='button' role="button">View</Link>
+                        
                     </div>
                 </div>
             </div>
