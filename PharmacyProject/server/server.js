@@ -134,7 +134,7 @@ app.post('/login', async(req, res, next) => {
     })(req, res, next);
 });
 
-//Authenticates token from request
+//Authenticates token from request after login
 const authenticateToken = (req, res, next) => {
   // Retrieve the JWT token from the Authorization header
   const authHeader = req.headers['authorization'];
@@ -155,6 +155,35 @@ const authenticateToken = (req, res, next) => {
       res.status(403).send('Invalid token');
   }
 };
+
+// Endpoint to Upsert Patient Info 
+app.post('/api/upsertPatientInfo', authenticateToken, async (req, res) => {
+  try {
+    const { groupId, insName, dateOfBirth, firstName, lastName, telephoneNumber } = req.body;
+    
+    // Upsert operation
+    const updatedPatient = await Patient.findOneAndUpdate(
+      { patientId: req.userId },
+      { 
+        groupId, 
+        insName, 
+        dateOfBirth, 
+        firstName, 
+        lastName, 
+        telephoneNumber 
+      },
+      { 
+        new: true, // return the updated document
+        upsert: true // create a new document if one doesn't exist
+      }
+    );
+
+    res.status(200).json(updatedPatient);
+  } catch (error) {
+    console.error("Server Error: ", error);
+    res.status(500).send("Server error updating patient info");
+  }
+});
 
 //Endpoint to get single patient data
 app.get('/api/patientinfo', authenticateToken, async (req, res) => {

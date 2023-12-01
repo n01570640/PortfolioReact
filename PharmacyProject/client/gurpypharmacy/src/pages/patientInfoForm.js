@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Button } from 'primereact/button';
 import { InputText } from 'primereact/inputtext';
 import { Calendar } from 'primereact/calendar';
+import { decodeToken } from './tokenUtils'; // Update the path accordingly
 
 const PatientInfoForm = ({ data, editable, onSubmit, onCancel, onEdit }) => {
     const defaultPatientInfo = {
@@ -45,16 +46,49 @@ const PatientInfoForm = ({ data, editable, onSubmit, onCancel, onEdit }) => {
         setPatientInfo({ ...patientInfo, [name]: value });
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        onSubmit(patientInfo);
-        setInitialData(patientInfo);
+    
+        try {
+            const userToken = localStorage.getItem('userToken');
+            const decoded = decodeToken(userToken);
+            const userId = decoded ? decoded.userId : null;
+            
+            const patientData = {
+                ...patientInfo,
+                patientId: userId // Include the user ID as patientId
+            };
+    
+            console.log(patientData);
+            const response = await fetch('http://localhost:3001/api/upsertPatientInfo', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${userToken}`
+                },
+                body: JSON.stringify(patientData)
+            });
+    
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+    
+            const updatedInfo = await response.json();
+            onSubmit(updatedInfo); // Call the passed onSubmit function with the updated info
+            setInitialData(updatedInfo);
+        } catch (error) {
+            console.error("Error updating patient info: ", error);
+        }
     };
 
     const handleCancel = () => {
         setPatientInfo(initialData);
         onCancel();
     };
+
+    const oneHundredYearsAgo = new Date();
+    oneHundredYearsAgo.setDate(oneHundredYearsAgo.getDate() - 100);
+    const today = new Date();
 
     return (
         <form onSubmit={handleSubmit}>
@@ -70,7 +104,7 @@ const PatientInfoForm = ({ data, editable, onSubmit, onCancel, onEdit }) => {
 
             <div className="form-field">
                 <label htmlFor="dateOfBirth">Date of Birth</label>
-                <Calendar id="dateOfBirth" name="dateOfBirth" className="" value={patientInfo.dateOfBirth} onChange={handleInputChange} showIcon required disabled={!editable} />
+                <Calendar id="dateOfBirth" name="dateOfBirth" className="" value={patientInfo.dateOfBirth} onChange={handleInputChange} showIcon required disabled={!editable} minDate={oneHundredYearsAgo} maxDate={today}/>
             </div>
 
             <div className="form-field">
