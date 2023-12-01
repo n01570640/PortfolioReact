@@ -129,9 +129,43 @@ app.post('/login', async(req, res, next) => {
         var userType = user.userType;
         console.log(`${username}, ${password}, ${userType}`);
         // Create a JWT token
-        const token = jwt.sign({ userId: user._id, userType: user.userType  }, 'yourJWTSecret', { expiresIn: '1h' });
+        const token = jwt.sign({ userId: user._id, userType: user.userType  }, '3cV7y6UzqR8w0xG4pJ2lL5oN1aM8fI3j', { expiresIn: '1h' });
         res.send({ token });
     })(req, res, next);
+});
+
+//Authenticates token from request
+const authenticateToken = (req, res, next) => {
+  // Retrieve the JWT token from the Authorization header
+  const authHeader = req.headers['authorization'];
+  const token = authHeader && authHeader.split(' ')[1];
+
+  if (!token) {
+      return res.status(401).send('Access token is missing or invalid');
+  }
+
+  try {
+      // Verify the token with your secret key
+      const decoded = jwt.verify(token, '3cV7y6UzqR8w0xG4pJ2lL5oN1aM8fI3j');
+
+      // Add the user ID to the request object
+      req.userId = decoded.userId;
+      next();
+  } catch (error) {
+      res.status(403).send('Invalid token');
+  }
+};
+
+//Endpoint to get single patient data
+app.get('/api/patientinfo', authenticateToken, async (req, res) => {
+  try {
+      const patientInfo = await Patient.findOne({ patientId: req.userId });
+
+      res.json(patientInfo);
+  } catch (error) {
+      res.status(500).send("Server Error fetching patient info");
+      console.log(error);
+  }
 });
 
 //Endpoint to get patients data
