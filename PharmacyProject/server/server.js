@@ -239,7 +239,7 @@ app.get('/api/medication/:medicationId', async (req, res) =>{
   try{
     const medicationId = req.params.medicationId; //saving medication id from params
     console.log(medicationId);
-    const medication = await Medication.findOne({ _id: medicationId });
+    const medication = await Medication.findOne({ _id : medicationId });
     console.log(medication);
     if(!medication){
       return res.status(404).send('Medication not found');
@@ -247,6 +247,49 @@ app.get('/api/medication/:medicationId', async (req, res) =>{
     res.json(medication);
   } catch(error){
     res.status(500).send('Server Error fetching medication data')
+  }
+});
+
+//Endpoint when a refill request is made
+app.post('/api/refillMedication', async (req, res) => {
+  const { medicationId, patientId, refillQuantity } = req.body;
+  console.log('Request body: ', req.body);
+  const numericRefillQuantity = Number(refillQuantity);
+
+
+  
+  try{
+    const medication = await Medication.findOne({ _id : medicationId });
+    const patientProfile = await PatientRecord.findOne({ patientId : patientId });
+    if (!medication || !patientProfile) {
+      return res.status(404).send("Medication or Patient not found");
+    }
+
+    //Check if there is enough quantity available
+    if ( medication.quantityAvailable < numericRefillQuantity){
+      return res.status(404).send('Not enough medication in stock for refill')
+    }
+
+    //update medication quantity
+ 
+    medication.quantityAvailable -= numericRefillQuantity;
+   
+    await medication.save();
+
+    //update refill count in patient's medication profile
+    const prescriptionDetail = patientProfile.prescriptionDetails.find( detail => detail.medication.equals(medicationId));
+    if(prescriptionDetail) {
+      prescriptionDetail.refillCount -= 1;
+      patientProfile.markModified('prescriptionDetails'); //modified subdocument needs to be marked
+      await patientProfile.save();
+    } 
+    res.status(200).json({
+      updatedMedication: medication,
+      updatedPatientProfile: patientProfile
+  });
+  } catch(error) {
+    console.log("refill updating error",error)
+    res.status(500).send("Error in refilling prescription")
   }
 });
 

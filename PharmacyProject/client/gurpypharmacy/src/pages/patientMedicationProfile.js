@@ -28,37 +28,75 @@ export default function MedicationProfile() {
         }
     };
 
-    useEffect(() => {
-        //fetching patient's medication record
-        const fetchProfile = async () => {
-            try {
-                const token = getToken();
-                const response = await fetch(`http://localhost:3001/api/medicationProfile/${patientId}`, {
-                    headers: { 'Authorization': `Bearer ${token}` }
-                });
+    const fetchProfile = async () => {
+        try {
+            const token = getToken();
+            const response = await fetch(`http://localhost:3001/api/medicationProfile/${patientId}`, {
+                headers: { 'Authorization': `Bearer ${token}` }
+            });
 
-                if (!response.ok) {
-                    throw new Error(`HTTP error! Status: ${response.status}`);
-                }
-
-                let profileData = await response.json();
-
-                // fetch detailed medication information for each medication
-                for (let record of profileData) {
-                    for (let detail of record.prescriptionDetails) {
-                        const medicationInfo = await fetchMedicationDetails(detail.medication);
-                        detail.medicationInfo = medicationInfo; // add detailed info to each prescription detail
-                    }
-                }
-
-                setMedicationRecords(profileData);
-            } catch (error) {
-                console.error("Error fetching medication profile: ", error);
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
             }
-        };
 
-        fetchProfile();
-    }, [patientId]);
+            let profileData = await response.json();
+
+            // fetch detailed medication information for each medication
+            for (let record of profileData) {
+                for (let detail of record.prescriptionDetails) {
+                    const medicationInfo = await fetchMedicationDetails(detail.medication);
+                    detail.medicationInfo = medicationInfo; // add detailed info to each prescription detail
+                }
+            }
+
+            setMedicationRecords(profileData);
+        } catch (error) {
+            console.error("Error fetching medication profile: ", error);
+        }
+    };
+
+    useEffect(() => { fetchProfile();}, [patientId]);
+
+    //handle refill request 
+    const handleRefill = async (detail) => {
+        try{
+            const token = getToken();
+            const response = await fetch('http://localhost:3001/api/refillMedication',{
+                method: 'POST',
+                headers: {
+                    'Content-Type' : 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify({
+                    medicationId: detail.medication,
+                    patientId: patientId,
+                    refillQuantity: detail.quantity
+                })
+            });
+            
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+
+            const updatedMedication = await response.json();
+
+            //update the state with the new medication data
+            setMedicationRecords((prevRecords) => 
+                prevRecords.map((record) => 
+                record._id === updatedMedication._id ? updatedMedication : record
+            ));
+
+            if (response.ok) {
+                // Refetch the medication profile
+                fetchProfile();
+            }
+
+        } catch(error){
+            console.error("Error refillinf medication: ", error);
+        }
+    };
+
+
     //medication template
     const medicationTemplate = (record) => {
         return (
@@ -71,7 +109,7 @@ export default function MedicationProfile() {
                             <p>{detail.medicationInfo?.name}{" "}{detail.dosage}</p>
                             <p>Quantity: {detail.quantity}</p>
                             <p>Refill Count: {detail.refillCount}</p>
-                            <Button className='button' icon="pi pi-replay" label="Refill Rx" disabled={detail.refillCount === 0}></Button>
+                            <Button className='button' icon="pi pi-replay" label="Refill Rx" disabled={detail.refillCount === 0} onClick={() => handleRefill(detail) }></Button>
                         </div>
                     ))}
                 </div>
@@ -80,8 +118,8 @@ export default function MedicationProfile() {
     };
 
     return (
-        <div className='card'>
-            <h2>Medication Profile</h2>
+        <div className='product-card'>
+            <h2>Patient Medication Profile</h2>
             {medicationRecords.length > 0 ? (
                 <DataScroller value={medicationRecords} itemTemplate={medicationTemplate} rows={5} inline scrollHeight="500px" />
             ) : (

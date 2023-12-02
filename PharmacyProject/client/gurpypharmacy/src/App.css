@@ -18,14 +18,7 @@ body {
   background-repeat: no-repeat;
   background-attachment: fixed;/* This makes the background image fixed during scroll */
 }
-.card {
-  margin: auto;
-  padding: 1rem;
-  background-color: var(--white);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  border-radius: 10px;
-  overflow: hidden;
-}
+
 
 /* Navbar Styles */
 .navbar {
@@ -85,9 +78,11 @@ body {
 /* Product Card Styles */
 .product-card {
   margin-top: 25px;
+  padding: 1rem;
   background-color: var(--white);
   box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease 0s;
+  border-radius: 10px;
   padding: 25px;
 }
 
@@ -259,6 +254,7 @@ body {
   color: var(--dark-blue);
   font-weight: bold;
 }
+
 
 /*parent container for icon search*/
 .p-orderlist .p-orderlist-filter-container{
