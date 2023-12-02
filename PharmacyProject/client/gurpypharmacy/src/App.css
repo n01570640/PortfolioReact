@@ -18,6 +18,14 @@ body {
   background-repeat: no-repeat;
   background-attachment: fixed;/* This makes the background image fixed during scroll */
 }
+.card {
+  margin: auto;
+  padding: 1rem;
+  background-color: var(--white);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  overflow: hidden;
+}
 
 /* Navbar Styles */
 .navbar {
@@ -34,11 +42,6 @@ body {
 .navbar a:hover {
   color: var(--neon-blue); /* Hover effect color */
 }
-
-.navbar a:enabled {
-  color: var(--white);
-}
-
 .navbar-brand {
   padding: 20px;
   font-weight: bold;
@@ -257,10 +260,6 @@ body {
   font-weight: bold;
 }
 
-/* Icon Style */
-.p-orderlist-item .pi {
-  color: var(--neon-blue);
-}
 /*parent container for icon search*/
 .p-orderlist .p-orderlist-filter-container{
   position: relative;
@@ -305,3 +304,37 @@ body {
   margin-left: auto; /* Pushes the button to the far right */
 }
 
+/* Style for Each Medication Record */
+.medication-record {
+  background-color: var(--light-gray);
+  border: 1px solid var(--light-blue);
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+.medication-record h3 {
+  font-size: 1.1rem;
+  color: var(--neon-blue);
+}
+
+/* Details of Each Medication */
+.medication-detail {
+  background-color: var(--white);
+  border-left: 4px solid var(--neon-blue);
+  padding: 0.5rem 1rem;
+  margin: 0.5rem 0;
+  border-radius: 4px;
+}
+
+.medication-detail p {
+  margin: 0.25rem 0;
+  line-height: 1.4;
+  color: var(--dark-blue);
+}
+
+/* Style for Key Information */
+.medication-detail p:first-child {
+  font-weight: bold;
+  color: var(--neon-blue);
+}

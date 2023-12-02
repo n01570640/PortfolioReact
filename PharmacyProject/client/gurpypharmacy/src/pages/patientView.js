@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import PatientInfoForm from './patientInfoForm'; // Make sure the path is correct
+import PatientInfoForm from './patientInfoForm'; 
+//importing primereact component
 import { TabView, TabPanel } from 'primereact/tabview';
+import { Link } from 'react-router-dom';
 import { Button } from 'primereact/button';
 import '../App.css';
 
@@ -67,7 +69,9 @@ export default function PatientView() {
                 </TabPanel>
                 {patientInfo && (
                     <TabPanel header="Medications">
-                        {/* Medications content */}
+                         <Link 
+                            /**Links the button to the patient medication profile using patientid */
+                            to={`/medicationProfile/${patientInfo.patientId}`} className='button' role="button">View your Medication History</Link>
                     </TabPanel>
                 )}
             </TabView>

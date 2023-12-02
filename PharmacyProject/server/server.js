@@ -17,7 +17,6 @@ const PatientRecord = require('./schemas/patientRecordSchema');
 const Pharmacist = require('./schemas/pharmacistSchema');
 const RefillRequest = require('./schemas/refillRequestSchema');
 const User = require('./schemas/userSchema');
-const insertMockData = require('./loadMockData');
 
 //creating an express application
 const app = express();
@@ -43,10 +42,7 @@ app.use(passport.session());
 mongoose.connect('mongodb://127.0.0.1:27017/pharmacy',{
   useNewUrlParser: true,
   useUnifiedTopology: true  
-  }).then(async () => {
-    console.log('MongoDB Connected');
-    await insertMockData();
-  })
+}).then(() => console.log('MongoDB Connected'))
   .catch(err => console.log(err));
 
 

@@ -1,12 +1,15 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+//importing reactprime components
 import { DataScroller } from 'primereact/datascroller';
+import { Button } from 'primereact/button';
+//importing custom components
 import { getToken } from './tokenUtils';
 
 export default function MedicationProfile() {
     const [medicationRecords, setMedicationRecords] = useState([]);
     const { patientId } = useParams();
-
+    //fetching medication information
     const fetchMedicationDetails = async (medicationId) => {
         try {
             const token = getToken();
@@ -26,6 +29,7 @@ export default function MedicationProfile() {
     };
 
     useEffect(() => {
+        //fetching patient's medication record
         const fetchProfile = async () => {
             try {
                 const token = getToken();
@@ -39,11 +43,11 @@ export default function MedicationProfile() {
 
                 let profileData = await response.json();
 
-                // Fetch detailed medication information
+                // fetch detailed medication information for each medication
                 for (let record of profileData) {
                     for (let detail of record.prescriptionDetails) {
                         const medicationInfo = await fetchMedicationDetails(detail.medication);
-                        detail.medicationInfo = medicationInfo; // Add detailed info to each prescription detail
+                        detail.medicationInfo = medicationInfo; // add detailed info to each prescription detail
                     }
                 }
 
@@ -55,7 +59,7 @@ export default function MedicationProfile() {
 
         fetchProfile();
     }, [patientId]);
-
+    //medication template
     const medicationTemplate = (record) => {
         return (
             <div className="medication-record">
@@ -64,10 +68,10 @@ export default function MedicationProfile() {
                 <div>
                     {record.prescriptionDetails.map((detail) => (
                         <div key={detail._id} className="medication-detail">
-                            <p>Medication Name: {detail.medicationInfo?.name}</p>
-                            <p>Dosage: {detail.dosage}</p>
+                            <p>{detail.medicationInfo?.name}{" "}{detail.dosage}</p>
                             <p>Quantity: {detail.quantity}</p>
                             <p>Refill Count: {detail.refillCount}</p>
+                            <Button className='button' icon="pi pi-replay" label="Refill Rx" disabled={detail.refillCount === 0}></Button>
                         </div>
                     ))}
                 </div>
