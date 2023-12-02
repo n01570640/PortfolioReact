@@ -50,7 +50,7 @@ export default function UserLogin(){
             const parsedToken = JSON.parse(payload);
             
             if(parsedToken.userType === 'Admin') {
-                //TODO: navigate('');
+                navigate('/admin');
             }
             else if (parsedToken.userType === 'Pharmacist') {
                 navigate('/login/pharmacist-loggedin');

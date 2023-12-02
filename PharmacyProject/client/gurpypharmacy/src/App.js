@@ -17,6 +17,7 @@ import Col from 'react-bootstrap/Col';
 import PharmacistView from './pages/pharmacistView';
 import PatientView from './pages/patientView';
 import ProtectedRoute from './pages/protectedRoute'; 
+import AdministrationView from './pages/Administration/administrationView';
 import 'primeicons/primeicons.css';
 function App() {
   return (
@@ -43,6 +44,9 @@ function App() {
                     <ProtectedRoute component={PharmacistView} allowedUserTypes={['Pharmacist']} />
                 } />
                 <Route path="/medicationProfile/:patientId" element={<MedicationProfile />} />
+                <Route path="/admin" element={
+                    <ProtectedRoute component={AdministrationView} allowedUserTypes={['Admin']} />
+                } />
               </Routes>
             </Col>
             <Col></Col>

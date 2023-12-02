@@ -300,7 +300,14 @@ body {
   margin-left: auto; /* Pushes the button to the far right */
 }
 
-/* Style for Each Medication Record */
+
+/* Dialog Styles */
+.dialog-background {
+  background-image: url('./images/addMeds.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}/* Style for Each Medication Record */
 .medication-record {
   background-color: var(--light-gray);
   border: 1px solid var(--light-blue);
