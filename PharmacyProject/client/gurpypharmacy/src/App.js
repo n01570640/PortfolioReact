@@ -6,6 +6,8 @@ import { BrowserRouter as Router, Route, Routes} from 'react-router-dom';
 //importing custom components
 import PatientRegistration from './pages/registrationPage';
 import UserLogin from './pages/loginPage';
+import MedicationProfile from './pages/patientMedicationProfile';
+
 //importing bootstrap components
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
@@ -41,6 +43,7 @@ function App() {
                 <Route path="/login/pharmacist-loggedin" element={
                     <ProtectedRoute component={PharmacistView} allowedUserTypes={['Pharmacist']} />
                 } />
+                <Route path="/medicationProfile/:patientId" element={<MedicationProfile />} />
                 <Route path="/admin" element={
                     <ProtectedRoute component={AdministrationView} allowedUserTypes={['Admin']} />
                 } />

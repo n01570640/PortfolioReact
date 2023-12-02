@@ -16,5 +16,5 @@ const patientRecordSchema = new mongoose.Schema({
   
   patientRecordSchema.index({ patientId: 1, pharmacistId: 1 });
   
-  module.exports = mongoose.model('PatientRecord', patientRecordSchema);
-  
+  const PatientRecord = mongoose.model('PatientRecord', patientRecordSchema);
+  module.exports = PatientRecord;

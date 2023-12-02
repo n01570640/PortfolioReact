@@ -8,6 +8,7 @@ import { FilterMatchMode, FilterOperator } from 'primereact/api';
 import '../App.css';
 //importing date-fns for date-time formatting
 import { format } from 'date-fns';
+//importing custom components
 import { getToken } from "./tokenUtils";
 
 export default function PatientList(){
@@ -60,7 +61,7 @@ export default function PatientList(){
                         <span>{patient.telephoneNumber}</span>
                         <Link 
                             /**Links the button to the patient medication profile using patientid */
-                            to={`/medicationProfile/${patient._id}`} className='button' role="button">View</Link>
+                            to={`/medicationProfile/${patient.patientId}`} className='button' role="button">View</Link>
                         
                     </div>
                 </div>

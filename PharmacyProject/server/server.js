@@ -47,10 +47,7 @@ app.use('/admin', adminRoutes);
 mongoose.connect('mongodb://127.0.0.1:27017/pharmacy',{
   useNewUrlParser: true,
   useUnifiedTopology: true  
-  }).then(async () => {
-    console.log('MongoDB Connected');
-    await insertMockData();
-  })
+}).then(() => console.log('MongoDB Connected'))
   .catch(err => console.log(err));
 
 
@@ -206,6 +203,37 @@ app.get('/api/medications',authenticateToken, async (req, res) => {
     res.status(500).send("Server Error fetching medications data")
   }
 });
+
+//Endpoint to get Patient's medication profile
+app.get('/api/medicationProfile/:patientId', authenticateToken, async (req,res) => {
+  try{
+    const patientId = req.params.patientId; //saving the patient id from params
+    //console.log(patientId);
+    const medicationProfile = await PatientRecord.find({ patientId: patientId});
+    //console.log(medicationProfile);
+    res.json(medicationProfile);
+  } catch (error) {
+    //console.log(error);
+    res.status(500).send("Server Error fetching medication profile")
+  }
+});
+
+//Endpoint to get medication information
+app.get('/api/medication/:medicationId', async (req, res) =>{
+  try{
+    const medicationId = req.params.medicationId; //saving medication id from params
+    console.log(medicationId);
+    const medication = await Medication.findOne({ _id: medicationId });
+    console.log(medication);
+    if(!medication){
+      return res.status(404).send('Medication not found');
+    }
+    res.json(medication);
+  } catch(error){
+    res.status(500).send('Server Error fetching medication data')
+  }
+});
+
 //Set the server to listen on port 3000
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
