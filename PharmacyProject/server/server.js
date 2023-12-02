@@ -43,11 +43,15 @@ app.use(passport.session());
 // Use the admin routes
 app.use('/admin', adminRoutes);
 
+
 //Estabilishing a connection to Mongodb
 mongoose.connect('mongodb://127.0.0.1:27017/pharmacy',{
   useNewUrlParser: true,
   useUnifiedTopology: true  
-}).then(() => console.log('MongoDB Connected'))
+  }).then(async () => {
+    console.log('MongoDB Connected');
+    await insertMockData();
+  })
   .catch(err => console.log(err));
 
 

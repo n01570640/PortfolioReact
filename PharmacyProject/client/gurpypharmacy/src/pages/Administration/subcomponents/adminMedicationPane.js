@@ -3,12 +3,18 @@ import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { Dialog } from 'primereact/dialog';
 import { Button } from 'primereact/button';
+import { InputText } from 'primereact/inputtext';
+import { FilterMatchMode, FilterOperator } from 'primereact/api';
 import MedicalFormContent from './adminMedicationFormPane';
 
 const MedicationPanel = () => {
     const [medications, setMedications] = useState([]);
     const [medicationDialogVisible, setMedicationDialogVisible] = useState(false);
     const [selectedMedication, setSelectedMedication] = useState(null);
+  
+    const [filters, setFilters] = useState({
+        name: { value: null, matchMode: FilterMatchMode.CONTAINS }
+    });
 
     useEffect(() => {
         loadMedications();
@@ -24,11 +30,11 @@ const MedicationPanel = () => {
             });
     
             if (!response.ok) {
+                console.log(response.status);
                 throw new Error(`Error: ${response.status}`);
             }
     
             const meds = await response.json();
-            console.log(meds);
             setMedications(meds);
         } catch (error) {
             console.error("Error fetching medications: ", error);
@@ -39,12 +45,18 @@ const MedicationPanel = () => {
         return (
             <React.Fragment>
                 <Button label="Edit" role="button" className="button" onClick={() => editMedication(rowData)} />
-                {/* Add more actions as needed */}
             </React.Fragment>
         );
     };
 
-    
+    const nameBodyTemplate = (rowData) => {
+        return (
+            <>
+                {rowData.name}
+            </>
+        );
+    };
+
     const editMedication = (medication) => {
         setSelectedMedication(medication);
         setMedicationDialogVisible(true);
@@ -78,21 +90,19 @@ const MedicationPanel = () => {
         }
     };
 
-
-    const priceBodyTemplate = (rowData) => {
-        return rowData.price.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
-
+    const isActiveBodyTemplate = (rowData) =>{
+        return rowData.isActive ? "Active" : "Inactive";
     };
     return (
         <div>
-            <DataTable value={medications} paginator rows={10} showGridlines tableStyle={{ minWidth: '50rem' }}>
-                <Column body={medicationActionBodyTemplate} />
-                <Column field="name" header="Name" />
-                <Column field="price" header="Price" body={priceBodyTemplate} />
-                <Column field="quantityAvailable" header="Quantity Available" />
+            <DataTable value={medications} paginator rows={10} showGridlines filters={filters} filterDisplay="row" 
+                 globalFilterFields={['name', 'dosage', 'description', 'price', 'requiresPrescription']} emptyMessage="No medication found."tableStyle={{ minWidth: '50rem' }}>
+                <Column header=""body={medicationActionBodyTemplate} />
+                <Column field="name" header="Name" body={nameBodyTemplate} sortable filter filterMatchMode={filters}/>
+                <Column field="isActive" header="Is Active" body={isActiveBodyTemplate} sortable />
             </DataTable>
 
-            <Dialog header="Medication Details" visible={medicationDialogVisible} className="dialog-background" onHide={handleDialogHide} style={{ width: '50vw', height:'25vh' }} breakpoints={{ '960px': '75vw', '641px': '100vw,100vh' }}>
+            <Dialog header="Medication Details" visible={medicationDialogVisible} className="dialog-background" onHide={handleDialogHide} style={{ width: '50vw', height:'40vh' }} breakpoints={{ '960px': '75vw,65vw', '641px': '100vw,100vh' }}>
                 <MedicalFormContent medication={selectedMedication} onSubmit={handleFormSubmit} />
             </Dialog>
         </div>

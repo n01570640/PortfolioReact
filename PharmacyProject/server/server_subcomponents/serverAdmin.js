@@ -5,7 +5,7 @@ const Medication = require('../schemas/medicationSchema');
 const authenticateToken = require('./authMiddleware');
 
 
-router.post('/admin/pharmacists', authenticateToken, async (req, res) => {
+router.post('/pharmacists', authenticateToken, async (req, res) => {
   const { pharmacistData, actionType } = req.body; // 'actionType' could be 'add' or 'edit'
 
   try {
@@ -25,9 +25,9 @@ router.post('/admin/pharmacists', authenticateToken, async (req, res) => {
 
   
   // Endpoint to manage medications
-  router.post('/admin/medications', authenticateToken, async (req, res) => {
+  router.post('/medications', authenticateToken, async (req, res) => {
     const { medicationData, actionType } = req.body;
-  
+    console.log(req.body);
     try {
       let medication;
       if (actionType === 'add') {

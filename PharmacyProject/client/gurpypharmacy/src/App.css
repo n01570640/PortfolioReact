@@ -14,7 +14,7 @@ body, html {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   color: var(--dark-blue);
   background-color: var(--light-gray);
-  background-image: url(./images/backgroundImage.jpg);
+  background-image: url(./images/backgroundImage.png);
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -333,11 +333,11 @@ body, html {
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 8px solid #BC5E38;
+  border: .75em ridge #001f3f;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
   background-color: rgba(255, 255, 255, 0.8);
-  overflow: hidden; 
+ 
 }
 
 .dialog-form {
