@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import PatientInfoForm from './patientInfoForm'; 
 //importing primereact component
 import { TabView, TabPanel } from 'primereact/tabview';
@@ -9,7 +9,10 @@ import '../App.css';
 export default function PatientView() {
     const [patientInfo, setPatientInfo] = useState(null);
     const [isFormEditable, setIsFormEditable] = useState(false);
+    const [activeTabIndex, setActiveTabIndex] = useState(0); // Default to the first tab
+    const linkRef = useRef(null);
 
+    
     useEffect(() => {
         const fetchPatientInfo = async () => {
             try {
@@ -38,6 +41,12 @@ export default function PatientView() {
         fetchPatientInfo();
     }, []);
 
+    useEffect(() => {
+        if (activeTabIndex === 1 && patientInfo) {
+            linkRef.current?.click();
+        }
+    }, [activeTabIndex, patientInfo]);
+
     const handleEdit = () => {
         setIsFormEditable(true);
     };
@@ -54,11 +63,11 @@ export default function PatientView() {
             setPatientInfo(patientInfo);
         }
     };
-
+    
     return (
         <div className='product-card'>
-            <TabView>
-                <TabPanel header="Patients">
+            <TabView activeIndex={activeTabIndex} onTabChange={(e) => setActiveTabIndex(e.index)}>
+               <TabPanel header="Patients">
                     <PatientInfoForm 
                         data={patientInfo || {}} 
                         editable={isFormEditable} 
@@ -71,7 +80,7 @@ export default function PatientView() {
                     <TabPanel header="Medications">
                          <Link 
                             /**Links the button to the patient medication profile using patientid */
-                            to={`/medicationProfile/${patientInfo.patientId}`} className='button' role="button">View your Medication History</Link>
+                            to={`/medicationProfile/${patientInfo.patientId}`} className='button' role="button" ref={linkRef}>View your Medication History</Link>
                     </TabPanel>
                 )}
             </TabView>
