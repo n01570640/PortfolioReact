@@ -198,7 +198,6 @@ app.get('/api/medications',authenticateToken, async (req, res) => {
   try{
     const medications = await Medication.find({});
     res.json(medications);
-    // console.log("Medications fetched:", medications)
   } catch(error) {
     res.status(500).send("Server Error fetching medications data")
   }

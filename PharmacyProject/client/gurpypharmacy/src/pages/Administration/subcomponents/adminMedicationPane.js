@@ -28,6 +28,7 @@ const MedicationPanel = () => {
             }
     
             const meds = await response.json();
+            console.log(meds);
             setMedications(meds);
         } catch (error) {
             console.error("Error fetching medications: ", error);
@@ -91,7 +92,7 @@ const MedicationPanel = () => {
                 <Column field="quantityAvailable" header="Quantity Available" />
             </DataTable>
 
-            <Dialog header="Medication Details" visible={medicationDialogVisible} className="dialog-background" onHide={handleDialogHide} style={{ width: '50vw', height:'50vw' }} breakpoints={{ '960px': '75vw', '641px': '100vw' }}>
+            <Dialog header="Medication Details" visible={medicationDialogVisible} className="dialog-background" onHide={handleDialogHide} style={{ width: '50vw', height:'25vh' }} breakpoints={{ '960px': '75vw', '641px': '100vw,100vh' }}>
                 <MedicalFormContent medication={selectedMedication} onSubmit={handleFormSubmit} />
             </Dialog>
         </div>

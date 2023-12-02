@@ -34,6 +34,7 @@ router.post('/admin/pharmacists', authenticateToken, async (req, res) => {
         medication = new Medication(medicationData);
         await medication.save();
       } else if (actionType === 'edit') {
+        console.log(medication);
         medication = await Medication.findByIdAndUpdate(medicationData._id, medicationData, { new: true });
       }
   

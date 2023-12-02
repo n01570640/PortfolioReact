@@ -8,7 +8,9 @@
 }
 
 /* General Styles */
-body {
+body, html {
+  height: 100%;
+  margin: 0;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   color: var(--dark-blue);
   background-color: var(--light-gray);
@@ -16,8 +18,10 @@ body {
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  background-attachment: fixed;/* This makes the background image fixed during scroll */
+  background-attachment: fixed;
+  
 }
+
 .card {
   margin: auto;
   padding: 1rem;
@@ -306,12 +310,94 @@ body {
 
 
 /* Dialog Styles */
+.p-dialog-title {
+  color: #005a4c;
+  font-size: 20px;
+  font-weight: bold;
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 20px;
+  margin-top: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  display: inline-block;
+  text-align: center;
+}
+
 .dialog-background {
   background-image: url('./images/addMeds.png');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-}/* Style for Each Medication Record */
+  min-width: 300px;
+  width: auto;
+  height: auto;
+  max-width: 90vw;
+  max-height: 90vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 8px solid #BC5E38;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  background-color: rgba(255, 255, 255, 0.8);
+  overflow: hidden; 
+}
+
+.dialog-form {
+  display: flex;
+  align-items: center;
+  margin-bottom: .5rem;
+}
+
+.dialog-label {
+  min-width: 120px;
+  margin-right: 1rem;
+  padding: 0.5rem;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.dialog-input{
+  flex-grow: 1;
+  padding: 0.5rem;
+  border-radius: 4px;
+  border: 1px solid var(--neon-blue);
+  background-color: var(--light-gray);
+  color: var(--dark-blue);
+  margin-left: 10px;
+}
+
+/* Ensure the checkbox is clickable and visible */
+.p-checkbox .p-checkbox-box {
+  min-width: 14px; /* Minimum width of the checkbox */
+  min-height: 14px; /* Minimum height of the checkbox */
+  border: 2px solid var(--dark-blue); /* Visible border for unchecked state */
+  background-color: var(--white); /* Background color for unchecked state */
+}
+
+/* Adjust the checkmark icon size and visibility */
+.p-checkbox .p-checkbox-box .p-checkbox-icon {
+  font-size: 14px; /* Size of the checkmark */
+  color: var(--neon-blue); /* Color of the checkmark */
+}
+
+/* Style adjustments for the checkbox label */
+.p-checkbox .p-checkbox-label {
+  padding-left: 4px; /* Space between the checkbox and label text */
+  user-select: none; /* Prevent text selection */
+  cursor: pointer; /* Change cursor to pointer to indicate clickable area */
+}
+
+/* Additional style to ensure visibility on focus */
+.p-checkbox .p-checkbox-box:focus {
+  box-shadow: 0 0 0 2px var(--light-blue); /* Focus shadow color */
+}
+
+
+/* Style for Each Medication Record */
+
 .medication-record {
   background-color: var(--light-gray);
   border: 1px solid var(--light-blue);
