@@ -18,6 +18,8 @@ const Pharmacist = require('./schemas/pharmacistSchema');
 const RefillRequest = require('./schemas/refillRequestSchema');
 const User = require('./schemas/userSchema');
 const insertMockData = require('./loadMockData');
+const authenticateToken = require('./server_subcomponents/authMiddleware');
+const adminRoutes = require('./server_subcomponents/serverAdmin');
 
 //creating an express application
 const app = express();
@@ -38,6 +40,8 @@ app.use(session({
 // Initializing Passport for user authentication and integrating it with Express sessions
 app.use(passport.initialize());
 app.use(passport.session());
+// Use the admin routes
+app.use('/admin', adminRoutes);
 
 //Estabilishing a connection to Mongodb
 mongoose.connect('mongodb://127.0.0.1:27017/pharmacy',{
@@ -138,27 +142,6 @@ app.post('/login', async(req, res, next) => {
     })(req, res, next);
 });
 
-//Authenticates token from request after login
-const authenticateToken = (req, res, next) => {
-  // Retrieve the JWT token from the Authorization header
-  const authHeader = req.headers['authorization'];
-  const token = authHeader && authHeader.split(' ')[1];
-
-  if (!token) {
-      return res.status(401).send('Access token is missing or invalid');
-  }
-
-  try {
-      // Verify the token with your secret key
-      const decoded = jwt.verify(token, '3cV7y6UzqR8w0xG4pJ2lL5oN1aM8fI3j');
-
-      // Add the user ID to the request object
-      req.userId = decoded.userId;
-      next();
-  } catch (error) {
-      res.status(403).send('Invalid token');
-  }
-};
 
 // Endpoint to Upsert Patient Info 
 app.post('/api/upsertPatientInfo', authenticateToken, async (req, res) => {

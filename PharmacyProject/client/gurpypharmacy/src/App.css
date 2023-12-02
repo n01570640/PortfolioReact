@@ -305,3 +305,11 @@ body {
   margin-left: auto; /* Pushes the button to the far right */
 }
 
+
+/* Dialog Styles */
+.dialog-background {
+  background-image: url('./images/addMeds.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
