@@ -22,14 +22,7 @@ body, html {
   
 }
 
-.card {
-  margin: auto;
-  padding: 1rem;
-  background-color: var(--white);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  border-radius: 10px;
-  overflow: hidden;
-}
+
 
 /* Navbar Styles */
 .navbar {
@@ -89,9 +82,11 @@ body, html {
 /* Product Card Styles */
 .product-card {
   margin-top: 25px;
+  padding: 1rem;
   background-color: var(--white);
   box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease 0s;
+  border-radius: 10px;
   padding: 25px;
 }
 
@@ -263,6 +258,7 @@ body, html {
   color: var(--dark-blue);
   font-weight: bold;
 }
+
 
 /*parent container for icon search*/
 .p-orderlist .p-orderlist-filter-container{
