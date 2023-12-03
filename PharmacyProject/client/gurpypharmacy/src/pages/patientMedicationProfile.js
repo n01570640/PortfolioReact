@@ -6,7 +6,7 @@ import { Button } from 'primereact/button';
 import { Toast } from 'primereact/toast';
 import { Fieldset } from 'primereact/fieldset';
 //importing custom components
-import { getToken } from './tokenUtils';
+import { decodeToken, getToken } from './tokenUtils';
 import '../App.css';
 
 export default function MedicationProfile() {
@@ -19,6 +19,7 @@ export default function MedicationProfile() {
     const fetchPatientInfo = async (patientId) => {
         try {
             const token = getToken();
+            
             const response = await fetch(`http://localhost:3001/api/patient/${patientId}`, {
                 headers: { 'Authorization': `Bearer ${token}` }
             });
@@ -169,6 +170,8 @@ export default function MedicationProfile() {
             <span className="font-bold text-lg">Patient Medication Profile</span>
         </div>
     );
+
+    const isPharmacist = decodeToken(getToken()).userType === 'Pharmacist';
     return (
         <div className='product-card'>
             <Fieldset legend={legendTemplate} className='custom-fieldset'>
@@ -184,7 +187,13 @@ export default function MedicationProfile() {
                 )}
             </Fieldset>
             <Toast ref={toast} /> 
-            <Button className='button'>Add a drug</Button>
+            
+            {isPharmacist ? (
+                    <Button className='button'>Add a drug</Button>
+                ) : (
+                    <div></div>
+                )}            
+            
             {medicationRecords.length > 0 ? (
                 <div className='datascroller-container'>
                     <DataScroller value={medicationRecords} itemTemplate={medicationTemplate} rows={5} inline scrollHeight="500px" />

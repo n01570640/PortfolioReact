@@ -229,7 +229,6 @@ app.get('/api/patient/:patientId', async (req, res) => {
 app.get('/api/medicationProfile/:patientId', authenticateToken, async (req,res) => {
   try{
     const patientId = req.params.patientId; //saving the patient id from params
-    //console.log(patientId);
     const medicationProfile = await PatientRecord.find({ patientId: patientId});
     //console.log(medicationProfile);
     res.json(medicationProfile);
