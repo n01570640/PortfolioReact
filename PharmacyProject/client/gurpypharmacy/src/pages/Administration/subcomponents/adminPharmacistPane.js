@@ -3,6 +3,7 @@ import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { Dialog } from 'primereact/dialog';
 import { Button } from 'primereact/button';
+import { FilterMatchMode } from 'primereact/api';
 import AdminPharmacistForm from './adminPharmacistForm';
 
 const PharmacistPanel = () => {
@@ -11,6 +12,9 @@ const PharmacistPanel = () => {
     const [selectedPharmacist, setSelectedPharmacist] = useState(null);
     const [isAddAction, setIsAddAction] = useState(false);
 
+    const [filters, setFilters] = useState({
+        licenseNumber: { value: null, matchMode: FilterMatchMode.CONTAINS },
+    });
     useEffect(() => {
         loadPharmacists();
     }, []);
@@ -89,7 +93,7 @@ const PharmacistPanel = () => {
             <Button label="Add Pharmacist" className="button" onClick={openNewPharmacistDialog} />
             <DataTable value={pharmacists} paginator rows={10} showGridlines>
                 <Column body={pharmacistActionBodyTemplate} />
-                <Column field="licenseNumber" header="License Number" sortable />
+                <Column field="licenseNumber" header="License Number" sortable filter filterMatchMode={filters} />
                 <Column field="isActive" header="Is Active" body={isActiveBodyTemplate} sortable />
                
             </DataTable>
