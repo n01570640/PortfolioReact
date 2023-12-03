@@ -107,6 +107,7 @@ const MedicationPanel = () => {
                  globalFilterFields={['name', 'dosage', 'description', 'price', 'requiresPrescription']} emptyMessage="No medication found."tableStyle={{ minWidth: '50rem' }}>
                 <Column header=""body={medicationActionBodyTemplate} />
                 <Column field="name" header="Name" body={nameBodyTemplate} sortable filter filterMatchMode={filters}/>
+                <Column field="dosage" header="Dosage" />
                 <Column field="isActive" header="Is Active" body={isActiveBodyTemplate} sortable />
             </DataTable>
 
