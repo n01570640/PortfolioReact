@@ -478,3 +478,36 @@ body, html {
   font-weight: bold;
   color: var(--neon-blue);
 }
+/* Datascroller  Styles */
+.datascroller-container {
+  padding-top:25px;
+}
+/* Custom Fieldset Styles */
+.custom-fieldset {
+  background-color: var(--white); /* White background */
+  border-radius: 10px; /* Rounded corners */
+  border: 1px solid var(--neon-blue); /* Neon blue border */
+  padding: 1rem; /* Inner padding */
+  margin-bottom: 1rem; /* Margin at the bottom */
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1); /* Box shadow for depth */
+}
+
+.custom-fieldset .p-fieldset-legend {
+  
+  background-color: var(--light-blue); /* Light blue background for the legend */
+  padding: 5px 10px; /* Padding around the legend text */
+  border-radius: 5px; /* Rounded corners for the legend */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Shadow for legend */
+}
+
+.legend-container {
+  font-size: 1.5rem; /* Larger font size for the legend */
+  color: var(--dark-blue); /* Apply the dark blue color */
+  display: flex;
+  align-items: center;
+  font-weight: bold; /* Bold font weight */
+}
+
+.legend-container >span {
+  margin-right: 1rem; /* Spacing after the icon */
+}

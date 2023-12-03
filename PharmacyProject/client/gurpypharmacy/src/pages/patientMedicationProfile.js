@@ -4,8 +4,10 @@ import { useParams } from 'react-router-dom';
 import { DataScroller } from 'primereact/datascroller';
 import { Button } from 'primereact/button';
 import { Toast } from 'primereact/toast';
+import { Fieldset } from 'primereact/fieldset';
 //importing custom components
 import { getToken } from './tokenUtils';
+import '../App.css';
 
 export default function MedicationProfile() {
     const [medicationRecords, setMedicationRecords] = useState([]);
@@ -27,7 +29,7 @@ export default function MedicationProfile() {
 
             const patientData = await response.json();
             console.log(patientData); //has info 
-            setPatientInfo(patientData);
+            setPatientInfo(patientData.length > 0 ? patientData[0] : null); //storing the first object
             
         } catch (error) {
             console.error("Error fetching patient information: ", error);
@@ -150,20 +152,43 @@ export default function MedicationProfile() {
             </div>
         );
     };
-    //getting patient name
-    let patientFullName = 'Loading...'; // Placeholder text while loading
-    if (patientInfo && patientInfo.length > 0) {
-        patientFullName = `${patientInfo[0].firstName} ${patientInfo[0].lastName}`;
-    }
+    // //getting patient name
+    // const patientDetails = patientInfo.length > 0 ? patientInfo[0] : null;
+    // const formattedDOB = patientDetails 
+    //                  ? new Date(patientDetails.dateOfBirth).toLocaleDateString()
+    //                  : 'No Date Available';
 
+    // if (patientInfo && patientInfo.length > 0) {
+    //     patientFullName = `${patientInfo[0].firstName} ${patientInfo[0].lastName}`;
+    //     dateOfbirth = new Date(patientInfo[0].dateOfbirth).toLocaleDateString()
+    // }
+
+    const legendTemplate = (
+        <div className="legend-container">
+            <span className="pi pi-user"></span>
+            <span className="font-bold text-lg">Patient Medication Profile</span>
+        </div>
+    );
     return (
         <div className='product-card'>
+            <Fieldset legend={legendTemplate} className='custom-fieldset'>
+                {patientInfo ? (
+                    <div className='patient-list'>
+                    <h3>{patientInfo.firstName} {patientInfo.lastName}</h3>
+                    <p>Date of Birth: {new Date(patientInfo.dateOfBirth).toLocaleDateString()}</p>
+                    <p>Group ID: {patientInfo.groupId}</p>
+                    <p>Insurance Name: {patientInfo.insName}</p>
+                </div>
+                ) : (
+                    <p>Loading patient information...</p>
+                )}
+            </Fieldset>
             <Toast ref={toast} /> 
-            <h2>Patient Medication Profile</h2>
-            <h3>{patientFullName}</h3>
-            <h1></h1>
+            <Button className='button'>Add a drug</Button>
             {medicationRecords.length > 0 ? (
-                <DataScroller value={medicationRecords} itemTemplate={medicationTemplate} rows={5} inline scrollHeight="500px" />
+                <div className='datascroller-container'>
+                    <DataScroller value={medicationRecords} itemTemplate={medicationTemplate} rows={5} inline scrollHeight="500px" />
+                </div>
             ) : (
                 <p>No medication records found.</p>
             )}
