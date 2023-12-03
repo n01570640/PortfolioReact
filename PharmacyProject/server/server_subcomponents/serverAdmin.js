@@ -4,7 +4,18 @@ const Pharmacist = require('../schemas/pharmacistSchema');
 const Medication = require('../schemas/medicationSchema');
 const authenticateToken = require('./authMiddleware');
 
+// Endpoint to fetch all pharmacists
+router.get('/pharmacists', authenticateToken, async (req, res) => {
+  try {
+    const pharmacists = await Pharmacist.find({});
+    res.json(pharmacists);
+  } catch (error) {
+    res.status(500).send("Error fetching pharmacists");
+  }
+});
 
+
+// Endpoint to add or edit pharmacists
 router.post('/pharmacists', authenticateToken, async (req, res) => {
   const { pharmacistData, actionType } = req.body; // 'actionType' could be 'add' or 'edit'
 

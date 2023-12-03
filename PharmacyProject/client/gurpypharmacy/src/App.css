@@ -72,6 +72,7 @@ body, html {
   margin: 4px 2px;
   transition-duration: 0.4s;
   cursor: pointer;
+  margin: 2rem auto 0 auto; 
 }
 
 .button:hover {
@@ -337,60 +338,100 @@ body, html {
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
   background-color: rgba(255, 255, 255, 0.8);
- 
+  overflow-y: auto;
 }
 
 .dialog-form {
-  display: flex;
-  align-items: center;
-  margin-bottom: .5rem;
+  margin-bottom: 1rem; /* Consistent margin for spacing */
 }
 
 .dialog-label {
-  min-width: 120px;
-  margin-right: 1rem;
-  padding: 0.5rem;
-  background-color: rgba(255, 255, 255, 0.8);
+  display: inline-block;
+  font-weight: bold; /* Make labels bold for legibility */
+  color: #005a4c; /* Ensure high contrast for text */
+  background-color: var(--white); /* Set a solid background color for labels */
+  padding: 8px;
+  margin-bottom: 0.5rem;
   border-radius: 4px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.dialog-input{
-  flex-grow: 1;
+.dialog-input {
+  width: 100%; /* Ensure input takes the full width */
   padding: 0.5rem;
   border-radius: 4px;
   border: 1px solid var(--neon-blue);
-  background-color: var(--light-gray);
+  background-color: var(--white); /* Change background color to white for consistency */
   color: var(--dark-blue);
-  margin-left: 10px;
+  margin-bottom: 1rem; /* Spacing between input fields */
 }
 
-/* Ensure the checkbox is clickable and visible */
+/* Checkbox Style */
+.checkbox-group {
+  display: flex;
+  align-items: center; /* Align the checkbox with the label vertically */
+  margin-bottom: 1rem;
+}
+
+/* Checkbox Style */
 .p-checkbox .p-checkbox-box {
-  min-width: 14px; /* Minimum width of the checkbox */
-  min-height: 14px; /* Minimum height of the checkbox */
-  border: 2px solid var(--dark-blue); /* Visible border for unchecked state */
-  background-color: var(--white); /* Background color for unchecked state */
+  width: 18px; /* Width of the checkbox */
+  height: 18px; /* Height of the checkbox */
+  border: 2px solid var(--neon-blue); /* Border color for visibility */
+  background-color: var(--white); /* Background color for contrast */
+  margin-right: 0.5rem; /* Add space between checkbox and label */
+  cursor: pointer; /* Indicates the element is clickable */
 }
 
-/* Adjust the checkmark icon size and visibility */
-.p-checkbox .p-checkbox-box .p-checkbox-icon {
-  font-size: 14px; /* Size of the checkmark */
-  color: var(--neon-blue); /* Color of the checkmark */
-}
-
-/* Style adjustments for the checkbox label */
+/* Adjust label styles to ensure they don't overlap the checkbox */
 .p-checkbox .p-checkbox-label {
-  padding-left: 4px; /* Space between the checkbox and label text */
-  user-select: none; /* Prevent text selection */
-  cursor: pointer; /* Change cursor to pointer to indicate clickable area */
+  padding-left: 24px; /* Add padding to prevent text overlay */
+  display: inline-block;
+  margin-bottom: 0; /* Align with checkbox */
+  vertical-align: middle; /* Center vertically with checkbox */
+  cursor: pointer; /* Indicates the label is clickable */
 }
 
-/* Additional style to ensure visibility on focus */
+/* Adjusting the layout for checkbox groups */
+.checkbox-group {
+  display: flex;
+  align-items: center; /* Align the checkbox with the label vertically */
+  margin-bottom: 1rem; /* Consistent spacing between fields */
+}
+
+/* Visible Checkbox even when unchecked */
+.p-checkbox .p-checkbox-box:not(.p-highlight) {
+  background-color: var(--white); /* Ensure the unchecked box has a background */
+  border: 2px solid var(--neon-blue); /* Visible border for unchecked state */
+}
+
+/* Highlighted checkbox (when checked) */
+.p-checkbox .p-checkbox-box.p-highlight {
+  background-color: var(--neon-blue); /* Background color for checked state */
+  border-color: var(--neon-blue); /* Border color for checked state */
+}
+
+/* Checkmark icon style */
+.p-checkbox .p-checkbox-box .p-checkbox-icon {
+  font-size: 1rem; /* Adjust size if needed */
+  color: var(--white); /* Checkmark color */
+}
+
+/* Ensure the checkbox is visually clickable when focused */
 .p-checkbox .p-checkbox-box:focus {
-  box-shadow: 0 0 0 2px var(--light-blue); /* Focus shadow color */
+  box-shadow: 0 0 0 2px var(--light-blue); /* Focus shadow for visibility */
 }
 
+/* Additional styling to increase the clickable area for checkboxes */
+.p-checkbox {
+  padding: 5px;
+  margin-right: 10px; /* Space after the checkbox */
+}
+
+.button-dialog{
+  margin-top: -1em;
+  margin-bottom: 1em;
+  background-color: #001F3F;
+}
 
 /* Style for Each Medication Record */
 
