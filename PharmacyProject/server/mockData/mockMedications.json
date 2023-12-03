@@ -218,6 +218,18 @@
       "dosage": "50mg",
       "requiresPrescription": true,
       "isActive": true
+    },
+    {
+      "_id": {"$oid": "656928a29759baa847559690"},
+      "name": "Ibuprofen",
+      "description": "Used for pain relief, such as in headaches or arthritis",
+      "price": 8.00,
+      "quantityAvailable": 200,
+      "reorderThreshold": 50,
+      "dosage": "200mg",
+      "requiresPrescription": false,
+      "isActive": true
     }
+    
   ]
   

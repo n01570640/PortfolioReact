@@ -7,7 +7,8 @@ const patientRecordSchema = new mongoose.Schema({
     medication: { type: mongoose.Schema.Types.ObjectId, ref: 'Medication' },
     quantity: Number,
     dosage: String,
-    refillCount: Number
+    refillCount: Number,
+    direction: String
   }],
   prescriptionDate: Date,
   lastRefillDate: Date

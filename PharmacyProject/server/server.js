@@ -49,8 +49,10 @@ mongoose.connect('mongodb://127.0.0.1:27017/pharmacy',{
   useNewUrlParser: true,
   useUnifiedTopology: true  
   }).then(async () => {
+  {
     console.log('MongoDB Connected');
-    await insertMockData();
+  await insertMockData();
+};
   })
   .catch(err => console.log(err));
 
@@ -206,7 +208,23 @@ app.get('/api/medications',authenticateToken, async (req, res) => {
     res.status(500).send("Server Error fetching medications data")
   }
 });
-
+//Endpoint to get Patient information
+app.get('/api/patient/:patientId', async (req, res) => {
+  try{
+    console.log(req.params); // Log the parameters
+    const patientId = req.params.patientId; //saving the patient id from params
+    console.log(patientId);
+    const patientInformation = await Patient.find({ patientId: patientId});
+    if (!patientInformation ) {
+      return res.status(404).send('Patient not found');
+    }
+    console.log(patientInformation);
+    res.json(patientInformation);
+  } catch (error) {
+    console.log(error);
+    res.status(500).send("Server Error fetching patient information")
+  }
+});
 //Endpoint to get Patient's medication profile
 app.get('/api/medicationProfile/:patientId', authenticateToken, async (req,res) => {
   try{
@@ -225,9 +243,9 @@ app.get('/api/medicationProfile/:patientId', authenticateToken, async (req,res) 
 app.get('/api/medication/:medicationId', async (req, res) =>{
   try{
     const medicationId = req.params.medicationId; //saving medication id from params
-    console.log(medicationId);
+    //console.log(medicationId);
     const medication = await Medication.findOne({ _id : medicationId });
-    console.log(medication);
+    //console.log(medication);
     if(!medication){
       return res.status(404).send('Medication not found');
     }
@@ -245,39 +263,64 @@ app.post('/api/refillMedication', async (req, res) => {
 
 
   
-  try{
-    const medication = await Medication.findOne({ _id : medicationId });
-    const patientProfile = await PatientRecord.findOne({ patientId : patientId });
-    if (!medication || !patientProfile) {
+  try {
+    const medication = await Medication.findOne({ _id: medicationId });
+    const patientProfile = await PatientRecord.find({ patientId: patientId });
+    console.log('medication: ',medication);
+    console.log('patientprofile: ',patientProfile);
+    if (!medication || patientProfile.length === 0) {
       return res.status(404).send("Medication or Patient not found");
-    }
-
-    //Check if there is enough quantity available
-    if ( medication.quantityAvailable < numericRefillQuantity){
-      return res.status(404).send('Not enough medication in stock for refill')
-    }
-
-    //update medication quantity
- 
-    medication.quantityAvailable -= numericRefillQuantity;
-   
-    await medication.save();
-
-    //update refill count in patient's medication profile
-    const prescriptionDetail = patientProfile.prescriptionDetails.find( detail => detail.medication.equals(medicationId));
-    if(prescriptionDetail) {
-      prescriptionDetail.refillCount -= 1;
-      patientProfile.markModified('prescriptionDetails'); //modified subdocument needs to be marked
-      await patientProfile.save();
-    } 
-    res.status(200).json({
-      updatedMedication: medication,
-      updatedPatientProfile: patientProfile
-  });
-  } catch(error) {
-    console.log("refill updating error",error)
-    res.status(500).send("Error in refilling prescription")
   }
+    console.log(`Medication ID from request: ${medicationId}`);
+
+    let prescriptionDetailFound = false;
+        for (let patientRecord of patientProfile) {
+            let prescriptionDetail = patientRecord.prescriptionDetails.find(detail => 
+                detail.medication.toString() === medicationId
+            );
+
+            if (prescriptionDetail) {
+                if (medication.quantityAvailable < numericRefillQuantity) {
+                    return res.status(404).send('Not enough medication in stock for refill');
+                }
+
+                medication.quantityAvailable -= numericRefillQuantity;
+                prescriptionDetail.refillCount -= 1;
+                patientRecord.markModified('prescriptionDetails');
+                await medication.save();
+                await patientRecord.save();
+
+                prescriptionDetailFound = true;
+                break; // Break the loop as we found and updated the needed detail
+            }
+        }
+        if (!prescriptionDetailFound) {
+          return res.status(404).send('Medication not found in patient\'s prescription');
+      }
+
+    //writing to refillRequest collection
+    const refillRequest = new RefillRequest({
+      patientId: patientId,
+      medicationId: medicationId,
+      requestDate: new Date(),
+      status: 'Filling',
+    });
+
+    refillRequest.save()
+      .then(doc => {
+        console.log("Refill request saved: ", doc);
+      })
+      .catch(error => {
+        console.error('Error saving refill request: ', err);
+      })
+    res.status(200).json({
+        updatedMedication: medication,
+        updatedPatientProfile: patientProfile
+    });
+} catch (error) {
+    console.error("Error in refilling prescription: ", error);
+    res.status(500).send("Error in refilling prescription");
+}
 });
 
 //Set the server to listen on port 3000

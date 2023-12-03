@@ -1,14 +1,38 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 //importing reactprime components
 import { DataScroller } from 'primereact/datascroller';
 import { Button } from 'primereact/button';
+import { Toast } from 'primereact/toast';
 //importing custom components
 import { getToken } from './tokenUtils';
 
 export default function MedicationProfile() {
     const [medicationRecords, setMedicationRecords] = useState([]);
+    const [patientInfo, setPatientInfo] = useState(null); 
     const { patientId } = useParams();
+    console.log(patientId)
+    const toast = useRef(null);//For showing feedback message
+    //fetching patient information
+    const fetchPatientInfo = async (patientId) => {
+        try {
+            const token = getToken();
+            const response = await fetch(`http://localhost:3001/api/patient/${patientId}`, {
+                headers: { 'Authorization': `Bearer ${token}` }
+            });
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+
+            const patientData = await response.json();
+            console.log(patientData); //has info 
+            setPatientInfo(patientData);
+            
+        } catch (error) {
+            console.error("Error fetching patient information: ", error);
+        }
+    };
     //fetching medication information
     const fetchMedicationDetails = async (medicationId) => {
         try {
@@ -29,6 +53,10 @@ export default function MedicationProfile() {
     };
 
     const fetchProfile = async () => {
+        if (!patientId) {
+            console.error("Patient ID is undefined.");
+            return;
+        }
         try {
             const token = getToken();
             const response = await fetch(`http://localhost:3001/api/medicationProfile/${patientId}`, {
@@ -50,16 +78,18 @@ export default function MedicationProfile() {
             }
 
             setMedicationRecords(profileData);
+            await fetchPatientInfo(patientId);
         } catch (error) {
             console.error("Error fetching medication profile: ", error);
         }
     };
 
-    useEffect(() => { fetchProfile();}, [patientId]);
+    useEffect(() => { console.log('Patient Info Updated:', patientInfo); fetchProfile();}, [patientId]);
 
     //handle refill request 
     const handleRefill = async (detail) => {
         try{
+            console.log(detail);
             const token = getToken();
             const response = await fetch('http://localhost:3001/api/refillMedication',{
                 method: 'POST',
@@ -75,7 +105,10 @@ export default function MedicationProfile() {
             });
             
             if (!response.ok) {
-                throw new Error(`HTTP error! Status: ${response.status}`);
+                const errorDetail = await response.text(); // Get response as text
+                console.error("Refill request error: ", errorDetail);
+                toast.current.show({ severity: 'error', summary: 'Refill Error', detail: errorDetail, life: 3000, className: 'error-toast' });
+                return;
             }
 
             const updatedMedication = await response.json();
@@ -89,14 +122,14 @@ export default function MedicationProfile() {
             if (response.ok) {
                 // Refetch the medication profile
                 fetchProfile();
+                
             }
-
+            toast.current.show({severity: 'success', summary: 'Success', detail: 'Refill request placed!', className: 'error-toast', life: 3000 });
         } catch(error){
             console.error("Error refillinf medication: ", error);
+            toast.current.show({ severity: 'error', summary: 'Error', detail: 'An error occurred during refill.', life: 3000 , className: 'error-toast'});
         }
     };
-
-
     //medication template
     const medicationTemplate = (record) => {
         return (
@@ -109,6 +142,7 @@ export default function MedicationProfile() {
                             <p>{detail.medicationInfo?.name}{" "}{detail.dosage}</p>
                             <p>Quantity: {detail.quantity}</p>
                             <p>Refill Count: {detail.refillCount}</p>
+                            <p>Direction: {detail.direction}</p>
                             <Button className='button' icon="pi pi-replay" label="Refill Rx" disabled={detail.refillCount === 0} onClick={() => handleRefill(detail) }></Button>
                         </div>
                     ))}
@@ -116,10 +150,18 @@ export default function MedicationProfile() {
             </div>
         );
     };
+    //getting patient name
+    let patientFullName = 'Loading...'; // Placeholder text while loading
+    if (patientInfo && patientInfo.length > 0) {
+        patientFullName = `${patientInfo[0].firstName} ${patientInfo[0].lastName}`;
+    }
 
     return (
         <div className='product-card'>
+            <Toast ref={toast} /> 
             <h2>Patient Medication Profile</h2>
+            <h3>{patientFullName}</h3>
+            <h1></h1>
             {medicationRecords.length > 0 ? (
                 <DataScroller value={medicationRecords} itemTemplate={medicationTemplate} rows={5} inline scrollHeight="500px" />
             ) : (

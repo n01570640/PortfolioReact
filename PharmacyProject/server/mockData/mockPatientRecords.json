@@ -8,7 +8,8 @@
                 "medication": {"$oid": "656928a29759baa84755967b"},
                 "quantity": 30,
                 "dosage": "500mg",
-                "refillCount": 2
+                "refillCount": 2,
+                "direction": "Take one capsule twice daily"
             }
         ],
         "prescriptionDate": {"$date": "2023-05-10T00:00:00.000Z"},
@@ -23,7 +24,8 @@
                 "medication": {"$oid": "656928a29759baa84755967c"},
                 "quantity": 60,
                 "dosage": "200mg",
-                "refillCount": 1
+                "refillCount": 1,
+                "direction": "Take one tablet in the morning daily"
             }
         ],
         "prescriptionDate": {"$date": "2023-04-15T00:00:00.000Z"},
@@ -38,7 +40,8 @@
                 "medication": {"$oid": "656928a29759baa84755967d"},
                 "quantity": 90,
                 "dosage": "500mg",
-                "refillCount": 3
+                "refillCount": 3,
+                "direction": "Take two tablets twice daily"
             }
         ],
         "prescriptionDate": {"$date": "2023-03-20T00:00:00.000Z"},
@@ -53,7 +56,8 @@
                 "medication": {"$oid": "656928a29759baa84755967e"},
                 "quantity": 30,
                 "dosage": "10mg",
-                "refillCount": 2
+                "refillCount": 2,
+                "direction": "Take one capsule twice daily"
             }
         ],
         "prescriptionDate": {"$date": "2023-07-30T00:00:00.000Z"},
@@ -68,7 +72,9 @@
                 "medication": {"$oid": "656928a29759baa84755967f"},
                 "quantity": 60,
                 "dosage": "20mg",
-                "refillCount": 1
+                "refillCount": 1,
+                "direction": "Take one tablet in the evening  with supper daily"
+                
             }
         ],
         "prescriptionDate": {"$date": "2023-11-22T00:00:00.000Z"},
@@ -83,7 +89,8 @@
                 "medication": {"$oid": "656928a29759baa847559680"},
                 "quantity": 90,
                 "dosage": "50mcg",
-                "refillCount": 3
+                "refillCount": 3,
+                "direction": "Take one tablet once daily"
             }
         ],
         "prescriptionDate": {"$date": "2023-03-14T00:00:00.000Z"},
@@ -98,7 +105,8 @@
                 "medication": {"$oid": "656928a29759baa847559681"},
                 "quantity": 30,
                 "dosage": "5mg",
-                "refillCount": 2
+                "refillCount": 2,
+                "direction": "Take one tablet once daily"
             }
         ],
         "prescriptionDate": {"$date": "2023-02-01T00:00:00.000Z"},
@@ -113,7 +121,8 @@
                 "medication": {"$oid": "656928a29759baa847559682"},
                 "quantity": 60,
                 "dosage": "20mg",
-                "refillCount": 1
+                "refillCount": 1,
+                "direction": "Take one tablet in the evening daily"
             }
         ],
         "prescriptionDate": {"$date": "2023-01-15T00:00:00.000Z"},
@@ -128,7 +137,8 @@
                 "medication": {"$oid": "656928a29759baa847559683"},
                 "quantity": 90,
                 "dosage": "500mg",
-                "refillCount": 3
+                "refillCount": 3,
+                "direction": "Take one tablet once in the morning"
             }
         ],
         "prescriptionDate": {"$date": "2023-05-20T00:00:00.000Z"},
@@ -143,7 +153,8 @@
                 "medication": {"$oid": "656928a29759baa847559684"},
                 "quantity": 30,
                 "dosage": "25mg",
-                "refillCount": 2
+                "refillCount": 2,
+                "direction": "Take one tablet once at bedtime"
             }
         ],
         "prescriptionDate": {"$date": "2023-07-30T00:00:00.000Z"},

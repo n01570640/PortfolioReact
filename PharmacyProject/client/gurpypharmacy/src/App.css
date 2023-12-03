@@ -21,8 +21,13 @@ body, html {
   background-attachment: fixed;
   
 }
+.homeBackground{
+  background-image: url(./images/homePageBackground.png);
+}
 
-
+.otherBackground{
+  background-image: url(./images/backgroundImage.png);
+}
 
 /* Navbar Styles */
 .navbar {
@@ -79,6 +84,11 @@ body, html {
   background-color: var(--light-blue); /* Light blue on hover */
   color: var(--dark-blue); 
 }
+.button.p-button.p-component.p-disabled, 
+.button.p-button.p-component.p-disabled:hover {
+    cursor: pointer !important;
+}
+
 
 /* Product Card Styles */
 .product-card {
