@@ -5,15 +5,19 @@ import { DataScroller } from 'primereact/datascroller';
 import { Button } from 'primereact/button';
 import { Toast } from 'primereact/toast';
 import { Fieldset } from 'primereact/fieldset';
+import { Dialog } from 'primereact/dialog';
 //importing custom components
-import { decodeToken, getToken } from './tokenUtils';
 import '../App.css';
+import { decodeToken, getToken } from './tokenUtils';
+import AddPatientMedicationRecordPanel from './addPatientRecordPanel';
+
 
 export default function MedicationProfile() {
     const [medicationRecords, setMedicationRecords] = useState([]);
     const [patientInfo, setPatientInfo] = useState(null); 
     const { patientId } = useParams();
-    console.log(patientId)
+    const [isAddPatientMedicationRecordVisible, setisAddPatientMedicationRecordVisible] = useState(false);
+
     const toast = useRef(null);//For showing feedback message
     //fetching patient information
     const fetchPatientInfo = async (patientId) => {
@@ -28,8 +32,7 @@ export default function MedicationProfile() {
                 throw new Error(`HTTP error! Status: ${response.status}`);
             }
 
-            const patientData = await response.json();
-            console.log(patientData); //has info 
+            const patientData = await response.json(); 
             setPatientInfo(patientData.length > 0 ? patientData[0] : null); //storing the first object
             
         } catch (error) {
@@ -87,12 +90,12 @@ export default function MedicationProfile() {
         }
     };
 
-    useEffect(() => { console.log('Patient Info Updated:', patientInfo); fetchProfile();}, [patientId]);
+    useEffect(() => { fetchProfile();}, [patientId]);
 
+   
     //handle refill request 
     const handleRefill = async (detail) => {
         try{
-            console.log(detail);
             const token = getToken();
             const response = await fetch('http://localhost:3001/api/refillMedication',{
                 method: 'POST',
@@ -153,17 +156,54 @@ export default function MedicationProfile() {
             </div>
         );
     };
-    // //getting patient name
-    // const patientDetails = patientInfo.length > 0 ? patientInfo[0] : null;
-    // const formattedDOB = patientDetails 
-    //                  ? new Date(patientDetails.dateOfBirth).toLocaleDateString()
-    //                  : 'No Date Available';
+     //handle opening the form
+     const openAddMedicationRecordPanel= () => {
+        setisAddPatientMedicationRecordVisible(true);
+    };
 
-    // if (patientInfo && patientInfo.length > 0) {
-    //     patientFullName = `${patientInfo[0].firstName} ${patientInfo[0].lastName}`;
-    //     dateOfbirth = new Date(patientInfo[0].dateOfbirth).toLocaleDateString()
-    // }
-
+    //handle the add new patient record form submission
+    const handleAddPatientMedicationRecordSubmit = async (formData) => {
+        try {
+            console.log(formData);
+            const pharmacistId = decodeToken(getToken()).userId ;
+            const token = getToken();
+            const response = await fetch(`http://localhost:3001/api/patient/${patientId}/medication-records`, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+              },
+              body: JSON.stringify({
+                patientId: patientId,
+                pharmacistId: pharmacistId, 
+                prescriptionDetails: [
+                  {
+                    medication: formData.medicationId,
+                    quantity: formData.quantity,
+                    dosage: formData.dosage,
+                    refillCount: formData.refills, 
+                    direction: formData.direction,
+                  }
+                ]
+              })
+            });
+        
+            if (!response.ok) {
+              throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+        
+            const result = await response.json();
+            setMedicationRecords([...medicationRecords, result]);
+            toast.current.show({ severity: 'success', summary: 'Success', detail: 'Medication record added!', life: 3000, className: 'success-toast' });
+            setisAddPatientMedicationRecordVisible(false);
+            fetchProfile(); //refetch the patient's medication profile
+          } catch (error) {
+            console.error("Error adding patient medication record: ", error);
+            toast.current.show({ severity: 'error', summary: 'Error', detail: 'Failed to add medication record.', life: 3000, className: 'error-toast' });
+          }
+        setisAddPatientMedicationRecordVisible(false);
+    };
+    
     const legendTemplate = (
         <div className="legend-container">
             <span className="pi pi-user"></span>
@@ -172,6 +212,7 @@ export default function MedicationProfile() {
     );
 
     const isPharmacist = decodeToken(getToken()).userType === 'Pharmacist';
+    
     return (
         <div className='product-card'>
             <Fieldset legend={legendTemplate} className='custom-fieldset'>
@@ -189,11 +230,14 @@ export default function MedicationProfile() {
             <Toast ref={toast} /> 
             
             {isPharmacist ? (
-                    <Button className='button'>Add a drug</Button>
+                    <Button className='button' onClick={openAddMedicationRecordPanel}>Add a drug</Button>
                 ) : (
                     <div></div>
                 )}            
-            
+            <Dialog header="Add Medication to Patient Record" className="dialog-background" visible={isAddPatientMedicationRecordVisible} 
+                modal onHide={() => setisAddPatientMedicationRecordVisible(false)} style={{ width: '50vw', height:'50vh' }} >
+                <AddPatientMedicationRecordPanel patientId={patientId} onSubmit={handleAddPatientMedicationRecordSubmit} />
+            </Dialog>
             {medicationRecords.length > 0 ? (
                 <div className='datascroller-container'>
                     <DataScroller value={medicationRecords} itemTemplate={medicationTemplate} rows={5} inline scrollHeight="500px" />

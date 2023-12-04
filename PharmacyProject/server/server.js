@@ -125,6 +125,7 @@ app.post('/register' , async (req, res) => {
     }
 });
 
+
 //Login endpoint for new Patients
 app.post('/login', async(req, res, next) => {
     //passport.authenticate middleware handles user fetching and validation
@@ -256,7 +257,7 @@ app.get('/api/medications',authenticateToken, async (req, res) => {
   }
 });
 //Endpoint to get Patient information
-app.get('/api/patient/:patientId', async (req, res) => {
+app.get('/api/patient/:patientId', authenticateToken, async (req, res) => {
   try{
     console.log(req.params); // Log the parameters
     const patientId = req.params.patientId; //saving the patient id from params
@@ -285,8 +286,8 @@ app.get('/api/medicationProfile/:patientId', authenticateToken, async (req,res) 
   }
 });
 
-//Endpoint to get medication information
-app.get('/api/medication/:medicationId', async (req, res) =>{
+//Endpoint to get medication information by id
+app.get('/api/medication/:medicationId', authenticateToken, async (req, res) =>{
   try{
     const medicationId = req.params.medicationId; //saving medication id from params
     //console.log(medicationId);
@@ -301,8 +302,23 @@ app.get('/api/medication/:medicationId', async (req, res) =>{
   }
 });
 
+//Endpoint to search a medication by name
+app.get('/api/medications/search', async (req, res) => {
+ try{
+  const searchQuery = req.query.q//get the query parameter
+  const medications = await Medication.find({
+    name: {$regex: searchQuery, $options: 'i' } //Search for med. with name that includes query
+  });
+
+  res.setHeader('Content-Type', 'application/json');
+  res.json(medications);
+ } catch (error){
+  res.status(500).send("Server error fetching medication list");
+ }
+});
+
 //Endpoint when a refill request is made
-app.post('/api/refillMedication', async (req, res) => {
+app.post('/api/refillMedication/patientId', authenticateToken, async (req, res) => {
   const { medicationId, patientId, refillQuantity } = req.body;
   console.log('Request body: ', req.body);
   const numericRefillQuantity = Number(refillQuantity);
@@ -312,8 +328,6 @@ app.post('/api/refillMedication', async (req, res) => {
   try {
     const medication = await Medication.findOne({ _id: medicationId });
     const patientProfile = await PatientRecord.find({ patientId: patientId });
-    console.log('medication: ',medication);
-    console.log('patientprofile: ',patientProfile);
     if (!medication || patientProfile.length === 0) {
       return res.status(404).send("Medication or Patient not found");
   }
@@ -367,6 +381,33 @@ app.post('/api/refillMedication', async (req, res) => {
     console.error("Error in refilling prescription: ", error);
     res.status(500).send("Error in refilling prescription");
 }
+});
+
+
+//Endpoint to add a new patient record
+app.post('/api/patient/:patientId/medication-records', authenticateToken, async (req, res) => {
+  try {
+    console.log("weeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee", req.body);
+    const { patientId } = req.params;
+    const { prescriptionDetails, pharmacistId } = req.body;
+    
+    
+    // Create a new PatientRecord instance
+    const patientRecord = new PatientRecord({
+      patientId,
+      pharmacistId,
+      prescriptionDetails,
+      prescriptionDate: new Date(), // Assuming prescription date is set to current date
+      lastRefillDate: new Date()   // Assuming last refill date is also set to current date
+    });
+
+    // Save the patient record to the database
+    const savedRecord = await patientRecord.save();
+    res.status(201).json(savedRecord);
+  } catch (error) {
+    console.error("Error adding new patient medication record: ", error);
+    res.status(500).send("Internal Server Error");
+  }
 });
 
 //Set the server to listen on port 3000

@@ -538,3 +538,27 @@ body, html {
 .legend-container >span {
   margin-right: 1rem; /* Spacing after the icon */
 }
+
+/* Increase z-index for the autocomplete suggestions container */
+.p-autocomplete-panel {
+  z-index: 10000 !important; /* Ensure this is higher than the dialog's z-index */
+  border: 1px solid var(--neon-blue); /* Match the border to your theme */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Slight shadow for depth */
+  border-radius: 4px; /* Rounded corners */
+  overflow: hidden; /* Ensures the child elements don't overflow */
+  background-color: var(--white);
+
+}
+
+/* Ensure the input field is positioned relatively so that z-index applies correctly */
+.p-autocomplete .p-autocomplete-input {
+  position: relative;
+  z-index: 2; /* Ensures that it's above the dialog's content but below the suggestions */
+}
+
+
+/* Style the suggestion item on hover and focus */
+.p-autocomplete-list-item:hover, .p-autocomplete-list-item.p-highlight {
+  background-color: var(--light-blue); /* Lighter background on hover */
+  color: var(--dark-blue); /* Darker text color for contrast */
+}
