@@ -199,6 +199,53 @@ app.get('/api/patients',authenticateToken, async (req, res) => {
   }
 });
 
+// Endpoint to add a new patient
+app.post('/api/addPatient', authenticateToken, async (req, res) => {
+  try {
+    // Extract patient and user data from the request body
+    console.log("weeeeee" + req.body);
+    const { username, firstName, lastName, dateOfBirth, groupId, insName, telephoneNumber } = req.body;
+   
+    // Check if the user already exists
+    const userExists = await User.findOne({ username: username });
+    if (userExists) {
+      return res.status(400).send('User already exists');
+    }
+
+    // Hash the predefined password 'onetwothree'
+    const hashedPassword = await bcrypt.hash('onetwothree', 10);
+
+    // Create a new user
+    const newUser = new User({
+      username: username,
+      hashedPassword: hashedPassword,
+      userType: 'Patient'
+    });
+
+    // Save the user to the User collection
+    const savedUser = await newUser.save();
+
+    // Create a new patient instance
+    const newPatient = new Patient({
+      patientId: savedUser._id,
+      firstName,
+      lastName,
+      dateOfBirth,
+      groupId,
+      insName,
+      telephoneNumber
+    });
+
+    // Save the new patient to the database
+    await newPatient.save();
+
+    res.status(201).json({ message: "New patient added successfully", patient: newPatient });
+  } catch (error) {
+    console.error("Error adding new patient: ", error);
+    res.status(500).send("Error adding new patient");
+  }
+});
+
 //Endpoint tp get medications data
 app.get('/api/medications',authenticateToken, async (req, res) => {
   try{

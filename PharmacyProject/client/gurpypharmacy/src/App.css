@@ -437,6 +437,33 @@ body, html {
   margin-right: 10px; /* Space after the checkbox */
 }
 
+.form-calendar .p-inputtext {
+  width: calc(100% - 2rem); /* Adjust width to make space for the icon */
+  display: inline-block;
+}
+
+.form-calendar .p-button {
+  display: inline-block;
+  vertical-align: top;
+}
+
+.p-calendar .p-button {
+  border: none;
+  background-color: var(--neon-blue);
+  color: var(--white);
+  border-radius: 4px;
+}
+
+
+.p-datepicker {
+  border: 1px solid var(--neon-blue);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  background-color: var(--white);
+  z-index: 9999 !important;
+}
+
+
 .button-dialog{
   margin-top: -1em;
   margin-bottom: 1em;

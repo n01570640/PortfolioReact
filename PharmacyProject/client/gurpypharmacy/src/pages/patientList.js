@@ -3,6 +3,8 @@ import { useState, useEffect } from 'react';
 //importing primereact component
 import { OrderList } from 'primereact/orderlist';
 import { Link } from 'react-router-dom';
+import { Dialog } from 'primereact/dialog';
+import { Button } from 'primereact/button';
 import { FilterMatchMode, FilterOperator } from 'primereact/api';
 //importing styles
 import '../App.css';
@@ -10,9 +12,42 @@ import '../App.css';
 import { format } from 'date-fns';
 //importing custom components
 import { getToken } from "./tokenUtils";
+import AddPatientForm from './addPatientForm'; // Import the AddPatientForm
+import { Splitter } from 'primereact/splitter';
+
 
 export default function PatientList(){
     const [ patients , setPatients ] = useState([]);
+    const [isAddPatientDialogVisible, setIsAddPatientDialogVisible] = useState(false);
+
+    const showAddPatientDialog = () => setIsAddPatientDialogVisible(true);
+    const hideAddPatientDialog = () => setIsAddPatientDialogVisible(false);
+
+    const handleAddPatientSubmit = async (patientData) => {
+        submitNewPatient(patientData);
+        hideAddPatientDialog();
+    };
+
+    const submitNewPatient = async (patientData) => {
+        try {
+            const response = await fetch(`http://localhost:3001/api/addPatient`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('userToken')}`
+                },
+                body: JSON.stringify(patientData) // Send the patientData directly
+            });
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            const data = await response.json(); // Handle the promise correctly
+            console.log(data);
+            fetchPatientData(); // Fetch the updated list of patients
+        } catch (error) {
+            console.error("Error saving patient: ", error);
+        }
+    }
     //Fetching the patient data from backend point "/api/patients"
     const fetchPatientData = async () => {
         try {
@@ -71,6 +106,13 @@ export default function PatientList(){
 
     return(
         <div className="patient-list flex flex-wrap p-2 align-items-center gap-3">
+            <Button label="Add New Patient" onClick={showAddPatientDialog} className="button" role="button" />
+            <br/>
+        
+            <Dialog header="Add New Patient" visible={isAddPatientDialogVisible} className="dialog-background" onHide={hideAddPatientDialog} style={{ width: '60vw', height:'50vh' }} breakpoints={{ '960px': '75vw,65vw', '641px': '100vw,100vh' }}>
+                <AddPatientForm onSubmit={handleAddPatientSubmit} />
+            </Dialog>
+            <br/>
             <OrderList value={patients} onChange={(e) => setPatients(e.value)} itemTemplate={patientTemplate} header="Patients" filter filterBy="lastName" ></OrderList>
         </div>
     );
