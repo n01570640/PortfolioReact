@@ -97,7 +97,7 @@ export default function MedicationProfile() {
     const handleRefill = async (detail) => {
         try{
             const token = getToken();
-            const response = await fetch('http://localhost:3001/api/refillMedication',{
+            const response = await fetch(`http://localhost:3001/api/refillMedication/patientId`,{
                 method: 'POST',
                 headers: {
                     'Content-Type' : 'application/json',

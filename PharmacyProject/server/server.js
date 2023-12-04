@@ -362,6 +362,7 @@ app.post('/api/refillMedication/patientId', authenticateToken, async (req, res) 
     const refillRequest = new RefillRequest({
       patientId: patientId,
       medicationId: medicationId,
+      fillQuantity: numericRefillQuantity,
       requestDate: new Date(),
       status: 'Filling',
     });
@@ -387,10 +388,8 @@ app.post('/api/refillMedication/patientId', authenticateToken, async (req, res) 
 //Endpoint to add a new patient record
 app.post('/api/patient/:patientId/medication-records', authenticateToken, async (req, res) => {
   try {
-    console.log("weeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee", req.body);
     const { patientId } = req.params;
     const { prescriptionDetails, pharmacistId } = req.body;
-    
     
     // Create a new PatientRecord instance
     const patientRecord = new PatientRecord({
@@ -409,6 +408,76 @@ app.post('/api/patient/:patientId/medication-records', authenticateToken, async 
     res.status(500).send("Internal Server Error");
   }
 });
+
+//Endpoint to get refillRequests 
+app.get('/api/refillRequestOrders', authenticateToken,  async (req, res) => {
+  try {
+   // Fetch refill requests
+    const refillRequests = await RefillRequest.find({})
+     .populate({
+      path: 'medicationId',
+      populate: { path: '_id', select: 'name dosage' }
+  })
+     .exec();
+    // For each refill request, fetch the corresponding patient information
+    const populatedRequests = await Promise.all(refillRequests.map(async (request) => {
+      const patient = await Patient.findOne({ patientId: request.patientId }).exec();
+      return {
+        ...request.toObject(),
+        patientDetails: patient ? {
+          firstName: patient.firstName,
+          lastName: patient.lastName,
+          dateOfBirth: patient.dateOfBirth
+        } : null
+      };
+    } ));
+
+    res.json(populatedRequests);
+  } catch (error) {
+    console.error("Server Error: ", error);
+    res.status(500).send("Server error fetching refill requests");
+  }
+});
+
+//Endpoint to update refill request status to Ready - for pick up
+app.patch('/api/refillRequestOrders/:requestId', authenticateToken, async (req, res) => {
+  try {
+      const { requestId } = req.params;
+      const { newStatus, fillQuantity } = req.body;
+
+      // Find the refill request
+      const refillRequest = await RefillRequest.findById(requestId).populate('medicationId');
+
+      if (!refillRequest) {
+          return res.status(404).send('Refill Request not found');
+      }
+
+      // Check if there's enough medication in stock
+      if (refillRequest.medicationId.quantityAvailable < fillQuantity) {
+          return res.status(400).send('Not enough medication in stock');
+      }
+
+      // Update medication stock
+      const updatedMedication = await Medication.findByIdAndUpdate(
+          refillRequest.medicationId._id,
+          { $inc: { quantityAvailable: -fillQuantity } },
+          { new: true }//performs the update
+      );
+
+      // Update refill request status
+      const updatedRequest = await RefillRequest.findByIdAndUpdate(
+          requestId,
+          { status: newStatus },
+          { new: true }
+      );
+
+      res.status(200).json({ updatedRequest, updatedMedication });
+  } catch (error) {
+      console.error("Server Error: ", error);
+      res.status(500).send("Server error updating refill request");
+  }
+});
+
 
 //Set the server to listen on port 3000
 app.listen(PORT, () => {

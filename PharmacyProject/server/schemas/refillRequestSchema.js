@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const refillRequestSchema = new mongoose.Schema({
     patientId: { type: mongoose.Schema.Types.ObjectId, ref: 'Patient' },
     medicationId: { type: mongoose.Schema.Types.ObjectId, ref: 'Medication' },
+    fillQuantity: Number,
     requestDate: Date,
     status: { type: String, enum: [ 'Filling', 'Ready for Pickup'] },
   });
