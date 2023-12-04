@@ -87,17 +87,17 @@ const AddPatientMedicationRecordPanel = ({ patientId,  onSubmit }) => {
                 {/* Quanitity Field */}
                 <div className="col-6 dialog-form">
                     <label htmlFor="quantity" className="dialog-label">Quantity</label>
-                    <InputText  id="quantity" name="quantity" placeholder="Quantity" onChange={handleInputChange}/>
+                    <InputText  id="quantity" name="quantity" placeholder="Quantity" onChange={handleInputChange} className="dialog-input" />
                 </div>     
                  {/* Refill Field */}
                  <div className="col-6 dialog-form">
                     <label htmlFor="refills" className="dialog-label">Refills</label>
-                    <InputText id="refills" name="refills" placeholder="Refills" onChange={handleInputChange}/>
+                    <InputText id="refills" name="refills" placeholder="Refills" onChange={handleInputChange} className="dialog-input" />
                 </div>    
                  {/* Direction Field */}
-                 <div className="col-12 dialog-form">
-                        <label htmlFor="direction" className="dialog-label">Description</label>
-                        <InputTextarea id="direction" name="direction" required rows={3} className="dialog-input" onChange={handleInputChange}/>
+                <div className="col-12 dialog-form">
+                    <label htmlFor="direction" className="dialog-label">Description</label>
+                    <InputTextarea id="direction" name="direction" required rows={3} className="dialog-input" onChange={handleInputChange}/>
                 </div>  
                 {/* Submit Button */}
                 <div className="col-12">

@@ -444,6 +444,8 @@ app.patch('/api/refillRequestOrders/:requestId', authenticateToken, async (req, 
   try {
       const { requestId } = req.params;
       const { newStatus, fillQuantity } = req.body;
+      const numFillQuantity = Number(fillQuantity)
+      console.log("BAckLog: " ,requestId, newStatus, numFillQuantity );
 
       // Find the refill request
       const refillRequest = await RefillRequest.findById(requestId).populate('medicationId');
@@ -453,14 +455,14 @@ app.patch('/api/refillRequestOrders/:requestId', authenticateToken, async (req, 
       }
 
       // Check if there's enough medication in stock
-      if (refillRequest.medicationId.quantityAvailable < fillQuantity) {
+      if (refillRequest.medicationId.quantityAvailable < numFillQuantity) {
           return res.status(400).send('Not enough medication in stock');
       }
 
       // Update medication stock
       const updatedMedication = await Medication.findByIdAndUpdate(
           refillRequest.medicationId._id,
-          { $inc: { quantityAvailable: -fillQuantity } },
+          { $inc: { quantityAvailable: -numFillQuantity } },
           { new: true }//performs the update
       );
 

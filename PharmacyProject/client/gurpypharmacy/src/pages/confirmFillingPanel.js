@@ -53,28 +53,38 @@ const ConfirmFillingPanel = ({ fillingRequestData, onSubmit }) => {
                 <div className="row">
                     {/* Medication Name */}
                     <div className="col-6 dialog-form">
-                        <label name="name" className="dialog-label">Medication Name</label>
-                        <InputText value={formData.name} disabled />
+                        <label name="name" className="dialog-label">Medication</label>
+                        <InputText value={formData.name} disabled className="dialog-input" />
                     </div>
                     {/* Dosage */}
                     <div className="col-6 dialog-form">
                         <label name="dosage" className="dialog-label">Dosage</label>
-                        <InputText value={formData.dosage} disabled />
+                        <InputText value={formData.dosage} disabled className="dialog-input" />
                     </div>
                     {/* Quantity Field */}
-                    <div className="col-12 dialog-form">
+                    <div className="col-6 dialog-form">
                         <label className="dialog-label">Quantity</label>
-                        <InputText id="quantity" name="quantity" placeholder="Enter Quantity" onChange={handleInputChange} />
+                        <InputText id="quantity" name="quantity" placeholder="Enter Quantity" onChange={handleInputChange}className="dialog-input" />
                     </div>
                     {/* Refills Field */}
-                    <div className="col-12 dialog-form">
-                        <label className="dialog-label">Refills</label>
-                        <InputText id="refills" name="refills" placeholder="Enter Refills" onChange={handleInputChange} />
+                    <div className="col-6 dialog-form">
+                        <label className="dialog-label">Medication ID</label>
+                        <InputText value={formData.medicationId} disabled className="dialog-input" />
                     </div>
                     {/* Direction Field */}
-                    <div className="col-12 dialog-form">
-                        <label className="dialog-label">Direction</label>
-                        <InputTextarea id="direction" name="direction" value={formData.direction} onChange={handleInputChange} rows={3} />
+                    <div className="col-6 dialog-form">
+                        <label className="dialog-label">First Name</label>
+                        <InputText value={formData.patientFName} disabled className="dialog-input"  />
+                    </div>
+                    {/* Direction Field */}
+                    <div className="col-6 dialog-form">
+                        <label className="dialog-label">Last Name</label>
+                        <InputText value={formData.patientLName} disabled className="dialog-input" />
+                    </div>
+                    {/* Direction Field */}
+                    <div className="col-6 dialog-form">
+                        <label className="dialog-label">Date Of Birth</label>
+                        <InputText value={formData.patientDOB} disabled className="dialog-input" />
                     </div>
                     {/* Submit Button */}
                     <div className="col-12">

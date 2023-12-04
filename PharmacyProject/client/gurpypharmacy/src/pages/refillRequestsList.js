@@ -14,7 +14,7 @@ import ConfirmFillingPanel from './confirmFillingPanel';
 export default function RefillRequests() {
     const [refillRequests, setRefillRequests] = useState([]);
     const [activeIndex, setActiveIndex] = useState(0);
-    const [isConfirmFillingVisible, setisConfirmFillingVisible] = useState(false);
+    const [isConfirmFillingVisible, setIsConfirmFillingVisible] = useState(false);
     const [selectedRefillRequest, setSelectedRefillRequest] = useState(null);
 
     useEffect(() => {
@@ -36,7 +36,28 @@ export default function RefillRequests() {
             console.error('Fetch error:', error);
         }
     };
-    console.log(refillRequests)
+    //When filling is complete, updating the status
+    const updateRefillRequestStatus = async (requestId, newStatus, fillQuantity) => {
+        try {
+            const token = getToken();
+            const response = await fetch(`http://localhost:3001/api/refillRequestOrders/${requestId}`, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify({ newStatus , fillQuantity})
+            });
+    
+            if (!response.ok) throw new Error('Network response was not ok');
+    
+            // Refresh the list or handle UI update accordingly
+            fetchRefillRequests();
+        } catch (error) {
+            console.error('Error updating status:', error);
+        }
+    };
+    
     //formatted date
     const renderDate = (rowData) => {
         return new Date(rowData.requestDate).toLocaleDateString();
@@ -47,9 +68,7 @@ export default function RefillRequests() {
             <Button
                 label='FILL'
                 className='button'
-                onClick={() => {
-                    openConfirmFillingPanel();
-                }} 
+                onClick={() => openConfirmFillingPanel(rowData)} 
                 disabled={rowData.status !== 'Filling'}
             />
         );
@@ -57,15 +76,18 @@ export default function RefillRequests() {
 
     //handle opening the form
     const openConfirmFillingPanel = (rowData) => {
-        setSelectedRefillRequest(" Selected: " , rowData); //not selecting but saving all the data
-        setisConfirmFillingVisible(true);
+        setSelectedRefillRequest(rowData);
+        setIsConfirmFillingVisible(true);
     };
 
-    console.log(selectedRefillRequest);
     //handle the add new patient record form submission
     const handleConfirmFillingSubmit = async (formData) => {
-       
-        setisConfirmFillingVisible(false);
+        console.log("formData: ", formData);
+        console.log("formData: fillqauntity ", formData.fillQuantity);
+        const fillQuantity = formData.quantity;
+        console.log("fillQuantity: ", fillQuantity);
+        await updateRefillRequestStatus(selectedRefillRequest._id, 'Ready', fillQuantity);
+        setIsConfirmFillingVisible(false);
     };
 
     const renderRefillRequestsTable = (statusFilter) => {
@@ -84,9 +106,6 @@ export default function RefillRequests() {
         );
     };
 
-    const handleFillMedication = async (formData) => {
-        // Update the refill request status and other details
-    };
     return (
         <div className="'product-card'">
             <div className="flex flex-wrap gap-2 mb-3">
@@ -97,8 +116,8 @@ export default function RefillRequests() {
                     <Badge value={refillRequests.length} className='badgeComplete'></Badge>
                 </Button>
                 <Dialog header="Confirm Filling" className="dialog-background" visible={isConfirmFillingVisible} 
-                modal onHide={() => setisConfirmFillingVisible(false)} style={{ width: '50vw', height:'50vh' }} >
-                    <ConfirmFillingPanel patientId={selectedRefillRequest}  onSubmit={handleConfirmFillingSubmit} />
+                modal onHide={() => setIsConfirmFillingVisible(false)} style={{ width: '50vw', height:'50vh' }} >
+                    <ConfirmFillingPanel fillingRequestData={selectedRefillRequest}  onSubmit={handleConfirmFillingSubmit} />
                 </Dialog>
             </div>
             <TabView activeIndex={activeIndex} onTabChange={(e) => setActiveIndex(e.index)}>
@@ -106,7 +125,7 @@ export default function RefillRequests() {
                     {renderRefillRequestsTable('Filling')}
                 </TabPanel>
                 <TabPanel header="Rx for Pick up">
-                    {renderRefillRequestsTable('Ready for Pickup')}
+                    {renderRefillRequestsTable('Ready')}
                 </TabPanel>
             </TabView>
         </div>

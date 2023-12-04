@@ -409,7 +409,9 @@ body, html {
   color: var(--dark-blue);
   margin-bottom: 1rem; /* Spacing between input fields */
 }
-
+.dialog-input:disabled{
+  background-color: var(--white);
+}
 /* Checkbox Style */
 .checkbox-group {
   display: flex;
