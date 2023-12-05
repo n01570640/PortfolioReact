@@ -106,8 +106,7 @@ const PharmacistPanel = () => {
             <DataTable value={pharmacists} paginator rows={10} showGridlines>
                 <Column body={pharmacistActionBodyTemplate} />
                 <Column field="licenseNumber" header="License Number" sortable filter filterMatchMode={filters} />
-                <Column field="isActive" header="Is Active" body={isActiveBodyTemplate} sortable />
-               
+                <Column field="isActive" header="Is Active" body={isActiveBodyTemplate} sortable /> 
             </DataTable>
 
             <Dialog header="Pharmacist Details" visible={pharmacistDialogVisible}  className="dialog-background" onHide={handleDialogHide} style={{ width: '60vw', height:'50vh' }} breakpoints={{ '960px': '75vw,65vw', '641px': '100vw,100vh' }}>

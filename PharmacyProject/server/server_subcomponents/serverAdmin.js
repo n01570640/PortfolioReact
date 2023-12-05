@@ -49,10 +49,14 @@ router.post('/pharmacists', authenticateToken, async (req, res) => {
       pharmacist = new Pharmacist({ ...pharmacistData, pharmacistId: user._id });
       await pharmacist.save();
     } else if (actionType === 'edit') {
-      pharmacist = await Pharmacist.findByIdAndUpdate(pharmacistData._id, pharmacistData, { new: true });
-    }
+      // Update the Pharmacist record
+      const updatedPharmacist = await Pharmacist.findByIdAndUpdate(pharmacistData._id, pharmacistData, { new: true });
 
-    res.status(200).json(pharmacist);
+      // Update the corresponding User record
+      await User.findByIdAndUpdate(updatedPharmacist.pharmacistId, { username: pharmacistData.username });
+
+      res.status(200).json(updatedPharmacist);
+    }
   } catch (error) {
     res.status(500).json({ message: 'Error processing request', error });
   }
