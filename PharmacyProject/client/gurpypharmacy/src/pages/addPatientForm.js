@@ -1,6 +1,14 @@
 import React, { useState } from 'react';
 import { InputText, Button, Calendar } from 'primereact';
 
+/**
+ * AddPatientForm - A functional component for handling the addition of a new patient.
+ *
+ * Manages state for patient form data. Handles form data changes, date changes, and form submission.
+ * The form captures patient's username (email), name, date of birth, group ID, insurance name, and telephone number.
+ * @param {object} props - The component props.
+ * @param {function} props.onSubmit - Callback function to handle form submission.
+ */
 const AddPatientForm = ({ onSubmit }) => {
     const initialFormData = {
         username: '', // Email field for username

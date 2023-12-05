@@ -6,6 +6,16 @@ import { Button } from 'primereact/button';
 import { FilterMatchMode } from 'primereact/api';
 import MedicalFormContent from './adminMedicationFormPane';
 
+/**
+ * MedicationPanel: React component for managing medications.
+ * 
+ * Features:
+ * - Displays a list of medications in a data table with sorting, filtering, and pagination.
+ * - Offers functionalities to add or edit medication details.
+ * - Manages the fetching of medication data from the server.
+ * - Controls the visibility and data of the dialog for medication details.
+ */
+
 const MedicationPanel = () => {
     const [medications, setMedications] = useState([]);
     const [medicationDialogVisible, setMedicationDialogVisible] = useState(false);

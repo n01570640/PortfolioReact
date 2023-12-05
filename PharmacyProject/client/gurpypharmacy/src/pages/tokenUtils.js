@@ -1,3 +1,9 @@
+/**
+ * decodeToken: Decodes a JWT token to extract its payload.
+ * 
+ * @param {string} token - The JWT token to be decoded.
+ * @returns The decoded payload of the token or null if decoding fails.
+ */
 export const decodeToken = (token) => {
     try {
         const base64Url = token.split('.')[1];
@@ -10,6 +16,11 @@ export const decodeToken = (token) => {
     }
 };
 
+/**
+ * getToken: Retrieves the user token from localStorage.
+ * 
+ * @returns The user token stored in localStorage.
+ */
 export function getToken() {
     return localStorage.getItem('userToken');
 }

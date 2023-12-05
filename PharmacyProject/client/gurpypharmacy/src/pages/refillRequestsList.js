@@ -13,6 +13,12 @@ import { InputText } from 'primereact/inputtext';
 import { getToken } from './tokenUtils';
 import ConfirmFillingPanel from './confirmFillingPanel';
 
+/**
+ * RefillRequests - A functional component for displaying and managing refill requests.
+ *
+ * Manages state for refill requests, dialog visibility, and selected refill request.
+ * Implements fetching of refill requests and updating their status.
+ */
 export default function RefillRequests() {
     const [refillRequests, setRefillRequests] = useState([]);
     const [activeIndex, setActiveIndex] = useState(0);

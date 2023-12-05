@@ -5,7 +5,6 @@ import { OrderList } from 'primereact/orderlist';
 import { Link } from 'react-router-dom';
 import { Dialog } from 'primereact/dialog';
 import { Button } from 'primereact/button';
-import { FilterMatchMode, FilterOperator } from 'primereact/api';
 //importing styles
 import '../App.css';
 //importing date-fns for date-time formatting
@@ -13,8 +12,14 @@ import { format } from 'date-fns';
 //importing custom components
 import { getToken } from "./tokenUtils";
 import AddPatientForm from './addPatientForm'; // Import the AddPatientForm
-import { Splitter } from 'primereact/splitter';
 
+
+/**
+ * PatientList - A functional component for displaying and managing a list of patients.
+ *
+ * Utilizes state to manage the list of patients, and the visibility of the Add Patient dialog.
+ * Offers functionalities to add a new patient, and fetch patient data.
+ */
 
 export default function PatientList(){
     const [ patients , setPatients ] = useState([]);

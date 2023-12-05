@@ -1,6 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { InputText, Button, Checkbox } from 'primereact';
 
+/**
+ * AdminPharmacistForm: Form component for adding or editing pharmacist details.
+ * 
+ * Features:
+ * - Provides input fields for pharmacist ID, license number, and active status.
+ * - Handles data changes and submits the form data to the parent component.
+ * - Uses useEffect to populate the form with existing pharmacist data for editing.
+ */
+
 const AdminPharmacistForm = ({ pharmacist, isAddAction, onSubmit }) => {
     const initialFormData = {
         pharmacistId: '',

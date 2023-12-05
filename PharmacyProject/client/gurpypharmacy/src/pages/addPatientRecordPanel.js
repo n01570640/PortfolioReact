@@ -1,6 +1,15 @@
 import { useState, useEffect } from 'react';
 import { AutoComplete, Button, InputText, InputTextarea } from 'primereact';
 
+/**
+ * AddPatientMedicationRecordPanel - A functional component for adding medication records to a patient's profile.
+ *
+ * Manages state for the form data, filtered medications list, and selected medication.
+ * Provides functionality for searching medications, selecting a medication, handling form input changes, and submitting the form.
+ * @param {object} props - Component props.
+ * @param {string} props.patientId - The patient's ID to which the medication record will be added.
+ * @param {function} props.onSubmit - Callback function to handle form submission with the medication record data.
+ */
 const AddPatientMedicationRecordPanel = ({ patientId,  onSubmit }) => {
     const initialFormData = {
         name: '',

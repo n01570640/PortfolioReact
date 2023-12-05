@@ -1,6 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { Button, InputText, InputTextarea } from 'primereact';
 
+
+/**
+ * ConfirmFillingPanel - A functional component to display and manage the filling confirmation form for a medication refill request.
+ *
+ * Manages the state of the form data and updates it based on the provided medication refill request data.
+ * Handles form submission with the updated medication refill information.
+ * @param {object} props - The component props.
+ * @param {object} props.fillingRequestData - The data of the refill request to be filled.
+ * @param {function} props.onSubmit - Callback function to handle form submission.
+ */
 const ConfirmFillingPanel = ({ fillingRequestData, onSubmit }) => {
     const initialFormData = {
         name: '',

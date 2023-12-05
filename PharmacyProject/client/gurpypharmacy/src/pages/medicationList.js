@@ -12,6 +12,13 @@ import { getToken } from './tokenUtils';
 //importing styles
 import '../App.css';
 
+/**
+ * MedicationList - A functional component for displaying and managing a list of medications.
+ *
+ * Utilizes state to manage the list of medications and apply filters for searching.
+ * Implements functionalities to fetch medication data and handle global filter changes.
+ */
+
 export default function MedicationList(){
     const [ medications , setMedications ] = useState([]);
     //setting filters
