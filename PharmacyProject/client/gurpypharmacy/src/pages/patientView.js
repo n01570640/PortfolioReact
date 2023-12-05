@@ -7,6 +7,13 @@ import { Link } from 'react-router-dom';
 import { Button } from 'primereact/button';
 import '../App.css';
 
+/**
+ * PatientView - A functional component that displays patient-related information and actions.
+ *
+ * Manages state for patient information, form editability, and active tab index.
+ * Handles data fetching for patient information and updates state accordingly.
+ * Offers functionalities to edit patient information and view medication history and refill requests.
+ */
 export default function PatientView() {
     const [patientInfo, setPatientInfo] = useState(null);
     const [isFormEditable, setIsFormEditable] = useState(false);

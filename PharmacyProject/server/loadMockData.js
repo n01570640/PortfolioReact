@@ -9,6 +9,16 @@ const Pharmacist = require('./schemas/pharmacistSchema');
 const PatientRecord = require('./schemas/patientRecordSchema');
 const User = require('./schemas/userSchema');
 
+/**
+ * Inserts mock data into the specified Mongoose model from a given file.
+ * This function reads the file, converts specific fields to their appropriate data types
+ * (e.g., ObjectId, Date), and then inserts the data into the database if the collection is empty.
+ * 
+ * @param {Mongoose.Model} Model - The Mongoose model into which data is to be inserted.
+ * @param {string} filePath - The path to the JSON file containing mock data.
+ * @param {string} logMessage - Message to log upon successful data insertion.
+ */
+
 async function insertData(Model, filePath, logMessage) {
     const count = await Model.countDocuments();
     if (count === 0) {
@@ -41,6 +51,12 @@ async function insertData(Model, filePath, logMessage) {
         console.log(logMessage);
     }
 }
+
+/**
+ * Orchestrates the insertion of mock data into various collections in the database.
+ * It calls the `insertData` function for each type of mock data (users, patients, pharmacists, etc.),
+ * passing the respective model and file path. If an error occurs during insertion, it logs the error.
+ */
 
 async function insertMockData() {
     try {

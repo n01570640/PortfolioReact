@@ -9,6 +9,16 @@ import PatientList from './patientList';
 import MedicationList from './medicationList';
 import RefillRequests from './refillRequestsList';
 
+/**
+ * PharmacistView - A functional component rendering the pharmacist's view.
+ * 
+ * This component utilizes the TabView component from PrimeReact to display different panels:
+ * - Patients: Renders a list of patients using the PatientList custom component.
+ * - Medications: Renders a list of medications using the MedicationList custom component.
+ * - Refill Requests: Renders a list of refill requests using the RefillRequests custom component.
+ *
+ * Each tab is structured to enhance the pharmacist's user experience by categorizing essential data.
+ */
 
 export default function PharmacistView(){
     

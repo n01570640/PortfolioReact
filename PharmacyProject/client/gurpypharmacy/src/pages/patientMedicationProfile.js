@@ -11,7 +11,12 @@ import '../App.css';
 import { decodeToken, getToken } from './tokenUtils';
 import AddPatientMedicationRecordPanel from './addPatientRecordPanel';
 
-
+/**
+ * MedicationProfile - A functional component that displays the medication profile for a specific patient.
+ *
+ * This component manages state for medication records, patient information, and the visibility of the medication record addition panel.
+ * It also handles fetching of medication and patient data, and the addition of new medication records.
+ */
 export default function MedicationProfile() {
     const [medicationRecords, setMedicationRecords] = useState([]);
     const [patientInfo, setPatientInfo] = useState(null); 

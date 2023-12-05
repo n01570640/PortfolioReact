@@ -2,6 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { DataView, DataViewLayoutOptions } from 'primereact/dataview';
 import { Divider } from 'primereact/divider';
 
+/**
+ * NotificationPanel - Functional component to display refill requests for a given patient.
+ *
+ * @param {string} patientId - The ID of the patient for whom refill requests are to be displayed.
+ * Manages the state of refill requests, layout of the displayed data, and performs data fetching based on the patient ID.
+ */
 const NotificationPanel = ({ patientId }) => {
     const [refillRequests, setRefillRequests] = useState([]);
     const [layout, setLayout] = useState('list');

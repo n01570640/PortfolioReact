@@ -4,6 +4,17 @@ import { InputText } from 'primereact/inputtext';
 import { Calendar } from 'primereact/calendar';
 import { decodeToken} from './tokenUtils'; 
 
+/**
+ * PatientInfoForm - A functional component for displaying and managing patient information in a form.
+ *
+ * Manages state for patient information, handles form submission, and allows for data editing.
+ * Fetches and updates patient data based on the user's token and form input changes.
+ * @param {object} props - The component props.
+ * @param {object} props.data - Initial data to populate the form.
+ * @param {boolean} props.editable - Flag to enable or disable form editability.
+ * @param {function} props.onSubmit - Callback function to handle form submission.
+ * @param {function} props.onCancel - Callback function to handle form cancellation.
+ */
 const PatientInfoForm = ({ data, editable, onSubmit, onCancel, onEdit }) => {
     const defaultPatientInfo = {
         groupId: '',

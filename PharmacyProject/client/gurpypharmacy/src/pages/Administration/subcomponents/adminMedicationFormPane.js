@@ -1,6 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { InputText, Button, Checkbox, InputTextarea } from 'primereact';
 
+/**
+ * MedicalFormContent: Form component for adding or editing medication details.
+ * 
+ * Features:
+ * - Provides input fields for medication name, price, description, dosage, reorder threshold, prescription requirement, and active status.
+ * - Manages form data changes and submits data to the parent component.
+ * - Uses useEffect to pre-fill form data for editing existing medications.
+ */
+
 const MedicalFormContent = ({ medication, isAddAction, onSubmit }) => {
     const initialFormData = {
         name: '',

@@ -6,7 +6,12 @@ import { useNavigate } from 'react-router-dom';
 
 
 
-
+/**
+ * UserLogin - A functional component for handling user login.
+ *
+ * Manages state for user form data, navigation, and toast notifications.
+ * Validates form data and handles the submission process including user authentication and routing based on user type.
+ */
 export default function UserLogin(){
     //initial state
     const [userFormData, setUserFormData] = useState({ username: "", password: "" });

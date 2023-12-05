@@ -6,6 +6,16 @@ import { Button } from 'primereact/button';
 import { FilterMatchMode } from 'primereact/api';
 import AdminPharmacistForm from './adminPharmacistForm';
 
+/**
+ * PharmacistPanel: React component to manage and display a list of pharmacists.
+ * 
+ * Features:
+ * - Displays pharmacists in a data table with pagination and filters.
+ * - Provides UI to add or edit pharmacist details.
+ * - Handles fetching of pharmacist data from the server.
+ * - Manages the visibility and data of the dialog for adding or editing pharmacists.
+ */
+
 const PharmacistPanel = () => {
     const [pharmacists, setPharmacists] = useState([]);
     const [pharmacistDialogVisible, setPharmacistDialogVisible] = useState(false);
