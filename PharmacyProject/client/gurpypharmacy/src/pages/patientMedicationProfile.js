@@ -22,6 +22,7 @@ export default function MedicationProfile() {
     const [patientInfo, setPatientInfo] = useState(null); 
     const { patientId } = useParams();
     const [isAddPatientMedicationRecordVisible, setisAddPatientMedicationRecordVisible] = useState(false);
+    const [disabledRefillButtons, setDisabledRefillButtons] = useState({});
     const navigate = useNavigate();
 
     const toast = useRef(null);//For showing feedback message
@@ -92,13 +93,42 @@ export default function MedicationProfile() {
                     detail.medicationInfo = medicationInfo; // add detailed info to each prescription detail
                 }
             }
-
             setMedicationRecords(profileData);
             await fetchPatientInfo(patientId);
+
+            const buttonStatuses = {};
+            for (let record of profileData) {
+              for (let detail of record.prescriptionDetails) {
+                // Check for existing refill requests and updating button status
+                buttonStatuses[detail.medication] = await checkForExistingRefillRequests(detail.medication);
+              }
+            }
+            setDisabledRefillButtons(buttonStatuses);
+            
         } catch (error) {
             console.error("Error fetching medication profile: ", error);
         }
     };
+    //Check for existing refills
+    const checkForExistingRefillRequests = async (medicationId) => {
+        try {
+          const token = getToken();
+          const response = await fetch(`http://localhost:3001/api/refillRequestExists/${patientId}/${medicationId}`, {
+            headers: { 'Authorization': `Bearer ${token}` }
+          });
+      
+          if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+          }
+      
+          const { exists } = await response.json();
+          return exists;
+        } catch (error) {
+          console.error("Error checking for existing refill requests: ", error);
+          return false;
+        }
+      };
+      
 
     useEffect(() => { fetchProfile();}, [patientId]);
 
@@ -159,7 +189,7 @@ export default function MedicationProfile() {
                             <p>Quantity: {detail.quantity}</p>
                             <p>Refill Count: {detail.refillCount}</p>
                             <p>Direction: {detail.direction}</p>
-                            <Button className='button' icon="pi pi-replay" label="Refill Rx" disabled={detail.refillCount === 0} onClick={() => handleRefill(detail) }></Button>
+                            <Button className='button' icon="pi pi-replay" label="Refill Rx" disabled={detail.refillCount === 0 || disabledRefillButtons[detail.medication]} onClick={() => handleRefill(detail) }></Button>
                         </div>
                     ))}
                 </div>

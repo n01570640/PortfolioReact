@@ -131,7 +131,6 @@ app.post('/login', async(req, res, next) => {
     //passport.authenticate middleware handles user fetching and validation
     passport.authenticate('local', { session: false }, async (err, user, info) => {
         const { username, password } = req.body;
-        console.log(user);
         if (err) {
             return next(err);
         }
@@ -204,7 +203,6 @@ app.get('/api/patients',authenticateToken, async (req, res) => {
 app.post('/api/addPatient', authenticateToken, async (req, res) => {
   try {
     // Extract patient and user data from the request body
-    console.log("weeeeee" + req.body);
     const { username, firstName, lastName, dateOfBirth, groupId, insName, telephoneNumber } = req.body;
    
     // Check if the user already exists
@@ -259,7 +257,6 @@ app.get('/api/medications',authenticateToken, async (req, res) => {
 //Endpoint to get Patient information
 app.get('/api/patient/:patientId', authenticateToken, async (req, res) => {
   try{
-    console.log(req.params); // Log the parameters
     const patientId = req.params.patientId; //saving the patient id from params
     console.log(patientId);
     const patientInformation = await Patient.find({ patientId: patientId});
@@ -320,10 +317,7 @@ app.get('/api/medications/search', async (req, res) => {
 //Endpoint when a refill request is made
 app.post('/api/refillMedication/patientId', authenticateToken, async (req, res) => {
   const { medicationId, patientId, refillQuantity } = req.body;
-  console.log('Request body: ', req.body);
   const numericRefillQuantity = Number(refillQuantity);
-
-
   
   try {
     const medication = await Medication.findOne({ _id: medicationId });
@@ -514,6 +508,25 @@ app.get('/api/refillRequestOrders/:patientId', authenticateToken, async (req, re
     res.status(500).send("Server error fetching refill requests for patient");
   }
 });
+
+// Endpoint to check for existing refill request for a medication and patient
+app.get('/api/refillRequestExists/:patientId/:medicationId', authenticateToken, async (req, res) => {
+  try {
+    const { patientId, medicationId } = req.params;
+
+    const refillRequestExists = await RefillRequest.findOne({
+      patientId: patientId,
+      medicationId: medicationId,
+      status: { $in: ['Filling', 'Ready'] } // Check for both "Filling" and "Ready"
+    }).exec();
+
+    res.json({ exists: !!refillRequestExists });
+  } catch (error) {
+    console.error("Server Error: ", error);
+    res.status(500).send("Server error checking refill request existence");
+  }
+});
+
 
 //Set the server to listen on port 3000
 app.listen(PORT, () => {
