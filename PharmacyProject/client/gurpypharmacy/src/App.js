@@ -2,13 +2,14 @@
 //importing styles
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { BrowserRouter as Router, Route, Routes, useLocation} from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes} from 'react-router-dom';
 
 //importing custom components
 import PatientRegistration from './pages/registrationPage';
 import UserLogin from './pages/loginPage';
 import MedicationProfile from './pages/patientMedicationProfile';
-
+import backgroundImage from './images/backgroundImage.png';
+import homePageBackground from './images/homePageBackground.png';
 //importing bootstrap components
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
@@ -24,9 +25,19 @@ import 'primeicons/primeicons.css';
 
 
 function App() {
-  
+
+  const baseUrl = `${window.location.protocol}//${window.location.host}/`;
+  const currentUrl = window.location.href;
+  const isLocationBaseUrl = currentUrl === baseUrl;
+  const bodyElement = document.body;
+
+  if (isLocationBaseUrl) {
+      bodyElement.style.backgroundImage = `url(${homePageBackground})`;
+  } else {
+      bodyElement.style.backgroundImage = `url(${backgroundImage})`;
+  }
   return (
-    <div >
+    <div>
       <Router>
         <Navbar className="navbar">
         <Navbar.Brand href="/">Gurpy's Pharmacy</Navbar.Brand>

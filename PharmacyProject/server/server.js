@@ -480,6 +480,22 @@ app.patch('/api/refillRequestOrders/:requestId', authenticateToken, async (req, 
   }
 });
 
+// Endpoint to get refill requests for a specific patient
+app.get('/api/refillRequestOrders/:patientId', authenticateToken, async (req, res) => {
+  try {
+    const { patientId } = req.params;
+    const objectId = new mongoose.Types.ObjectId(patientId);
+
+    const refillRequests = await RefillRequest.find({ patientId: objectId })
+      .populate('medicationId', 'name dosage')
+      .populate('patientId', 'firstName lastName dateOfBirth');
+
+    res.json(refillRequests);
+  } catch (error) {
+    console.error("Server Error: ", error);
+    res.status(500).send("Server error fetching refill requests for patient");
+  }
+});
 
 //Set the server to listen on port 3000
 app.listen(PORT, () => {

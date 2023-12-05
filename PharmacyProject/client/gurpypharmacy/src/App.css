@@ -22,13 +22,6 @@ body, html {
   background-attachment: fixed;
   
 }
-.homeBackground{
-  background-image: url(./images/homePageBackground.png);
-}
-
-.otherBackground{
-  background-image: url(./images/backgroundImage.png);
-}
 
 /* Navbar Styles */
 .navbar {

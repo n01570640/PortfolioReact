@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import PatientInfoForm from './patientInfoForm'; 
+import NotificationPanel from './notificationPane';
 //importing primereact component
 import { TabView, TabPanel } from 'primereact/tabview';
 import { Link } from 'react-router-dom';
@@ -81,6 +82,11 @@ export default function PatientView() {
                          <Link 
                             /**Links the button to the patient medication profile using patientid */
                             to={`/medicationProfile/${patientInfo.patientId}`} className='button' role="button" ref={linkRef}>View your Medication History</Link>
+                    </TabPanel>
+                )}
+                {patientInfo && (
+                    <TabPanel header="Refill Request Status">
+                        <NotificationPanel patientId={patientInfo.patientId} />
                     </TabPanel>
                 )}
             </TabView>
