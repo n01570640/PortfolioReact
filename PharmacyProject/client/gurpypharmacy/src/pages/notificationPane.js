@@ -68,7 +68,7 @@ const NotificationPanel = ({ patientId }) => {
             <DataView value={refillRequests.filter(request => request.status === 'Filling')} layout={layout} itemTemplate={itemTemplate} paginator rows={5} header="" />
             
             <h2>Ready for Pickup Requests</h2>
-            <DataView value={refillRequests.filter(request => request.status === 'Ready for Pickup')} layout={layout} itemTemplate={itemTemplate} paginator rows={5} header="" />
+            <DataView value={refillRequests.filter(request => request.status === 'Ready')} layout={layout} itemTemplate={itemTemplate} paginator rows={5} header="" />
         </div>
     );
 };
