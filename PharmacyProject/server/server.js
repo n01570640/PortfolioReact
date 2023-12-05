@@ -480,6 +480,17 @@ app.patch('/api/refillRequestOrders/:requestId', authenticateToken, async (req, 
   }
 });
 
+//Endpoint to complete a refill request
+app.delete('/api/completeRefillRequestOrder/:requestId', authenticateToken, async (req, res) => {
+  try{
+    const { requestId } = req.params;
+    await RefillRequest.findByIdAndDelete(requestId);
+    res.status(200).send({message: "Refill request deleted successfully"});
+  } catch (error) {
+    console.errror("Error deleting refill request: ", error);
+    res.status(500).send("Internal Server Error");
+  }
+});
 
 //Set the server to listen on port 3000
 app.listen(PORT, () => {

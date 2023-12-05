@@ -57,6 +57,29 @@ export default function RefillRequests() {
             console.error('Error updating status:', error);
         }
     };
+
+    //Complete refill request by deleting it from the collection
+    const completeRefillRequest = async (requestId) => {
+        try{
+            const token = getToken();
+            const response = await fetch(`http://localhost:3001/api/completeRefillRequestOrder/${requestId}`,{
+                method: "DELETE",
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+
+            if (!response.ok) {
+                throw new Error("Network response was not ok");
+            }
+
+            //Refresh the page
+            fetchRefillRequests();
+            
+        } catch (error){
+            console.error("Error in completing a refill: ", error);
+        }
+    }
     
     //formatted date
     const renderDate = (rowData) => {
@@ -64,16 +87,26 @@ export default function RefillRequests() {
     };
 
     const fillRefillButtonTemplate = (rowData) => {
-        return(
+        return rowData.status === 'Filling' ? (
             <Button
-                label='FILL'
+                label='Fill'
                 className='button'
                 onClick={() => openConfirmFillingPanel(rowData)} 
                 disabled={rowData.status !== 'Filling'}
             />
-        );
+        ) : null ;
     };
-
+    const completeRefillButtonTemplate = (rowData) => {
+        console.log("ROW DATA",rowData._id);
+        return rowData.status === 'Ready' ? (
+            <Button
+                label='Complete Pickup'
+                className='button'
+                onClick={() => completeRefillRequest(rowData._id)} 
+                disabled={rowData.status !== 'Ready'}
+            />
+        ) : null ;
+    };
     //handle opening the form
     const openConfirmFillingPanel = (rowData) => {
         setSelectedRefillRequest(rowData);
@@ -82,10 +115,7 @@ export default function RefillRequests() {
 
     //handle the add new patient record form submission
     const handleConfirmFillingSubmit = async (formData) => {
-        console.log("formData: ", formData);
-        console.log("formData: fillqauntity ", formData.fillQuantity);
         const fillQuantity = formData.quantity;
-        console.log("fillQuantity: ", fillQuantity);
         await updateRefillRequestStatus(selectedRefillRequest._id, 'Ready', fillQuantity);
         setIsConfirmFillingVisible(false);
     };
@@ -102,6 +132,7 @@ export default function RefillRequests() {
                 <Column field="fillQuantity" header="Fill Quantity" />
                 <Column field="requestDate" header="Request Date" body={renderDate} />
                 <Column body={fillRefillButtonTemplate} />
+                <Column body={completeRefillButtonTemplate } />
             </DataTable>
         );
     };
