@@ -480,6 +480,17 @@ app.patch('/api/refillRequestOrders/:requestId', authenticateToken, async (req, 
   }
 });
 
+//Endpoint to complete a refill request
+app.delete('/api/completeRefillRequestOrder/:requestId', authenticateToken, async (req, res) => {
+  try{
+    const { requestId } = req.params;
+    await RefillRequest.findByIdAndDelete(requestId);
+    res.status(200).send({message: "Refill request deleted successfully"});
+  } catch (error) {
+    console.errror("Error deleting refill request: ", error);
+    res.status(500).send("Internal Server Error");
+  }
+});
 // Endpoint to get refill requests for a specific patient
 app.get('/api/refillRequestOrders/:patientId', authenticateToken, async (req, res) => {
   try {
