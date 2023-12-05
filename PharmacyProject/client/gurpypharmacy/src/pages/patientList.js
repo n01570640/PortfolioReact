@@ -1,10 +1,11 @@
 //importing react components
-import { useState, useEffect } from 'react';
+import { useState, useEffect , useRef} from 'react';
 //importing primereact component
 import { OrderList } from 'primereact/orderlist';
 import { Link } from 'react-router-dom';
 import { Dialog } from 'primereact/dialog';
 import { Button } from 'primereact/button';
+import { Toast } from 'primereact/toast';
 //importing styles
 import '../App.css';
 //importing date-fns for date-time formatting
@@ -24,6 +25,7 @@ import AddPatientForm from './addPatientForm'; // Import the AddPatientForm
 export default function PatientList(){
     const [ patients , setPatients ] = useState([]);
     const [isAddPatientDialogVisible, setIsAddPatientDialogVisible] = useState(false);
+    const toast = useRef(null);//For showing feedback message
 
     const showAddPatientDialog = () => setIsAddPatientDialogVisible(true);
     const hideAddPatientDialog = () => setIsAddPatientDialogVisible(false);
@@ -43,6 +45,9 @@ export default function PatientList(){
                 },
                 body: JSON.stringify(patientData) // Send the patientData directly
             });
+            if(response.status === 400){
+                toast.current.show({ severity: 'error', summary: 'Error', detail: "User already exists! Try again!", life: 3000, className: 'error-toast' });
+            }
             if (!response.ok) {
                 throw new Error(`HTTP error! Status: ${response.status}`);
             }
@@ -113,7 +118,7 @@ export default function PatientList(){
         <div className="patient-list flex flex-wrap p-2 align-items-center gap-3">
             <Button label="Add New Patient" onClick={showAddPatientDialog} className="button" role="button" />
             <br/>
-        
+            <Toast ref={toast} /> 
             <Dialog header="Add New Patient" visible={isAddPatientDialogVisible} className="dialog-background" onHide={hideAddPatientDialog} style={{ width: '60vw', height:'50vh' }} breakpoints={{ '960px': '75vw,65vw', '641px': '100vw,100vh' }}>
                 <AddPatientForm onSubmit={handleAddPatientSubmit} />
             </Dialog>
