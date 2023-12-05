@@ -461,7 +461,7 @@ app.patch('/api/refillRequestOrders/:requestId', authenticateToken, async (req, 
       // Update refill request status
       const updatedRequest = await RefillRequest.findByIdAndUpdate(
           requestId,
-          { status: newStatus },
+          { status: newStatus , fillQuantity: numFillQuantity },
           { new: true }
       );
 

@@ -75,7 +75,7 @@ const ConfirmFillingPanel = ({ fillingRequestData, onSubmit }) => {
                     {/* Quantity Field */}
                     <div className="col-6 dialog-form">
                         <label className="dialog-label">Quantity</label>
-                        <InputText id="quantity" name="quantity" placeholder="Enter Quantity" onChange={handleInputChange}className="dialog-input" />
+                        <InputText id="quantity" name="quantity" placeholder="Enter Quantity" onChange={handleInputChange}className="dialog-input" required/>
                     </div>
                     {/* Refills Field */}
                     <div className="col-6 dialog-form">
