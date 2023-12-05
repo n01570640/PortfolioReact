@@ -58,7 +58,7 @@ export default function Dashboard() {
                             onClick={handlePharmacistViewNavigation}
 
                         />
-                        <p>Pharamcist</p>
+                        <p>Pharmacist</p>
                     </div>
                     
 
