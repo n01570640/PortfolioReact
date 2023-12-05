@@ -83,7 +83,7 @@ const PharmacistPanel = () => {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${localStorage.getItem('userToken')}`
                 },
-                body: JSON.stringify({ pharmacistData: data, actionType: isAddAction ? 'add' : 'edit' })
+                body: JSON.stringify({ pharmacistData: { ...data, username: data.username }, actionType: isAddAction ? 'add' : 'edit' })
             });
             if (!response.ok) {
                 throw new Error(`HTTP error! Status: ${response.status}`);

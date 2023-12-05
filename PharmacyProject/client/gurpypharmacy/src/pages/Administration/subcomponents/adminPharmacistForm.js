@@ -46,11 +46,12 @@ const AdminPharmacistForm = ({ pharmacist, isAddAction, onSubmit }) => {
         <div className="container">
             <form onSubmit={handleSubmit}>
                 <div className="row">
-                    {/* Pharmacist ID Field */}
+                    {/* Pharmacist usernameField */}
                     <div className="col-12 dialog-form">
-                        <label htmlFor="pharmacistId" className="dialog-label">Pharmacist ID</label>
-                        <InputText id="pharmacistId" name="pharmacistId" value={formData.pharmacistId} onChange={handleChange} required className="dialog-input" />
+                        <label htmlFor="username" className="dialog-label">Username (Email)</label>
+                        <InputText id="username" name="username" value={formData.username} onChange={handleChange} required className="dialog-input" type="email"/>
                     </div>
+
                     {/* License Number Field */}
                     <div className="col-12 dialog-form">
                         <label htmlFor="licenseNumber" className="dialog-label">License Number</label>
