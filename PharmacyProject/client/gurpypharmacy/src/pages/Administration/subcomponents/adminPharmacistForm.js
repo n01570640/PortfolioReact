@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+//importing primereact components
 import { InputText, Button, Checkbox } from 'primereact';
 
 /**

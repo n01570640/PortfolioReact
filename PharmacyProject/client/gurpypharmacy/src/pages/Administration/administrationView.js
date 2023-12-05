@@ -1,4 +1,6 @@
+//importing primereact components
 import { TabView, TabPanel } from 'primereact/tabview';
+//importing custom components
 import MedicationPanel from './subcomponents/adminMedicationPane';
 import PharmacistPanel from './subcomponents/adminPharmacistPane';
 import '../../App.css';

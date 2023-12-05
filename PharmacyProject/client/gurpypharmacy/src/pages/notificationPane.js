@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
+//importing primereact components
 import { DataView, DataViewLayoutOptions } from 'primereact/dataview';
 import { Divider } from 'primereact/divider';
-
+import '../App.css';
 /**
  * NotificationPanel - Functional component to display refill requests for a given patient.
  *

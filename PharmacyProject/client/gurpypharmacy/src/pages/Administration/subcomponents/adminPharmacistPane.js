@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
+//importing primereact components
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { Dialog } from 'primereact/dialog';
 import { Button } from 'primereact/button';
 import { FilterMatchMode } from 'primereact/api';
+//importing custom components
 import AdminPharmacistForm from './adminPharmacistForm';
 
 /**

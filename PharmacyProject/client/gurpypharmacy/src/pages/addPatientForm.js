@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
+//importing primereact components
 import { InputText, Button, Calendar } from 'primereact';
-
+import '../App.css';
 /**
  * AddPatientForm - A functional component for handling the addition of a new patient.
  *

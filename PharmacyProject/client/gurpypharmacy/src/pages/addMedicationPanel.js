@@ -1,6 +1,7 @@
 import { useState } from 'react';
 //importing primereact components
 import { AutoComplete, Button, InputText } from 'primereact';
+import '../App.css';
 
 const AddMedicationPanel = ({ patientId, onSubmit }) => {
     const [selectedMedication, setSelectedMedication] = useState(null);

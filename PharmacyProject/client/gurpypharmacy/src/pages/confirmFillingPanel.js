@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
+//importing primereact components
 import { Button, InputText, InputTextarea } from 'primereact';
-
+import '../App.css';
 
 /**
  * ConfirmFillingPanel - A functional component to display and manage the filling confirmation form for a medication refill request.

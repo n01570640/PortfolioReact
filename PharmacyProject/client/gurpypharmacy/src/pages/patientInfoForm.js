@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
+//importing primereact components
 import { Button } from 'primereact/button';
 import { InputText } from 'primereact/inputtext';
 import { Calendar } from 'primereact/calendar';
+//importing custom components
 import { decodeToken} from './tokenUtils'; 
-
+import '../App.css';
 /**
  * PatientInfoForm - A functional component for displaying and managing patient information in a form.
  *

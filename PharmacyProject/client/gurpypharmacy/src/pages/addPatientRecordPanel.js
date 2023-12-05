@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
+//importing primereact components
 import { AutoComplete, Button, InputText, InputTextarea } from 'primereact';
-
+import '../App.css';
 /**
  * AddPatientMedicationRecordPanel - A functional component for adding medication records to a patient's profile.
  *

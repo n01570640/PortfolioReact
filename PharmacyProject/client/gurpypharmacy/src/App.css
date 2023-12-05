@@ -42,11 +42,9 @@ body, html {
   padding: 20px;
   font-weight: bold;
   font-size: 1.5rem; /* Increase brand logo size */
-  color: var(--white)!important;/* Brand logo color */
+  color: var(--white);/* Brand logo color */
   text-shadow: 2px 2px 4px var(--dark-blue); /* Text shadow for depth */
 }
-
-
 
 
 /* Pharmacy Branding Styles */
@@ -59,7 +57,7 @@ body, html {
 
 /* Button Styles */
 .button {
-  background-color: var(--neon-blue); /* Use your neon blue color */
+  background-color: var(--neon-blue); 
   color: var(--white); /* White text */
   border: none;
   padding: 10px 20px;
@@ -88,14 +86,14 @@ body, html {
 /* Badge Styles */
 .p-badge {
   
-  color: var(--white); /* Sets the text color */
+  color: var(--white); 
   border-radius: 50%; /* Makes the badge circular */
-  padding: 0.5em; /* Adjust padding to make the badge larger */
+  padding: 0.5em; 
   position: absolute; /* Positions the badge relative to the button */
   top: -10px; /* Position the badge above the button */
   right: -10px; /* Position the badge to the right of the button */
-  font-size: 0.8em; /* Adjust font size */
-  border: 2px solid var(--white); /* White border to create visual separation */
+  font-size: 0.8em; 
+  border: 2px solid var(--white); 
 }
 
 .badgeUrgent{
@@ -171,7 +169,7 @@ body, html {
 .form-password input:focus,
 .form-calendar input:focus {
   outline: none; /* Removes default focus outline */
-  box-shadow: 0 0 0 2px var(--neon-blue); /* Custom focus style */
+  box-shadow: 0 0 0 2px var(--neon-blue); 
 }
 .calendar .p-inputtext {
   border-color: var(--neon-blue); /* Overriding border color for calendar */
@@ -232,9 +230,8 @@ body, html {
 .p-toast-message {
   border-radius: 5px; /* Rounded corners for the toast */
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16); /* Shadow for a bit of depth */
-  font-family: 'Your Font Family', sans-serif; /* Custom font, replace with your font family */
+  font-family: 'Your Font Family', sans-serif; 
   padding: 10px; /* Padding inside the toast */
-  /* Add other styling as needed to match your website's theme */
 }
 
 /* Success toast style */
@@ -318,24 +315,22 @@ body, html {
 
 /* Icon Style with Margin */
 .patient-list .pi {
-  margin-right: 0.5rem; /* Add right margin to icons */
+  margin-right: 0.5rem; 
   color: var(--neon-blue);
 }
 
 .patient-list .flex {
   display: flex;
-  justify-content: space-between; /* Spreads out content between start and end of the container */
-  align-items: center; /* Align items vertically in the center */
-  width: 100%; /* Ensure the container takes full width */
+  justify-content: space-between; 
+  align-items: center; 
+  width: 100%; 
 }
 
 
 /* Button Style */
 .patient-list .button {
-  /* existing button styles */
   margin-left: auto; /* Pushes the button to the far right */
 }
-
 
 /* Dialog Styles */
 .p-dialog-title {
@@ -385,7 +380,7 @@ body, html {
 
 .dialog-label {
   display: inline-block;
-  font-weight: bold; /* Make labels bold for legibility */
+  font-weight: bold; 
   color: #005a4c; /* Ensure high contrast for text */
   background-color: var(--white); /* Set a solid background color for labels */
   padding: 8px;
@@ -414,28 +409,28 @@ body, html {
 
 /* Checkbox Style */
 .p-checkbox .p-checkbox-box {
-  width: 18px; /* Width of the checkbox */
-  height: 18px; /* Height of the checkbox */
-  border: 2px solid var(--neon-blue); /* Border color for visibility */
-  background-color: var(--white); /* Background color for contrast */
-  margin-right: 0.5rem; /* Add space between checkbox and label */
-  cursor: pointer; /* Indicates the element is clickable */
+  width: 18px; 
+  height: 18px; 
+  border: 2px solid var(--neon-blue); 
+  background-color: var(--white); 
+  margin-right: 0.5rem; 
+  cursor: pointer; 
 }
 
 /* Adjust label styles to ensure they don't overlap the checkbox */
 .p-checkbox .p-checkbox-label {
-  padding-left: 24px; /* Add padding to prevent text overlay */
+  padding-left: 24px; 
   display: inline-block;
-  margin-bottom: 0; /* Align with checkbox */
-  vertical-align: middle; /* Center vertically with checkbox */
-  cursor: pointer; /* Indicates the label is clickable */
+  margin-bottom: 0; 
+  vertical-align: middle; 
+  cursor: pointer; 
 }
 
 /* Adjusting the layout for checkbox groups */
 .checkbox-group {
   display: flex;
-  align-items: center; /* Align the checkbox with the label vertically */
-  margin-bottom: 1rem; /* Consistent spacing between fields */
+  align-items: center; 
+  margin-bottom: 1rem; 
 }
 
 /* Visible Checkbox even when unchecked */
@@ -452,23 +447,23 @@ body, html {
 
 /* Checkmark icon style */
 .p-checkbox .p-checkbox-box .p-checkbox-icon {
-  font-size: 1rem; /* Adjust size if needed */
-  color: var(--white); /* Checkmark color */
+  font-size: 1rem; 
+  color: var(--white); 
 }
 
 /* Ensure the checkbox is visually clickable when focused */
 .p-checkbox .p-checkbox-box:focus {
-  box-shadow: 0 0 0 2px var(--light-blue); /* Focus shadow for visibility */
+  box-shadow: 0 0 0 2px var(--light-blue);
 }
 
 /* Additional styling to increase the clickable area for checkboxes */
 .p-checkbox {
   padding: 5px;
-  margin-right: 10px; /* Space after the checkbox */
+  margin-right: 10px; 
 }
 
 .form-calendar .p-inputtext {
-  width: calc(100% - 2rem); /* Adjust width to make space for the icon */
+  width: calc(100% - 2rem); 
   display: inline-block;
 }
 
@@ -501,7 +496,6 @@ body, html {
 }
 
 /* Style for Each Medication Record */
-
 .medication-record {
   background-color: var(--light-gray);
   border: 1px solid var(--light-blue);
@@ -541,29 +535,29 @@ body, html {
 }
 /* Custom Fieldset Styles */
 .custom-fieldset {
-  background-color: var(--white); /* White background */
-  border-radius: 10px; /* Rounded corners */
-  border: 1px solid var(--neon-blue); /* Neon blue border */
-  padding: 1rem; /* Inner padding */
-  margin-bottom: 1rem; /* Margin at the bottom */
-  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1); /* Box shadow for depth */
+  background-color: var(--white); 
+  border-radius: 10px; 
+  border: 1px solid var(--neon-blue); 
+  padding: 1rem; 
+  margin-bottom: 1rem; 
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1); 
   margin-top: 20px;
 }
 
 .custom-fieldset .p-fieldset-legend {
   
-  background-color: var(--light-blue); /* Light blue background for the legend */
-  padding: 5px 10px; /* Padding around the legend text */
-  border-radius: 5px; /* Rounded corners for the legend */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Shadow for legend */
+  background-color: var(--light-blue); 
+  padding: 5px 10px; 
+  border-radius: 5px; 
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
 }
 
 .legend-container {
-  font-size: 1.5rem; /* Larger font size for the legend */
-  color: var(--dark-blue); /* Apply the dark blue color */
+  font-size: 1.5rem; 
+  color: var(--dark-blue); 
   display: flex;
   align-items: center;
-  font-weight: bold; /* Bold font weight */
+  font-weight: bold; 
 }
 
 .legend-container >span {
@@ -573,9 +567,9 @@ body, html {
 /* Increase z-index for the autocomplete suggestions container */
 .p-autocomplete-panel {
   z-index: 10000 !important; /* Ensure this is higher than the dialog's z-index */
-  border: 1px solid var(--neon-blue); /* Match the border to your theme */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Slight shadow for depth */
-  border-radius: 4px; /* Rounded corners */
+  border: 1px solid var(--neon-blue); 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+  border-radius: 4px;
   overflow: hidden; /* Ensures the child elements don't overflow */
   background-color: var(--white);
 
@@ -590,8 +584,8 @@ body, html {
 
 /* Style the suggestion item on hover and focus */
 .p-autocomplete-list-item:hover, .p-autocomplete-list-item.p-highlight {
-  background-color: var(--light-blue); /* Lighter background on hover */
-  color: var(--dark-blue); /* Darker text color for contrast */
+  background-color: var(--light-blue); 
+  color: var(--dark-blue); 
 }
 
 /* DataTable Styles */
@@ -680,16 +674,16 @@ body, html {
   }
   
   .dashboard-icon img {
-    width: 100px; /* Adjust size as needed */
+    width: 100px; 
     height: auto;
-    border: 3px solid var(--white); /* Bold white border */
+    border: 3px solid var(--white); 
     border-radius: 50%; /* Circular border */
-    padding: 5px; /* Space between icon and border */
+    padding: 5px; 
     box-sizing: border-box; /* Includes padding and border in the element's total width and height */
   }
   
   .dashboard-icon:hover img {
-    border-color: var(--neon-blue); /* Color when hovered, can be any color */
+    border-color: var(--neon-blue); 
     transform: scale(1.1);
   }
   
@@ -697,7 +691,7 @@ body, html {
     margin-top: 8px;
     color: white;
     font-weight: bold;
-    font-size: 14px; /* Adjust the size as needed */
+    font-size: 14px; 
     position: absolute; /* Position the label */
     width: 100%; /* Label takes the full width of its parent */
     bottom: -40px; /* Position the label below the icon */
@@ -707,5 +701,5 @@ body, html {
   }
   
   .dashboard-icon:hover p {
-    color: var(--neon-blue); /* Color when hovered, can be any color */
+    color: var(--neon-blue); 
   }

@@ -12,7 +12,7 @@ import { InputText } from 'primereact/inputtext';
 //importing custom components
 import { getToken } from './tokenUtils';
 import ConfirmFillingPanel from './confirmFillingPanel';
-
+import '../App.css';
 /**
  * RefillRequests - A functional component for displaying and managing refill requests.
  *

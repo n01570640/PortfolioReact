@@ -1,7 +1,9 @@
 import { useNavigate, useLocation } from 'react-router-dom';
+//importing custom components
 import pharmacistIcon from '../images/pharmacist-view-icon.jpg';
 import patientIcon from '../images/patient-view-icon.jpg';
 import adminIcon from '../images/admin-view-icon.jpg';
+import '../App.css';
 
 export default function Dashboard() {
     const navigate = useNavigate();

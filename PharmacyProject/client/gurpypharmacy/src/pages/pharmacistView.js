@@ -1,13 +1,12 @@
 //importing primereact component
 import { TabView, TabPanel } from 'primereact/tabview';
-import React, { useRef, useState } from 'react';
 import '../App.css';
 
 //importing custom components
 import PatientList from './patientList';
 import MedicationList from './medicationList';
 import RefillRequests from './refillRequestsList';
-import { Button } from 'bootstrap';
+
 
 /**
  * PharmacistView - A functional component rendering the pharmacist's view.
