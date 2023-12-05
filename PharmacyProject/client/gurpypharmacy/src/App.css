@@ -547,6 +547,7 @@ body, html {
   padding: 1rem; /* Inner padding */
   margin-bottom: 1rem; /* Margin at the bottom */
   box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1); /* Box shadow for depth */
+  margin-top: 20px;
 }
 
 .custom-fieldset .p-fieldset-legend {
@@ -591,4 +592,75 @@ body, html {
 .p-autocomplete-list-item:hover, .p-autocomplete-list-item.p-highlight {
   background-color: var(--light-blue); /* Lighter background on hover */
   color: var(--dark-blue); /* Darker text color for contrast */
+}
+
+/* DataTable Styles */
+.product-card .p-datatable {
+  border: 1px solid var(--light-blue);
+  border-radius: 8px;
+  background-color: var(--white);
+}
+
+.product-card .p-datatable-header {
+  background-color: var(--light-gray);
+  padding: 1rem;
+  border-bottom: 1px solid var(--neon-blue);
+  font-size: 1.2rem;
+  color: var(--dark-blue);
+}
+
+.p-datatable .p-datatable-thead > tr > th  {
+  background-color: var(--dark-blue);
+  color: var(--white);
+  font-weight: bold;
+}
+
+.product-card .p-datatable tbody tr {
+  border-bottom: 1px solid var(--light-gray);
+}
+.product-card .p-datatable tbody td {
+  padding: 10px;
+}
+
+.product-card .p-datatable tbody tr:nth-child(even) {
+  background-color: var(--light-gray);
+}
+
+.product-card .p-datatable tbody tr:hover {
+  border: 2px solid var(--neon-blue);
+  color: var(--danger-red);
+}
+
+
+.product-card .p-inputtext {
+  width: 100%;
+  border-color: var(--neon-blue);
+  border-radius: 4px;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+/* Verified Icon Style */
+.true-icon {
+  color: green;
+  margin-right: 0.5rem;
+}
+
+.false-icon {
+  color: red;
+  margin-right: 0.5rem;
+}
+
+/* Global Search Input Style */
+.product-card .p-datatable-header .p-inputtext {
+  margin-left: auto;
+  border-color: var(--neon-blue);
+  border-radius: 4px;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.product-card .p-datatable-header .p-inputtext:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--light-blue);
 }

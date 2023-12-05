@@ -36,6 +36,14 @@ function App() {
   } else {
       bodyElement.style.backgroundImage = `url(${backgroundImage})`;
   }
+  async function logout() {
+    // Remove the token from local storage
+    localStorage.removeItem('token');
+    // Redirect the user to the login page or home page
+    window.location.href = '/';
+}
+
+
   return (
     <div>
       <Router>
@@ -44,7 +52,7 @@ function App() {
             <Nav className="me-auto">
               <Nav.Link href="/login">Log-In</Nav.Link>
               <Nav.Link href="/register">Patient's Sign up with us</Nav.Link>
-              <Nav.Link href="#pricing">Contact Us</Nav.Link>
+              <Nav.Link onClick={logout}>Logout</Nav.Link>
             </Nav>
         </Navbar>
           <Container>

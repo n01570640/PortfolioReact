@@ -21,7 +21,8 @@ export default function MedicationList(){
         dosage: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
         description: { value: null, matchMode: FilterMatchMode.CONTAINS },
         price: { value: null, matchMode: FilterMatchMode.EQUALS },
-        requiresPrescription: {value: null, matchMode: FilterMatchMode.EQUALS}
+        requiresPrescription: {value: null, matchMode: FilterMatchMode.EQUALS},
+        isActive: {value: null, matchMode: FilterMatchMode.EQUALS}
     });
     const [globalFilterValue, setGlobalFilterValue] = useState('');
 
@@ -70,21 +71,25 @@ export default function MedicationList(){
     const verifiedBodyTemplate = (rowData) => {
         return <i style={{width:"10", height: "200"}} className={classNames('pi', { 'true-icon pi-check-circle': rowData.requiresPrescription, 'false-icon pi-times-circle': !rowData.requiresPrescription })}></i>;
     };
+    const verifiedActiveBodyTemplate = (rowData) => {
+        return <i style={{width:"10", height: "200"}} className={classNames('pi', { 'true-icon pi-check-circle': rowData.isActive, 'false-icon pi-times-circle': !rowData.isActive })}></i>;
+    }
     const verifiedRowFilterTemplate = (options) => {
         return <TriStateCheckbox value={options.value} onChange={(e) => options.filterApplyCallback(e.value)} />;
     };
 
     return(
-        <div className="card" >
+        <div className="product-card" >
              <DataTable value={medications} dataKey="_id" filters={filters} filterDisplay="row" 
                  globalFilterFields={['name', 'dosage', 'description', 'price', 'requiresPrescription']} header={header} emptyMessage="No medication found."
-                 tableStyle={{ minWidth: '30rem', maxWidth: "80rem"}}>
-              <Column field="name" header="Name" filter filterPlaceholder="Search by name" filterField="name" sortable style={{ width: '25%' }}></Column>
-              <Column field="dosage" header="Dosage" filter filterPlaceholder="Search by dosage" sortable style={{ width: '25%' }}></Column>
-              <Column field="description" header="Description" filter filterPlaceholder="Search by description" style={{ width: '25%' }}></Column>
+                 tableStyle={{ minWidth: '30rem', maxWidth: "100rem"}}>
+              <Column field="name" header="Name" filter filterPlaceholder="Search" filterField="name" sortable style={{ width: '25%' }}></Column>
+              <Column field="dosage" header="Dosage" filter filterPlaceholder="Search" filterField="dosage" sortable style={{ width: '25%' }}></Column>
+              <Column field="description" header="Description" filter filterPlaceholder="Search" filterField="description" style={{ width: '25%' }}></Column>
               <Column field="price" header="Price" sortable style={{ width: '25%' }}></Column>
-              <Column field="quantityAvailable" header="On-hand Quantity" sortable style={{ width: '25%' }}></Column>
+              <Column field="quantityAvailable" header="Stock Quantity" sortable style={{ width: '25%' }}></Column>
               <Column field="requiresPrescription" header="Requires Prescription" dataType='boolean' sortable style={{ width: '25%' }} body={verifiedBodyTemplate} filter filterElement={verifiedRowFilterTemplate}></Column>
+              <Column field="isActive" header="Is Active?" sortable body={verifiedActiveBodyTemplate} style={{ width: '25%' }}></Column>
             </DataTable>
         </div>
     );

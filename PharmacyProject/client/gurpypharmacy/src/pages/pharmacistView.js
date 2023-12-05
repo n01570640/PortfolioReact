@@ -1,6 +1,5 @@
 //importing primereact component
 import { TabView, TabPanel } from 'primereact/tabview';
-import {Text } from 'react'
 import React, { useRef, useState } from 'react';
 import '../App.css';
 
@@ -8,15 +7,13 @@ import '../App.css';
 import PatientList from './patientList';
 import MedicationList from './medicationList';
 import RefillRequests from './refillRequestsList';
+import { Button } from 'bootstrap';
 
 
 export default function PharmacistView(){
-    
-
     return(
         
         <div className='product-card'>
-    
            <TabView>
                 <TabPanel header="Patients">
                     <PatientList/>

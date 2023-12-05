@@ -445,8 +445,6 @@ app.patch('/api/refillRequestOrders/:requestId', authenticateToken, async (req, 
       const { requestId } = req.params;
       const { newStatus, fillQuantity } = req.body;
       const numFillQuantity = Number(fillQuantity)
-      console.log("BAckLog: " ,requestId, newStatus, numFillQuantity );
-
       // Find the refill request
       const refillRequest = await RefillRequest.findById(requestId).populate('medicationId');
 
@@ -472,6 +470,15 @@ app.patch('/api/refillRequestOrders/:requestId', authenticateToken, async (req, 
           { status: newStatus },
           { new: true }
       );
+
+      // Update the lastRefillDate in the patient record
+      const patientId = refillRequest.patientId;
+      const updatedPatientRecord = await PatientRecord.findOneAndUpdate(
+          { patientId: patientId },
+          { $set: { lastRefillDate: new Date() } },
+          { new: true }
+      );
+      console.log(updatedPatientRecord);
 
       res.status(200).json({ updatedRequest, updatedMedication });
   } catch (error) {

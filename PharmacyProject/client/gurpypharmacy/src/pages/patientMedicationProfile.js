@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams , useNavigate} from 'react-router-dom';
 //importing reactprime components
 import { DataScroller } from 'primereact/datascroller';
 import { Button } from 'primereact/button';
@@ -11,14 +11,24 @@ import '../App.css';
 import { decodeToken, getToken } from './tokenUtils';
 import AddPatientMedicationRecordPanel from './addPatientRecordPanel';
 
-
+/**
+ * MedicationProfile - A functional component that displays the medication profile for a specific patient.
+ *
+ * This component manages state for medication records, patient information, and the visibility of the medication record addition panel.
+ * It also handles fetching of medication and patient data, and the addition of new medication records.
+ */
 export default function MedicationProfile() {
     const [medicationRecords, setMedicationRecords] = useState([]);
     const [patientInfo, setPatientInfo] = useState(null); 
     const { patientId } = useParams();
     const [isAddPatientMedicationRecordVisible, setisAddPatientMedicationRecordVisible] = useState(false);
+    const navigate = useNavigate();
 
     const toast = useRef(null);//For showing feedback message
+    // Function to handle going back
+    const goBack = () => {
+        navigate(-1); // This will take you to the previous page
+    };
     //fetching patient information
     const fetchPatientInfo = async (patientId) => {
         try {
@@ -215,6 +225,7 @@ export default function MedicationProfile() {
     
     return (
         <div className='product-card'>
+            <Button label="Go Back" icon="pi pi-chevron-left" onClick={goBack} className="button" />
             <Fieldset legend={legendTemplate} className='custom-fieldset'>
                 {patientInfo ? (
                     <div className='patient-list'>

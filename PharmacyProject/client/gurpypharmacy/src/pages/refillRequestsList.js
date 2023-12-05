@@ -6,6 +6,8 @@ import { Column } from 'primereact/column';
 import { Button } from 'primereact/button';
 import { Badge } from 'primereact/badge';
 import { Dialog } from 'primereact/dialog';
+import { FilterMatchMode} from 'primereact/api';
+import { InputText } from 'primereact/inputtext';
          
 //importing custom components
 import { getToken } from './tokenUtils';
@@ -16,6 +18,13 @@ export default function RefillRequests() {
     const [activeIndex, setActiveIndex] = useState(0);
     const [isConfirmFillingVisible, setIsConfirmFillingVisible] = useState(false);
     const [selectedRefillRequest, setSelectedRefillRequest] = useState(null);
+
+    //setting filters
+    const [filters, setFilters] = useState({
+        'patientDetails.firstName': { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+        'medicationId.name': { value: null, matchMode: FilterMatchMode.CONTAINS },
+    });
+    const [globalFilterValue, setGlobalFilterValue] = useState('');
 
     useEffect(() => {
         fetchRefillRequests();
@@ -80,7 +89,31 @@ export default function RefillRequests() {
             console.error("Error in completing a refill: ", error);
         }
     }
+
+
+    const onGlobalFilterChange = (e) => {
+        const value = e.target.value;
+        setFilters((prevFilters) => {
+            // Create a new object with all previous filters, and set/change the global filter value
+            return {
+                ...prevFilters,
+                // If you are using a global filter, ensure it's defined in the initial state
+                // Otherwise, this line should be removed or modified accordingly
+                global: { value: value, matchMode: FilterMatchMode.CONTAINS }
+            };
+        });
+        setGlobalFilterValue(value);
+    };
     
+
+    const renderHeader = () => {
+        return (
+            <div className="flex justify-content-end">
+                <InputText value={globalFilterValue} onChange={onGlobalFilterChange} placeholder="Keyword Search" />
+            </div>
+        );
+    };
+    const header = renderHeader();
     //formatted date
     const renderDate = (rowData) => {
         return new Date(rowData.requestDate).toLocaleDateString();
@@ -97,7 +130,6 @@ export default function RefillRequests() {
         ) : null ;
     };
     const completeRefillButtonTemplate = (rowData) => {
-        console.log("ROW DATA",rowData._id);
         return rowData.status === 'Ready' ? (
             <Button
                 label='Complete Pickup'
@@ -124,27 +156,35 @@ export default function RefillRequests() {
         const filteredRequests = refillRequests.filter(req => req.status === statusFilter);
     
         return (
-            <DataTable value={filteredRequests}>
+            <DataTable value={filteredRequests} filters={filters} globalFilterFields={['patientDetails.firstName', 'medicationId.name']} header={header} emptyMessage="No medication found."
+            tableStyle={{ minWidth: '30rem', maxWidth: "100rem"}}>
+                <Column field="requestDate" header="Request Date" body={renderDate} />
                 <Column field="patientDetails.firstName" header="Patient Name" body={(rowData) => `${rowData.patientDetails.firstName} ${rowData.patientDetails.lastName}`} />
                 <Column field="patientDetails.dateOfBirth" header="DOB" body={(rowData) => rowData.patientDetails.dateOfBirth ? new Date(rowData.patientDetails.dateOfBirth).toLocaleDateString() : ''} />
                 <Column field="medicationId.name" header="Medication Name" />
                 <Column field="medicationId.dosage" header="Dosage" />
                 <Column field="fillQuantity" header="Fill Quantity" />
-                <Column field="requestDate" header="Request Date" body={renderDate} />
                 <Column body={fillRefillButtonTemplate} />
                 <Column body={completeRefillButtonTemplate } />
             </DataTable>
         );
     };
-
+    //keep track of badge
+    const getFillingCount = () => {
+        return refillRequests.filter(req => req.status === 'Filling').length;
+    };
+    const getReadyCount = () => {
+        return refillRequests.filter(req => req.status === 'Ready').length;
+    };
+    
     return (
         <div className="'product-card'">
             <div className="flex flex-wrap gap-2 mb-3">
                 <Button className="button" onClick={() => setActiveIndex(0)}  label="Filling" >
-                    <Badge value={refillRequests.length} className='badgeUrgent'></Badge>
+                    <Badge value={getFillingCount()} className='badgeUrgent'></Badge>
                 </Button>
                 <Button className="button" onClick={() => setActiveIndex(1)} label="Pick-Up" >
-                    <Badge value={refillRequests.length} className='badgeComplete'></Badge>
+                    <Badge value={getReadyCount()} className='badgeComplete'></Badge>
                 </Button>
                 <Dialog header="Confirm Filling" className="dialog-background" visible={isConfirmFillingVisible} 
                 modal onHide={() => setIsConfirmFillingVisible(false)} style={{ width: '50vw', height:'50vh' }} >
