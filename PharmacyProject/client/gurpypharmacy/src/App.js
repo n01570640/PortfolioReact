@@ -3,13 +3,13 @@
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter as Router, Route, Routes} from 'react-router-dom';
-
 //importing custom components
 import PatientRegistration from './pages/registrationPage';
 import UserLogin from './pages/loginPage';
 import MedicationProfile from './pages/patientMedicationProfile';
 import backgroundImage from './images/backgroundImage.png';
 import homePageBackground from './images/homePageBackground.png';
+import Dashboard from './pages/dashboard';
 //importing bootstrap components
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
@@ -59,6 +59,7 @@ function App() {
             <Row>
               <Col></Col>
               <Col xs={8} md={10} xl={10}>
+                <Dashboard />
                 <Routes>
                 <Route path='/register' Component={PatientRegistration} />
                 <Route path='/login' Component={UserLogin} />
