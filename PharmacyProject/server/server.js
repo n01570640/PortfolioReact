@@ -145,6 +145,26 @@ app.post('/login', async(req, res, next) => {
     })(req, res, next);
 });
 
+//Endpoint to logout
+app.get('/logout', (req, res) => {
+  req.logout((err) => {
+    if (err) { 
+      return next(err); 
+    }
+    if (req.session) {
+      req.session.destroy((err) => {
+        if (err) {
+          console.error("Session destruction error:", err);
+        }
+        res.clearCookie('connect.sid'); 
+        res.send({ message: 'User has been logged out.' });
+      });
+    } else {
+      res.send({ message: 'User has been logged out.' });
+    }
+  });
+});
+
 
 // Endpoint to Upsert Patient Info 
 app.post('/api/upsertPatientInfo', authenticateToken, async (req, res) => {

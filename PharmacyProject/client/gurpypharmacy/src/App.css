@@ -703,3 +703,8 @@ body, html {
   .dashboard-icon:hover p {
     color: var(--neon-blue); 
   }
+
+/* paginator styles */
+.p-paginator-bottom > button, .p-paginator-page{
+  padding: 10px;
+}

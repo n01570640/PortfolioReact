@@ -2,20 +2,13 @@ import {InputText, Password, Button, Toast } from 'primereact';
 import React, { useRef, useState } from 'react';
 //import 'primereact/resources/themes/saga-blue/theme.css';
 import '../App.css';
-import { useNavigate } from 'react-router-dom';
 
 
 
-/**
- * UserLogin - A functional component for handling user login.
- *
- * Manages state for user form data, navigation, and toast notifications.
- * Validates form data and handles the submission process including user authentication and routing based on user type.
- */
+
 export default function UserLogin(){
     //initial state
     const [userFormData, setUserFormData] = useState({ username: "", password: "" });
-    const navigate = useNavigate();
     const toast = useRef(null);
 
     //Validate form fields
@@ -55,12 +48,12 @@ export default function UserLogin(){
             const parsedToken = JSON.parse(payload);
             
             if(parsedToken.userType === 'Admin') {
-                navigate('/admin');
+                window.location.href='/admin';//force refresh
             }
             else if (parsedToken.userType === 'Pharmacist') {
-                navigate('/login/pharmacist-loggedin');
+                window.location.href='/login/pharmacist-loggedin';
             } else if (parsedToken.userType === 'Patient') {
-                navigate('/patient-view');
+                window.location.href='/patient-view';
             }
         } else {
             toast.current.show({ severity: 'error', summary: 'Error', detail: 'Log-In Failed!'});
