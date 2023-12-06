@@ -72,7 +72,6 @@ const PatientInfoForm = ({ data, editable, onSubmit, onCancel, onEdit }) => {
                 patientId: userId // Include the user ID as patientId
             };
     
-            console.log(patientData);
             const response = await fetch('http://localhost:3001/api/upsertPatientInfo', {
                 method: 'POST',
                 headers: {

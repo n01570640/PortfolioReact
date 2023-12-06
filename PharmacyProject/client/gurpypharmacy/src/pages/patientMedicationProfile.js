@@ -204,7 +204,6 @@ export default function MedicationProfile() {
     //handle the add new patient record form submission
     const handleAddPatientMedicationRecordSubmit = async (formData) => {
         try {
-            console.log(formData);
             const pharmacistId = decodeToken(getToken()).userId ;
             const token = getToken();
             const response = await fetch(`http://localhost:3001/api/patient/${patientId}/medication-records`, {

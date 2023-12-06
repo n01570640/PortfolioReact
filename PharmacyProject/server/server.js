@@ -278,12 +278,12 @@ app.get('/api/medications',authenticateToken, async (req, res) => {
 app.get('/api/patient/:patientId', authenticateToken, async (req, res) => {
   try{
     const patientId = req.params.patientId; //saving the patient id from params
-    console.log(patientId);
+    // console.log(patientId);
     const patientInformation = await Patient.find({ patientId: patientId});
     if (!patientInformation ) {
       return res.status(404).send('Patient not found');
     }
-    console.log(patientInformation);
+    // console.log(patientInformation);
     res.json(patientInformation);
   } catch (error) {
     console.log(error);
@@ -345,7 +345,7 @@ app.post('/api/refillMedication/patientId', authenticateToken, async (req, res) 
     if (!medication || patientProfile.length === 0) {
       return res.status(404).send("Medication or Patient not found");
   }
-    console.log(`Medication ID from request: ${medicationId}`);
+    // console.log(`Medication ID from request: ${medicationId}`);
 
     let prescriptionDetailFound = false;
         for (let patientRecord of patientProfile) {

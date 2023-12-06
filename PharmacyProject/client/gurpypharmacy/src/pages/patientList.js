@@ -52,7 +52,6 @@ export default function PatientList(){
                 throw new Error(`HTTP error! Status: ${response.status}`);
             }
             const data = await response.json(); // Handle the promise correctly
-            console.log(data);
             fetchPatientData(); // Fetch the updated list of patients
         } catch (error) {
             console.error("Error saving patient: ", error);
