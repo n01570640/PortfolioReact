@@ -6,12 +6,6 @@ I built this as a full MERN-style project to get hands-on with role-based auth, 
 
 ## Screenshots
 
-> **TODO:** add screenshots here. Good ones to capture:
-> - Home page / login
-> - Patient medication profile with refill request
-> - Pharmacist refill queue (Filling and Ready for Pickup tabs)
-> - Admin panel (pharmacist + medication management)
-
 ![Home page](docs/screenshots/home.png)
 ![Login page](docs/screenshots/login.png)
 ![Patient medication profile](docs/screenshots/patientview_medication.png)
