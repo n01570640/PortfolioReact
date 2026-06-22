@@ -6,6 +6,7 @@ import { TabView, TabPanel } from 'primereact/tabview';
 import { Link } from 'react-router-dom';
 import { Button } from 'primereact/button';
 import '../App.css';
+import { api } from '../api';
 
 /**
  * PatientView - A functional component that displays patient-related information and actions.
@@ -24,13 +25,7 @@ export default function PatientView() {
     useEffect(() => {
         const fetchPatientInfo = async () => {
             try {
-                const userToken = localStorage.getItem('userToken');
-                const response = await fetch('http://localhost:3001/api/patientinfo', {
-                    method: 'GET',
-                    headers: {
-                        'Authorization': `Bearer ${userToken}`
-                    }
-                });
+                const response = await api.get('/api/patientinfo');
 
                 if (!response.ok) {
                     throw new Error(`Error: ${response.status}`);

@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { useParams , useNavigate} from 'react-router-dom';
 //importing reactprime components
 import { DataScroller } from 'primereact/datascroller';
@@ -9,6 +9,7 @@ import { Dialog } from 'primereact/dialog';
 //importing custom components
 import '../App.css';
 import { decodeToken, getToken } from './tokenUtils';
+import { api } from '../api';
 import AddPatientMedicationRecordPanel from './addPatientRecordPanel';
 
 /**
@@ -31,13 +32,9 @@ export default function MedicationProfile() {
         navigate(-1); // This will take you to the previous page
     };
     //fetching patient information
-    const fetchPatientInfo = async (patientId) => {
+    const fetchPatientInfo = useCallback(async (patientId) => {
         try {
-            const token = getToken();
-            
-            const response = await fetch(`http://localhost:3001/api/patient/${patientId}`, {
-                headers: { 'Authorization': `Bearer ${token}` }
-            });
+            const response = await api.get(`/api/patient/${patientId}`);
 
             if (!response.ok) {
                 throw new Error(`HTTP error! Status: ${response.status}`);
@@ -49,14 +46,11 @@ export default function MedicationProfile() {
         } catch (error) {
             console.error("Error fetching patient information: ", error);
         }
-    };
+    }, []);
     //fetching medication information
-    const fetchMedicationDetails = async (medicationId) => {
+    const fetchMedicationDetails = useCallback(async (medicationId) => {
         try {
-            const token = getToken();
-            const response = await fetch(`http://localhost:3001/api/medication/${medicationId}`, {
-                headers: { 'Authorization': `Bearer ${token}` }
-            });
+            const response = await api.get(`/api/medication/${medicationId}`);
 
             if (!response.ok) {
                 throw new Error(`HTTP error! Status: ${response.status}`);
@@ -67,18 +61,32 @@ export default function MedicationProfile() {
             console.error("Error fetching medication details: ", error);
             return null;
         }
-    };
+    }, []);
 
-    const fetchProfile = async () => {
+    //Check for existing refills
+    const checkForExistingRefillRequests = useCallback(async (medicationId) => {
+        try {
+          const response = await api.get(`/api/refillRequestExists/${patientId}/${medicationId}`);
+
+          if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+          }
+
+          const { exists } = await response.json();
+          return exists;
+        } catch (error) {
+          console.error("Error checking for existing refill requests: ", error);
+          return false;
+        }
+      }, [patientId]);
+
+    const fetchProfile = useCallback(async () => {
         if (!patientId) {
             console.error("Patient ID is undefined.");
             return;
         }
         try {
-            const token = getToken();
-            const response = await fetch(`http://localhost:3001/api/medicationProfile/${patientId}`, {
-                headers: { 'Authorization': `Bearer ${token}` }
-            });
+            const response = await api.get(`/api/medicationProfile/${patientId}`);
 
             if (!response.ok) {
                 throw new Error(`HTTP error! Status: ${response.status}`);
@@ -108,46 +116,18 @@ export default function MedicationProfile() {
         } catch (error) {
             console.error("Error fetching medication profile: ", error);
         }
-    };
-    //Check for existing refills
-    const checkForExistingRefillRequests = async (medicationId) => {
-        try {
-          const token = getToken();
-          const response = await fetch(`http://localhost:3001/api/refillRequestExists/${patientId}/${medicationId}`, {
-            headers: { 'Authorization': `Bearer ${token}` }
-          });
-      
-          if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
-          }
-      
-          const { exists } = await response.json();
-          return exists;
-        } catch (error) {
-          console.error("Error checking for existing refill requests: ", error);
-          return false;
-        }
-      };
-      
+    }, [patientId, fetchPatientInfo, fetchMedicationDetails, checkForExistingRefillRequests]);
 
-    useEffect(() => { fetchProfile();}, [patientId]);
+    useEffect(() => { fetchProfile();}, [fetchProfile]);
 
    
     //handle refill request 
     const handleRefill = async (detail) => {
         try{
-            const token = getToken();
-            const response = await fetch(`http://localhost:3001/api/refillMedication/patientId`,{
-                method: 'POST',
-                headers: {
-                    'Content-Type' : 'application/json',
-                    'Authorization': `Bearer ${token}`
-                },
-                body: JSON.stringify({
-                    medicationId: detail.medication,
-                    patientId: patientId,
-                    refillQuantity: detail.quantity
-                })
+            const response = await api.post('/api/refillMedication/patientId', {
+                medicationId: detail.medication,
+                patientId: patientId,
+                refillQuantity: detail.quantity
             });
             
             if (!response.ok) {
@@ -205,26 +185,18 @@ export default function MedicationProfile() {
     const handleAddPatientMedicationRecordSubmit = async (formData) => {
         try {
             const pharmacistId = decodeToken(getToken()).userId ;
-            const token = getToken();
-            const response = await fetch(`http://localhost:3001/api/patient/${patientId}/medication-records`, {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`
-              },
-              body: JSON.stringify({
-                patientId: patientId,
-                pharmacistId: pharmacistId, 
-                prescriptionDetails: [
-                  {
-                    medication: formData.medicationId,
-                    quantity: formData.quantity,
-                    dosage: formData.dosage,
-                    refillCount: formData.refills, 
-                    direction: formData.direction,
-                  }
-                ]
-              })
+            const response = await api.post(`/api/patient/${patientId}/medication-records`, {
+              patientId: patientId,
+              pharmacistId: pharmacistId,
+              prescriptionDetails: [
+                {
+                  medication: formData.medicationId,
+                  quantity: formData.quantity,
+                  dosage: formData.dosage,
+                  refillCount: formData.refills,
+                  direction: formData.direction,
+                }
+              ]
             });
         
             if (!response.ok) {

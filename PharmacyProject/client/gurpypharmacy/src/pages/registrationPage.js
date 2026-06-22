@@ -1,7 +1,11 @@
-import {InputText, Password, Button, Toast } from 'primereact';
+import { InputText } from 'primereact/inputtext';
+import { Password } from 'primereact/password';
+import { Button } from 'primereact/button';
+import { Toast } from 'primereact/toast';
 import React, { useRef, useState } from 'react';
 //import 'primereact/resources/themes/saga-blue/theme.css';
 import '../App.css';
+import { api } from '../api';
 
 
 
@@ -59,14 +63,10 @@ export default function UserRegistration(){
 
         try{
             userFormData.userType ='Patient';
-            const response = await fetch('http://localhost:3001/register',{
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'  },
-                body: JSON.stringify({ 
-                    username: userFormData.email,
-                    password: userFormData.password,
-                    userType: userFormData.userType
-                })
+            const response = await api.post('/register', {
+                username: userFormData.email,
+                password: userFormData.password,
+                userType: userFormData.userType
             });
             if(response.ok){
                 toast.current.show({ severity: 'success', summary: 'Success', detail: 'Registration Successfull', className: 'success-toast'});

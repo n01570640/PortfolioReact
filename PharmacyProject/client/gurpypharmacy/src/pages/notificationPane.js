@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 //importing primereact components
-import { DataView, DataViewLayoutOptions } from 'primereact/dataview';
+import { DataView } from 'primereact/dataview';
 import { Divider } from 'primereact/divider';
 import '../App.css';
+import { api } from '../api';
 /**
  * NotificationPanel - Functional component to display refill requests for a given patient.
  *
@@ -11,7 +12,7 @@ import '../App.css';
  */
 const NotificationPanel = ({ patientId }) => {
     const [refillRequests, setRefillRequests] = useState([]);
-    const [layout, setLayout] = useState('list');
+    const [layout] = useState('list');
 
     useEffect(() => {
         if (patientId) {
@@ -21,12 +22,7 @@ const NotificationPanel = ({ patientId }) => {
 
     const fetchRefillRequests = async (patientId) => {
         try {
-            const token = localStorage.getItem('userToken');
-            const response = await fetch(`http://localhost:3001/api/refillRequestOrders/${patientId}`, {
-                headers: {
-                    'Authorization': `Bearer ${token}`
-                }
-            });
+            const response = await api.get(`/api/refillRequestOrders/${patientId}`);
 
             if (!response.ok) {
                 throw new Error(`Error: ${response.status}`);

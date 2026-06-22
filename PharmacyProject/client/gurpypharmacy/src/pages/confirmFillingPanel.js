@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 //importing primereact components
-import { Button, InputText, InputTextarea } from 'primereact';
+import { Button } from 'primereact/button';
+import { InputText } from 'primereact/inputtext';
 import '../App.css';
 
 /**
@@ -25,12 +26,18 @@ const ConfirmFillingPanel = ({ fillingRequestData, onSubmit }) => {
         direction: '',
     };
     const [formData, setFormData] = useState(initialFormData);
-    console.log(fillingRequestData);
+    const [error, setError] = useState('');
+
+    // a request can only be filled up to what's requested and what's in stock
+    const stockAvailable = fillingRequestData ? fillingRequestData.medicationId.quantityAvailable : 0;
+    const requestedQuantity = fillingRequestData ? fillingRequestData.fillQuantity : 0;
+    const maxFillable = Math.min(stockAvailable, requestedQuantity);
+
     useEffect(() => {
         // Populate form with medication and patient data
         if (fillingRequestData) {
-            setFormData({
-                ...formData,
+            setFormData(prev => ({
+                ...prev,
                 name: fillingRequestData.medicationId.name,
                 dosage: fillingRequestData.medicationId.dosage,
                 medicationId: fillingRequestData.medicationId._id,
@@ -38,17 +45,33 @@ const ConfirmFillingPanel = ({ fillingRequestData, onSubmit }) => {
                 patientLName: fillingRequestData.patientDetails.lastName,
                 patientDOB: new Date(fillingRequestData.patientDetails.dateOfBirth).toLocaleDateString(),
                 direction: fillingRequestData.medicationId.direction,
-            });
+            }));
         }
     }, [fillingRequestData]);
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         setFormData({ ...formData, [name]: value });
+        // warn as soon as the amount exceeds what's fillable, without blocking input
+        if (name === 'quantity') {
+            setError(value && Number(value) > maxFillable
+                ? `Only ${maxFillable} can be filled (requested ${requestedQuantity}, in stock ${stockAvailable})`
+                : '');
+        }
     };
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        const quantity = Number(formData.quantity);
+        if (!Number.isInteger(quantity) || quantity <= 0) {
+            setError('Enter a valid quantity');
+            return;
+        }
+        if (quantity > maxFillable) {
+            setError(`Only ${maxFillable} can be filled (requested ${requestedQuantity}, in stock ${stockAvailable})`);
+            return;
+        }
+        setError('');
         onSubmit({
             ...formData,
             medicationId: formData.medicationId,
@@ -72,15 +95,21 @@ const ConfirmFillingPanel = ({ fillingRequestData, onSubmit }) => {
                         <label name="dosage" className="dialog-label">Dosage</label>
                         <InputText value={formData.dosage} disabled className="dialog-input" />
                     </div>
+                    {/* In Stock */}
+                    <div className="col-6 dialog-form">
+                        <label className="dialog-label">In Stock</label>
+                        <InputText value={stockAvailable} disabled className="dialog-input" />
+                    </div>
+                    {/* Requested */}
+                    <div className="col-6 dialog-form">
+                        <label className="dialog-label">Requested</label>
+                        <InputText value={requestedQuantity} disabled className="dialog-input" />
+                    </div>
                     {/* Quantity Field */}
                     <div className="col-6 dialog-form">
-                        <label className="dialog-label">Quantity</label>
-                        <InputText id="quantity" name="quantity" placeholder="Enter Quantity" onChange={handleInputChange}className="dialog-input" required/>
-                    </div>
-                    {/* Refills Field */}
-                    <div className="col-6 dialog-form">
-                        <label className="dialog-label">Medication ID</label>
-                        <InputText value={formData.medicationId} disabled className="dialog-input" />
+                        <label className="dialog-label">Quantity to Fill</label>
+                        <InputText id="quantity" name="quantity" type="number" min="1" max={maxFillable} value={formData.quantity} placeholder="Enter Quantity" onChange={handleInputChange} className="dialog-input" required/>
+                        {error && <small className="dialog-error">{error}</small>}
                     </div>
                     {/* Direction Field */}
                     <div className="col-6 dialog-form">

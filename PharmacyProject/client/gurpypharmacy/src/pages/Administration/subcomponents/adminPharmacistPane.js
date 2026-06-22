@@ -7,6 +7,7 @@ import { Button } from 'primereact/button';
 import { FilterMatchMode } from 'primereact/api';
 //importing custom components
 import AdminPharmacistForm from './adminPharmacistForm';
+import { api } from '../../../api';
 
 /**
  * PharmacistPanel: React component to manage and display a list of pharmacists.
@@ -24,7 +25,7 @@ const PharmacistPanel = () => {
     const [selectedPharmacist, setSelectedPharmacist] = useState(null);
     const [isAddAction, setIsAddAction] = useState(false);
 
-    const [filters, setFilters] = useState({
+    const [filters] = useState({
         licenseNumber: { value: null, matchMode: FilterMatchMode.CONTAINS },
     });
     useEffect(() => {
@@ -39,12 +40,7 @@ const PharmacistPanel = () => {
 
     const loadPharmacists = async () => {
         try {
-            const response = await fetch('http://localhost:3001/admin/pharmacists', {
-                method: 'GET',
-                headers: {
-                    'Authorization': `Bearer ${localStorage.getItem('userToken')}`
-                }
-            });
+            const response = await api.get('/admin/pharmacists');
             if (!response.ok) {
                 throw new Error(`HTTP error! Status: ${response.status}`);
             }
@@ -77,14 +73,7 @@ const PharmacistPanel = () => {
 
     const handleFormSubmit = async (data) => {
         try {
-            const response = await fetch(`http://localhost:3001/admin/pharmacists`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${localStorage.getItem('userToken')}`
-                },
-                body: JSON.stringify({ pharmacistData: { ...data, username: data.username }, actionType: isAddAction ? 'add' : 'edit' })
-            });
+            const response = await api.post('/admin/pharmacists', { pharmacistData: { ...data, username: data.username }, actionType: isAddAction ? 'add' : 'edit' });
             if (!response.ok) {
                 throw new Error(`HTTP error! Status: ${response.status}`);
             }

@@ -1,7 +1,11 @@
-import {InputText, Password, Button, Toast } from 'primereact';
+import { InputText } from 'primereact/inputtext';
+import { Password } from 'primereact/password';
+import { Button } from 'primereact/button';
+import { Toast } from 'primereact/toast';
 import React, { useRef, useState } from 'react';
 //import 'primereact/resources/themes/saga-blue/theme.css';
 import '../App.css';
+import { api } from '../api';
 
 
 
@@ -30,14 +34,10 @@ export default function UserLogin(){
         if(!isFormValid) return; //if form is not valid, stop here
 
         try{
-            const response = await fetch('http://localhost:3001/login', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ 
+            const response = await api.post('/login', {
                 username: userFormData.username,
                 password: userFormData.password,
-            })
-        });
+            });
         if (response.ok) {
             const data = await response.json();
             localStorage.setItem('userToken', data.token);

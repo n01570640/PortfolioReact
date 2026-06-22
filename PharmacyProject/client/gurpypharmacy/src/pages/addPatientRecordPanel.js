@@ -1,7 +1,11 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 //importing primereact components
-import { AutoComplete, Button, InputText, InputTextarea } from 'primereact';
+import { AutoComplete } from 'primereact/autocomplete';
+import { Button } from 'primereact/button';
+import { InputText } from 'primereact/inputtext';
+import { InputTextarea } from 'primereact/inputtextarea';
 import '../App.css';
+import { api } from '../api';
 /**
  * AddPatientMedicationRecordPanel - A functional component for adding medication records to a patient's profile.
  *
@@ -27,7 +31,7 @@ const AddPatientMedicationRecordPanel = ({ patientId,  onSubmit }) => {
     //fetching the medications list that match
     const searchMedications = async (event) => {
         try {
-            const response = await fetch(`http://localhost:3001/api/medications/search?q=${encodeURIComponent(event.query)}`);
+            const response = await api.get(`/api/medications/search?q=${encodeURIComponent(event.query)}`);
             if (!response.ok) {
                 throw new Error(`HTTP error! Status: ${response.status}`);
             }

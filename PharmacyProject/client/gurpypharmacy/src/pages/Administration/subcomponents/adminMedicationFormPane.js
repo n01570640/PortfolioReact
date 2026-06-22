@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 //importing reactprime components
-import { InputText, Button, Checkbox, InputTextarea } from 'primereact';
+import { InputText } from 'primereact/inputtext';
+import { Button } from 'primereact/button';
+import { Checkbox } from 'primereact/checkbox';
+import { InputTextarea } from 'primereact/inputtextarea';
 
 /**
  * MedicalFormContent: Form component for adding or editing medication details.
@@ -11,18 +14,18 @@ import { InputText, Button, Checkbox, InputTextarea } from 'primereact';
  * - Uses useEffect to pre-fill form data for editing existing medications.
  */
 
-const MedicalFormContent = ({ medication, isAddAction, onSubmit }) => {
-    const initialFormData = {
-        name: '',
-        description: '',
-        price: 0,
-        quantityAvailable: 0,
-        dosage: '',
-        reorderThreshold: 0,
-        requiresPrescription: false,
-        isActive: true
-    };
+const initialFormData = {
+    name: '',
+    description: '',
+    price: 0,
+    quantityAvailable: 0,
+    dosage: '',
+    reorderThreshold: 0,
+    requiresPrescription: false,
+    isActive: true
+};
 
+const MedicalFormContent = ({ medication, isAddAction, onSubmit }) => {
     const [formData, setFormData] = useState(initialFormData);
 
     useEffect(() => {

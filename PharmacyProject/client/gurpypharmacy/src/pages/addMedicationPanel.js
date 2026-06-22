@@ -1,7 +1,10 @@
 import { useState } from 'react';
 //importing primereact components
-import { AutoComplete, Button, InputText } from 'primereact';
+import { AutoComplete } from 'primereact/autocomplete';
+import { Button } from 'primereact/button';
+import { InputText } from 'primereact/inputtext';
 import '../App.css';
+import { api } from '../api';
 
 const AddMedicationPanel = ({ patientId, onSubmit }) => {
     const [selectedMedication, setSelectedMedication] = useState(null);
@@ -11,7 +14,7 @@ const AddMedicationPanel = ({ patientId, onSubmit }) => {
     //searching for medication available
     const searchMedications = async (event) => {
         try {
-            const response = await fetch(`http://localhost:3001/api/medications/search?q=${event.query}`);
+            const response = await api.get(`/api/medications/search?q=${event.query}`);
             const data = await response.json();
             setFilteredMedications(data);
         } catch (error) {

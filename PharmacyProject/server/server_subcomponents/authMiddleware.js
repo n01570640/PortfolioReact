@@ -20,7 +20,7 @@ const authenticateToken = (req, res, next) => {
     }
 
     try {
-        const decoded = jwt.verify(token, '3cV7y6UzqR8w0xG4pJ2lL5oN1aM8fI3j');
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
         req.userId = decoded.userId;
         req.userType = decoded.userType;
         next();

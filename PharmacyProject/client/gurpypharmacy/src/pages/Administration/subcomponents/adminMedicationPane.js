@@ -7,6 +7,7 @@ import { Button } from 'primereact/button';
 import { FilterMatchMode } from 'primereact/api';
 //importing custom components
 import MedicalFormContent from './adminMedicationFormPane';
+import { api } from '../../../api';
 
 /**
  * MedicationPanel: React component for managing medications.
@@ -40,13 +41,8 @@ const MedicationPanel = () => {
 
     const loadMedications = async () => {
         try {
-            const response = await fetch('http://localhost:3001/api/medications', {
-                method: 'GET',
-                headers: {
-                    'Authorization': `Bearer ${localStorage.getItem('userToken')}`
-                }
-            });
-    
+            const response = await api.get('/api/medications');
+
             if (!response.ok) {
                 console.log(response.status);
                 throw new Error(`Error: ${response.status}`);
@@ -88,14 +84,7 @@ const MedicationPanel = () => {
 
     const handleFormSubmit = async (data) => {
         try {
-            const response = await fetch('http://localhost:3001/admin/medications', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${localStorage.getItem('userToken')}`
-                },
-                body: JSON.stringify({ medicationData: data, actionType: selectedMedication ? 'edit' : 'add' })
-            });
+            const response = await api.post('/admin/medications', { medicationData: data, actionType: selectedMedication ? 'edit' : 'add' });
 
             if (!response.ok) {
                 throw new Error(`Error: ${response.status}`);

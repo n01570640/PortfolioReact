@@ -40,7 +40,7 @@ export default function Dashboard() {
     };
     const isAuthenticated = () => {
         // Retrieve the token from local storage or session storage
-        const token = localStorage.getItem('token');
+        const token = localStorage.getItem('userToken');
       
         // Check if the token exists
         if (token) {
@@ -51,7 +51,7 @@ export default function Dashboard() {
 
     return (
         <div>
-            {location.pathname == '/' && (
+            {location.pathname === '/' && (
                 <div className="dashboard">
                     <div className='dashboard-icon'>
                         <img

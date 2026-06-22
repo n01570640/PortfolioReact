@@ -4,7 +4,8 @@ import { Button } from 'primereact/button';
 import { InputText } from 'primereact/inputtext';
 import { Calendar } from 'primereact/calendar';
 //importing custom components
-import { decodeToken} from './tokenUtils'; 
+import { decodeToken} from './tokenUtils';
+import { api } from '../api';
 import '../App.css';
 /**
  * PatientInfoForm - A functional component for displaying and managing patient information in a form.
@@ -72,14 +73,7 @@ const PatientInfoForm = ({ data, editable, onSubmit, onCancel, onEdit }) => {
                 patientId: userId // Include the user ID as patientId
             };
     
-            const response = await fetch('http://localhost:3001/api/upsertPatientInfo', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${userToken}`
-                },
-                body: JSON.stringify(patientData)
-            });
+            const response = await api.post('/api/upsertPatientInfo', patientData);
     
             if (!response.ok) {
                 throw new Error(`HTTP error! Status: ${response.status}`);

@@ -1,15 +1,20 @@
+require('dotenv').config();
 //Importing neccessary modules
 const express = require('express');
 const mongoose = require('mongoose'); // Mongoose for MongoDB interactions
 const bcrypt = require('bcryptjs'); // bcryptjs for password hashing
 const passport = require('passport'); // Passport for user authentication
 const LocalStrategy = require('passport-local').Strategy; // Local strategy for passport
-const session = require('express-session'); // Session middleware for Express
 const cors = require('cors');
 const jwt = require('jsonwebtoken');
 
+if (!process.env.JWT_SECRET) {
+    console.error('JWT_SECRET is not set. Copy .env.example to .env and configure it.');
+    process.exit(1);
+}
+
 //Constants
-const PORT = 3001;
+const PORT = process.env.PORT || 3001;
 const Medication = require('./schemas/medicationSchema');
 const Notification = require('./schemas/notificationSchema');
 const Patient = require('./schemas/patientSchema');
@@ -25,27 +30,18 @@ const adminRoutes = require('./server_subcomponents/serverAdmin');
 const app = express();
 // Enable All CORS Requests
 app.use(cors({
-    origin: "http://localhost:3000"
+    origin: process.env.CORS_ORIGIN || "http://localhost:3000"
 }));
 app.use(express.json());
 
-/** Express session middleware configuration
-Sessions are used to keep users logged in between HTTP requests.*/
-app.use(session({
-    secret: 'secret', 
-    resave: false, 
-    saveUninitialized: false 
-  }));
-  
-// Initializing Passport for user authentication and integrating it with Express sessions
+// Passport runs stateless: the API authenticates via JWT, not sessions
 app.use(passport.initialize());
-app.use(passport.session());
 // Use the admin routes
 app.use('/admin', adminRoutes);
 
 
 //Estabilishing a connection to Mongodb
-mongoose.connect('mongodb://127.0.0.1:27017/pharmacy',{
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/pharmacy',{
   useNewUrlParser: true,
   useUnifiedTopology: true  
   }).then(async () => {
@@ -81,26 +77,11 @@ passport.use(new LocalStrategy(
     }
   ));
 
-  // Serialize user to decide which data of the user object should be stored in the session
-// Here, we are storing only the user id in the session
-passport.serializeUser((user, done) => {
-    done(null, user._id);
-  });
-  
-  // Deserialize user to retrieve the user data from the session using the user id
-  passport.deserializeUser((id, done) => {
-    User.findById(id, (err, user) => {
-      done(err, user); // The user object is attached to the request object as req.user
-    });
-  });
-
 
 //Registeration endpoint for new Patients
 app.post('/register' , async (req, res) => {
     try{
         const { username, password, userType } = req.body;
-        // const userType = ""
-        console.log(req.body);
         //Check if the user already exists
         const userExists = await User.findOne({ username });
         if(userExists) {
@@ -130,39 +111,22 @@ app.post('/register' , async (req, res) => {
 app.post('/login', async(req, res, next) => {
     //passport.authenticate middleware handles user fetching and validation
     passport.authenticate('local', { session: false }, async (err, user, info) => {
-        const { username, password } = req.body;
         if (err) {
             return next(err);
         }
         if (!user) {
             return res.status(401).send({ error: "Invalid username or password" });
         }
-        var userType = user.userType;
-        console.log(`${username}, ${password}, ${userType}`);
         // Create a JWT token
-        const token = jwt.sign({ userId: user._id, userType: user.userType  }, '3cV7y6UzqR8w0xG4pJ2lL5oN1aM8fI3j', { expiresIn: '1h' });
+        const token = jwt.sign({ userId: user._id, userType: user.userType  }, process.env.JWT_SECRET, { expiresIn: '1h' });
         res.send({ token });
     })(req, res, next);
 });
 
-//Endpoint to logout
+// Endpoint to logout. The API is stateless, so logout is handled client-side
+// by discarding the JWT; this endpoint just acknowledges the request.
 app.get('/logout', (req, res) => {
-  req.logout((err) => {
-    if (err) { 
-      return next(err); 
-    }
-    if (req.session) {
-      req.session.destroy((err) => {
-        if (err) {
-          console.error("Session destruction error:", err);
-        }
-        res.clearCookie('connect.sid'); 
-        res.send({ message: 'User has been logged out.' });
-      });
-    } else {
-      res.send({ message: 'User has been logged out.' });
-    }
-  });
+  res.send({ message: 'User has been logged out.' });
 });
 
 
@@ -231,8 +195,7 @@ app.post('/api/addPatient', authenticateToken, async (req, res) => {
       return res.status(400).send('User already exists');
     }
 
-    // Hash the predefined password 'onetwothree'
-    const hashedPassword = await bcrypt.hash('onetwothree', 10);
+    const hashedPassword = await bcrypt.hash(process.env.DEFAULT_USER_PASSWORD || 'onetwothree', 10);
 
     // Create a new user
     const newUser = new User({
@@ -354,14 +317,9 @@ app.post('/api/refillMedication/patientId', authenticateToken, async (req, res) 
             );
 
             if (prescriptionDetail) {
-                if (medication.quantityAvailable < numericRefillQuantity) {
-                    return res.status(404).send('Not enough medication in stock for refill');
-                }
-
-                medication.quantityAvailable -= numericRefillQuantity;
+                // no stock check here - the patient can always request; stock is verified when the pharmacist fills
                 prescriptionDetail.refillCount -= 1;
                 patientRecord.markModified('prescriptionDetails');
-                await medication.save();
                 await patientRecord.save();
 
                 prescriptionDetailFound = true;
@@ -386,7 +344,7 @@ app.post('/api/refillMedication/patientId', authenticateToken, async (req, res) 
         console.log("Refill request saved: ", doc);
       })
       .catch(error => {
-        console.error('Error saving refill request: ', err);
+        console.error('Error saving refill request: ', error);
       })
     res.status(200).json({
         updatedMedication: medication,
@@ -466,7 +424,12 @@ app.patch('/api/refillRequestOrders/:requestId', authenticateToken, async (req, 
           return res.status(404).send('Refill Request not found');
       }
 
-      // Check if there's enough medication in stock
+      const requestedQuantity = refillRequest.fillQuantity;
+
+      // Can't fill more than was requested, and can't fill more than is in stock
+      if (numFillQuantity <= 0 || numFillQuantity > requestedQuantity) {
+          return res.status(400).send('Invalid fill quantity');
+      }
       if (refillRequest.medicationId.quantityAvailable < numFillQuantity) {
           return res.status(400).send('Not enough medication in stock');
       }
@@ -478,23 +441,36 @@ app.patch('/api/refillRequestOrders/:requestId', authenticateToken, async (req, 
           { new: true }//performs the update
       );
 
-      // Update refill request status
+      // The filled amount moves to pick-up
       const updatedRequest = await RefillRequest.findByIdAndUpdate(
           requestId,
           { status: newStatus , fillQuantity: numFillQuantity },
           { new: true }
       );
 
+      // Any shortfall stays as a balance owed so it can be filled once stock returns
+      let balanceRequest = null;
+      const balanceQuantity = requestedQuantity - numFillQuantity;
+      if (balanceQuantity > 0) {
+          balanceRequest = new RefillRequest({
+              patientId: refillRequest.patientId,
+              medicationId: refillRequest.medicationId._id,
+              fillQuantity: balanceQuantity,
+              requestDate: refillRequest.requestDate,
+              status: 'Balance'
+          });
+          await balanceRequest.save();
+      }
+
       // Update the lastRefillDate in the patient record
       const patientId = refillRequest.patientId;
-      const updatedPatientRecord = await PatientRecord.findOneAndUpdate(
+      await PatientRecord.findOneAndUpdate(
           { patientId: patientId },
           { $set: { lastRefillDate: new Date() } },
           { new: true }
       );
-      console.log(updatedPatientRecord);
 
-      res.status(200).json({ updatedRequest, updatedMedication });
+      res.status(200).json({ updatedRequest, updatedMedication, balanceRequest });
   } catch (error) {
       console.error("Server Error: ", error);
       res.status(500).send("Server error updating refill request");
@@ -508,7 +484,7 @@ app.delete('/api/completeRefillRequestOrder/:requestId', authenticateToken, asyn
     await RefillRequest.findByIdAndDelete(requestId);
     res.status(200).send({message: "Refill request deleted successfully"});
   } catch (error) {
-    console.errror("Error deleting refill request: ", error);
+    console.error("Error deleting refill request: ", error);
     res.status(500).send("Internal Server Error");
   }
 });
@@ -537,7 +513,7 @@ app.get('/api/refillRequestExists/:patientId/:medicationId', authenticateToken, 
     const refillRequestExists = await RefillRequest.findOne({
       patientId: patientId,
       medicationId: medicationId,
-      status: { $in: ['Filling', 'Ready'] } // Check for both "Filling" and "Ready"
+      status: { $in: ['Filling', 'Ready', 'Balance'] } // any in-progress request counts as existing
     }).exec();
 
     res.json({ exists: !!refillRequestExists });

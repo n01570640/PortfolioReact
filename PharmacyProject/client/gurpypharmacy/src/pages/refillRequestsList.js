@@ -10,8 +10,8 @@ import { FilterMatchMode} from 'primereact/api';
 import { InputText } from 'primereact/inputtext';
          
 //importing custom components
-import { getToken } from './tokenUtils';
 import ConfirmFillingPanel from './confirmFillingPanel';
+import { api } from '../api';
 import '../App.css';
 /**
  * RefillRequests - A functional component for displaying and managing refill requests.
@@ -39,11 +39,7 @@ export default function RefillRequests() {
     //Getting the refill request orders
     const fetchRefillRequests = async () => {
         try {
-            const token = getToken();
-            const response = await fetch('http://localhost:3001/api/refillRequestOrders', {
-                method: 'GET',
-                headers: { 'Authorization': `Bearer ${token}`  }
-            });
+            const response = await api.get('/api/refillRequestOrders');
             if (!response.ok) throw new Error('Network response was not ok');
             const data = await response.json();
             setRefillRequests(data);
@@ -54,15 +50,7 @@ export default function RefillRequests() {
     //When filling is complete, updating the status
     const updateRefillRequestStatus = async (requestId, newStatus, fillQuantity) => {
         try {
-            const token = getToken();
-            const response = await fetch(`http://localhost:3001/api/refillRequestOrders/${requestId}`, {
-                method: 'PATCH',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`
-                },
-                body: JSON.stringify({ newStatus , fillQuantity})
-            });
+            const response = await api.patch(`/api/refillRequestOrders/${requestId}`, { newStatus, fillQuantity });
     
             if (!response.ok) throw new Error('Network response was not ok');
     
@@ -76,13 +64,7 @@ export default function RefillRequests() {
     //Complete refill request by deleting it from the collection
     const completeRefillRequest = async (requestId) => {
         try{
-            const token = getToken();
-            const response = await fetch(`http://localhost:3001/api/completeRefillRequestOrder/${requestId}`,{
-                method: "DELETE",
-                headers: {
-                    'Authorization': `Bearer ${token}`
-                }
-            });
+            const response = await api.del(`/api/completeRefillRequestOrder/${requestId}`);
 
             if (!response.ok) {
                 throw new Error("Network response was not ok");
@@ -126,12 +108,12 @@ export default function RefillRequests() {
     };
 
     const fillRefillButtonTemplate = (rowData) => {
-        return rowData.status === 'Filling' ? (
+        // a balance owed is filled the same way as a new request, once stock is back
+        return rowData.status === 'Filling' || rowData.status === 'Balance' ? (
             <Button
                 label='Fill'
                 className='button'
-                onClick={() => openConfirmFillingPanel(rowData)} 
-                disabled={rowData.status !== 'Filling'}
+                onClick={() => openConfirmFillingPanel(rowData)}
             />
         ) : null ;
     };
@@ -169,9 +151,10 @@ export default function RefillRequests() {
                 <Column field="patientDetails.dateOfBirth" header="DOB" body={(rowData) => rowData.patientDetails.dateOfBirth ? new Date(rowData.patientDetails.dateOfBirth).toLocaleDateString() : ''} />
                 <Column field="medicationId.name" header="Medication Name" />
                 <Column field="medicationId.dosage" header="Dosage" />
-                <Column field="fillQuantity" header="Fill Quantity" />
-                <Column body={fillRefillButtonTemplate} />
-                <Column body={completeRefillButtonTemplate } />
+                <Column field="fillQuantity" header={statusFilter === 'Balance' ? 'Balance Quantity' : 'Fill Quantity'} />
+                {statusFilter === 'Ready'
+                    ? <Column header="Action" body={completeRefillButtonTemplate} />
+                    : <Column header="Action" body={fillRefillButtonTemplate} />}
             </DataTable>
         );
     };
@@ -182,6 +165,9 @@ export default function RefillRequests() {
     const getReadyCount = () => {
         return refillRequests.filter(req => req.status === 'Ready').length;
     };
+    const getBalanceCount = () => {
+        return refillRequests.filter(req => req.status === 'Balance').length;
+    };
     
     return (
         <div className="'product-card'">
@@ -191,6 +177,9 @@ export default function RefillRequests() {
                 </Button>
                 <Button className="button" onClick={() => setActiveIndex(1)} label="Pick-Up" >
                     <Badge value={getReadyCount()} className='badgeComplete'></Badge>
+                </Button>
+                <Button className="button" onClick={() => setActiveIndex(2)} label="Balance Owed" >
+                    <Badge value={getBalanceCount()} className='badgeUrgent'></Badge>
                 </Button>
                 <Dialog header="Confirm Filling" className="dialog-background" visible={isConfirmFillingVisible} 
                 modal onHide={() => setIsConfirmFillingVisible(false)} style={{ width: '50vw', height:'50vh' }} >
@@ -203,6 +192,9 @@ export default function RefillRequests() {
                 </TabPanel>
                 <TabPanel header="Rx for Pick up">
                     {renderRefillRequestsTable('Ready')}
+                </TabPanel>
+                <TabPanel header="Rx Balance Owed">
+                    {renderRefillRequestsTable('Balance')}
                 </TabPanel>
             </TabView>
         </div>

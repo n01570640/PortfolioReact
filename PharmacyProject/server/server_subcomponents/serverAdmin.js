@@ -1,8 +1,9 @@
 const express = require('express');
+const bcrypt = require('bcryptjs');
 const router = express.Router();
 const Pharmacist = require('../schemas/pharmacistSchema');
 const Medication = require('../schemas/medicationSchema');
-const User = require('../schemas/userSchema'); 
+const User = require('../schemas/userSchema');
 
 const authenticateToken = require('./authMiddleware');
 
@@ -38,9 +39,10 @@ router.post('/pharmacists', authenticateToken, async (req, res) => {
   try {
     let pharmacist;
     if (actionType === 'add') {
+      const hashedPassword = await bcrypt.hash(process.env.DEFAULT_USER_PASSWORD || 'onetwothree', 10);
       const user = new User({
         username: pharmacistData.username, // Assuming username is passed in pharmacistData
-        hashedPassword: 'onetwothree', // Hardcoded password
+        hashedPassword,
         userType: 'Pharmacist'
       });
       await user.save();
@@ -48,6 +50,7 @@ router.post('/pharmacists', authenticateToken, async (req, res) => {
       // Create a Pharmacist with the newly created user's ID
       pharmacist = new Pharmacist({ ...pharmacistData, pharmacistId: user._id });
       await pharmacist.save();
+      res.status(201).json(pharmacist);
     } else if (actionType === 'edit') {
       // Update the Pharmacist record
       const updatedPharmacist = await Pharmacist.findByIdAndUpdate(pharmacistData._id, pharmacistData, { new: true });
@@ -74,14 +77,12 @@ router.post('/pharmacists', authenticateToken, async (req, res) => {
  */
   router.post('/medications', authenticateToken, async (req, res) => {
     const { medicationData, actionType } = req.body;
-    console.log(req.body);
     try {
       let medication;
       if (actionType === 'add') {
         medication = new Medication(medicationData);
         await medication.save();
       } else if (actionType === 'edit') {
-        console.log(medication);
         medication = await Medication.findByIdAndUpdate(medicationData._id, medicationData, { new: true });
       }
   

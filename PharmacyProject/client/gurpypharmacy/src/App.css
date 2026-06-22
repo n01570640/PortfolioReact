@@ -191,7 +191,12 @@ body, html {
   background-color: var(--dark-blue);
 }
 
-.p-tabview .p-tabview-nav li {
+/* hide the indicator li so it doesn't show as an empty tab */
+.p-tabview .p-tabview-nav li.p-tabview-ink-bar {
+  display: none;
+}
+
+.p-tabview .p-tabview-nav li:not(.p-tabview-ink-bar) {
   flex: 1;
   text-align: center;
   padding: 10px 20px;
@@ -400,6 +405,11 @@ body, html {
 .dialog-input:disabled{
   background-color: var(--white);
 }
+.dialog-error {
+  color: #c0392b;
+  display: block;
+  margin-top: 0.25rem;
+}
 /* Checkbox Style */
 .checkbox-group {
   display: flex;
@@ -460,6 +470,18 @@ body, html {
 .p-checkbox {
   padding: 5px;
   margin-right: 10px; 
+}
+
+/* center the check/times icon in the box and size the SVG (no theme does this) */
+.p-checkbox .p-checkbox-box {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.p-checkbox .p-checkbox-box .p-checkbox-icon {
+  width: 12px;
+  height: 12px;
+  color: var(--white);
 }
 
 .form-calendar .p-inputtext {

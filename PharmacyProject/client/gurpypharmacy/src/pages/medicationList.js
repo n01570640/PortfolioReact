@@ -6,9 +6,9 @@ import { classNames } from 'primereact/utils';
 import { Column } from 'primereact/column';
 import { TriStateCheckbox } from 'primereact/tristatecheckbox';
 import { InputText } from 'primereact/inputtext';
-import { FilterMatchMode, FilterOperator } from 'primereact/api';
+import { FilterMatchMode } from 'primereact/api';
 //custom components
-import { getToken } from './tokenUtils';
+import { api } from '../api';
 //importing styles
 import '../App.css';
 
@@ -36,12 +36,7 @@ export default function MedicationList(){
     //Fetching the medication data from backend point "/api/medications"
     const fetchMedicationData = async () => {
         try {
-            const token = getToken();
-            const response = await fetch("http://localhost:3001/api/medications", {
-                headers: {
-                    'Authorization': `Bearer ${token}`
-                }
-            });
+            const response = await api.get('/api/medications');
 
             if (!response.ok) {
                 throw new Error(`HTTP error! Status: ${response.status}`);

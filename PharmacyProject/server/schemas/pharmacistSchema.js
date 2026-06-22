@@ -19,5 +19,4 @@ const pharmacistSchema = new mongoose.Schema({
   
   pharmacistSchema.index({ pharmacistId: 1 });
   
-  const Pharmacist = mongoose.model('Pharmacist', pharmacistSchema);
   module.exports = mongoose.model('Pharmacist', pharmacistSchema);

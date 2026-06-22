@@ -22,6 +22,7 @@ import PatientView from './pages/patientView';
 import ProtectedRoute from './pages/protectedRoute'; 
 import AdministrationView from './pages/Administration/administrationView';
 import 'primeicons/primeicons.css';
+import { api } from './api';
 
 
 
@@ -47,7 +48,6 @@ function App() {
     if (token) {
       const decodedToken = decodeToken(token);
       if (decodedToken) {
-        console.log(decodedToken);
         setIsLoggedIn(true);
         setUserName(decodedToken.userType); 
       }
@@ -57,9 +57,7 @@ function App() {
   async function logout() {
     // Call to server to destroy the session
     try {
-      const response = await fetch('http://localhost:3001/logout', {
-        method: 'GET',
-      });
+      const response = await api.get('/logout');
   
       if (response.ok) {
         // Remove the token from local storage

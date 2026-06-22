@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 //importing primereact components
-import { InputText, Button, Checkbox } from 'primereact';
+import { InputText } from 'primereact/inputtext';
+import { Button } from 'primereact/button';
+import { Checkbox } from 'primereact/checkbox';
 
 /**
  * AdminPharmacistForm: Form component for adding or editing pharmacist details.
@@ -11,13 +13,13 @@ import { InputText, Button, Checkbox } from 'primereact';
  * - Uses useEffect to populate the form with existing pharmacist data for editing.
  */
 
-const AdminPharmacistForm = ({ pharmacist, isAddAction, onSubmit }) => {
-    const initialFormData = {
-        pharmacistId: '',
-        licenseNumber: '',
-        isActive: true
-    };
+const initialFormData = {
+    pharmacistId: '',
+    licenseNumber: '',
+    isActive: true
+};
 
+const AdminPharmacistForm = ({ pharmacist, isAddAction, onSubmit }) => {
     const [formData, setFormData] = useState(initialFormData);
 
     useEffect(() => {

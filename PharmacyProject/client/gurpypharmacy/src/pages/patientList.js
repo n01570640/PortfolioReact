@@ -11,8 +11,8 @@ import '../App.css';
 //importing date-fns for date-time formatting
 import { format } from 'date-fns';
 //importing custom components
-import { getToken } from "./tokenUtils";
 import AddPatientForm from './addPatientForm'; // Import the AddPatientForm
+import { api } from '../api';
 
 
 /**
@@ -37,21 +37,14 @@ export default function PatientList(){
 
     const submitNewPatient = async (patientData) => {
         try {
-            const response = await fetch(`http://localhost:3001/api/addPatient`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${localStorage.getItem('userToken')}`
-                },
-                body: JSON.stringify(patientData) // Send the patientData directly
-            });
+            const response = await api.post('/api/addPatient', patientData);
             if(response.status === 400){
                 toast.current.show({ severity: 'error', summary: 'Error', detail: "User already exists! Try again!", life: 3000, className: 'error-toast' });
             }
             if (!response.ok) {
                 throw new Error(`HTTP error! Status: ${response.status}`);
             }
-            const data = await response.json(); // Handle the promise correctly
+            await response.json(); // Handle the promise correctly
             fetchPatientData(); // Fetch the updated list of patients
         } catch (error) {
             console.error("Error saving patient: ", error);
@@ -60,12 +53,7 @@ export default function PatientList(){
     //Fetching the patient data from backend point "/api/patients"
     const fetchPatientData = async () => {
         try {
-            const token = getToken();
-            const response = await fetch("http://localhost:3001/api/patients", {
-                headers: {
-                    'Authorization': `Bearer ${token}`
-                }
-            });
+            const response = await api.get('/api/patients');
 
             if (!response.ok) {
                 throw new Error(`HTTP error! Status: ${response.status}`);

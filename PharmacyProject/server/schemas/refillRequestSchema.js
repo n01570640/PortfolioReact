@@ -8,7 +8,7 @@ const mongoose = require('mongoose');
  * - medicationId: ObjectId reference to Medication.
  * - fillQuantity: Number indicating the quantity to be refilled.
  * - requestDate: Date when the refill request was made.
- * - status: String status of the request, limited to 'Filling' or 'Ready for Pickup'.
+ * - status: String status of the request, limited to 'Filling' or 'Ready'.
  *
  * Indexes are created on 'patientId' and 'status' for optimal querying.
  */
@@ -18,7 +18,7 @@ const refillRequestSchema = new mongoose.Schema({
     medicationId: { type: mongoose.Schema.Types.ObjectId, ref: 'Medication' },
     fillQuantity: Number,
     requestDate: Date,
-    status: { type: String, enum: [ 'Filling', 'Ready for Pickup'] },
+    status: { type: String, enum: ['Filling', 'Ready', 'Balance'] },
   });
   
   refillRequestSchema.index({ patientId: 1, status: 1 });
